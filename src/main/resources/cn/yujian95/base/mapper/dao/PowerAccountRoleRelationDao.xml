@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yujian95.base.mapper.dao.PowerAccountRoleRelationDao">
+    <!--批量新增回写主键支持-->
+    <insert id="insertList">
+        INSERT INTO power_account_role_relation (account_id, role_id) VALUES
+        <foreach collection="list" separator="," item="item" index="index">
+            (#{item.accountId,jdbcType=BIGINT},
+            #{item.roleId,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+    <select id="getRoleList" resultMap="cn.yujian95.base.mapper.PowerRoleMapper.BaseResultMap">
+        select r.*
+        from power_account_role_relation ar left join power_role r on ar.role_id = r.id
+        where ar.account_id = #{accountId}
+    </select>
+    <select id="getRolePermissionList" resultMap="cn.yujian95.base.mapper.PowerPermissionMapper.BaseResultMap">
+        select p.*
+        from power_account_role_relation ar left join power_role r on ar.role_id = r.id
+                                        left join power_role_permission_relation rp on r.id = rp.role_id
+                                        left join power_permission p on rp.permission_id=p.id
+        where ar.account_id = #{accountId} and p.id is not null
+    </select>
+    <select id="getPermissionList" resultMap="cn.yujian95.base.mapper.PowerPermissionMapper.BaseResultMap">
+        SELECT p.*
+        FROM power_account_role_relation ar
+                 LEFT JOIN power_role r ON ar.role_id = r.id
+                 LEFT JOIN power_role_permission_relation rp ON r.id = rp.role_id
+                 LEFT JOIN power_permission p ON rp.permission_id = p.id
+        WHERE ar.account_id = #{accountId}
+          AND p.id IS NOT NULL
+          AND p.id NOT IN (
+            SELECT p.id
+            FROM power_account_permission_relation pr
+                     LEFT JOIN power_permission p ON pr.permission_id = p.id
+            WHERE pr.type = - 1
+              AND pr.account_id = #{accountId}
+        )
+        UNION
+        SELECT p.*
+        FROM power_account_permission_relation pr
+                 LEFT JOIN power_permission p ON pr.permission_id = p.id
+        WHERE pr.type = 1
+          AND pr.account_id = #{accountId}
+    </select>
+</mapper>
