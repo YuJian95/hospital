@@ -1,5 +1,6 @@
 package cn.yujian95.base.config;
 
+import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,7 @@ import java.util.List;
  * @date 2020/1/19
  */
 
+@EnableSwaggerBootstrapUI
 @EnableSwagger2
 @Configuration
 public class SwaggerConfig extends WebMvcConfigurationSupport {
@@ -84,7 +86,11 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .title("基础后台开发脚手架API文档")
 
                 // API描述
-                .description("创建日期:2020/1/20")
+                .description("Created by yujian95."
+                        + "<br/>" +
+                        "<a href=\"https://github.com/YuJian95/base-service/blob/master/README.md\">See more at Readme.</a>"
+                        + "<br/>" +
+                        "<a href=\"https://clj9509.gitee.io/\">Contact the develop.</a>")
 
                 // 创建路径
                 .termsOfServiceUrl(SERVICE_URL)

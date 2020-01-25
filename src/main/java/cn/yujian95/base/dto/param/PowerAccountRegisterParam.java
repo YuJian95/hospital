@@ -1,16 +1,19 @@
 package cn.yujian95.base.dto.param;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * @author YuJian95  clj9509@163.com
  * @date 2020/1/20
  */
 
+@ApiModel(value = "PowerAccountRegisterParam",description = "账号注册对象参数")
 @Data
-public class PowerAccountLoginParam {
+public class PowerAccountRegisterParam implements Serializable {
     /**
      * 登录账号 唯一
      *

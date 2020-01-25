@@ -1,5 +1,6 @@
 package cn.yujian95.base.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 /**
@@ -7,6 +8,7 @@ import lombok.Data;
  * @date 2020/1/20
  */
 
+@ApiModel(value = "WebLogDTO", description = "请求日志对象")
 @Data
 public class WebLogDTO {
     /**

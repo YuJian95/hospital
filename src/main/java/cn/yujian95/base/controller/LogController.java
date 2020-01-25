@@ -36,8 +36,7 @@ public class LogController {
 
     @ApiOperation(value = "分页：搜索账号登录日志", notes = "传入 账号名称")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "accountName", value = "账号名称", paramType = "query", dataType = "String",
-                    required = false),
+            @ApiImplicitParam(name = "accountName", value = "账号名称", paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "integer", required = true),
             @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "integer", required = true),
     })
