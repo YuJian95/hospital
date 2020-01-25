@@ -1,6 +1,8 @@
 package cn.yujian95.base.common.api;
 
 /**
+ * 错误码接口
+ *
  * @author YuJian95  clj9509@163.com
  * @date 2020/1/18
  */

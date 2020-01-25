@@ -1,6 +1,8 @@
 package cn.yujian95.base.common.api;
 
 /**
+ * 结果码枚举类
+ *
  * @author YuJian95  clj9509@163.com
  * @date 2020/1/18
  */
@@ -44,7 +46,7 @@ public enum ResultCodeEnum implements IErrorCode {
     /**
      * 私有类构造器
      *
-     * @param code 结果码
+     * @param code    结果码
      * @param message 信息内容
      */
 

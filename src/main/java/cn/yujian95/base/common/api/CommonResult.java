@@ -1,9 +1,13 @@
 package cn.yujian95.base.common.api;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
+ * 通用结果返回对象
+ *
  * @author YuJian95  clj9509@163.com
  * @date 2020/1/18
  */
@@ -14,16 +18,19 @@ public class CommonResult<T> implements Serializable {
     /**
      * 结果码
      */
+    @ApiModelProperty(value = "结果码")
     private Long code;
 
     /**
      * 提示信息
      */
+    @ApiModelProperty(value = "提示信息")
     private String message;
 
     /**
      * 返回数据
      */
+    @ApiModelProperty(value = "返回数据")
     private T data;
 
     protected CommonResult() {
@@ -39,7 +46,8 @@ public class CommonResult<T> implements Serializable {
      * 返回成功结果
      */
     public static <T> CommonResult<T> success() {
-        return new CommonResult<T>(ResultCodeEnum.SUCCESS.getCode(), ResultCodeEnum.SUCCESS.getMessage(), null);
+        return new CommonResult<T>(ResultCodeEnum.SUCCESS.getCode(),
+                ResultCodeEnum.SUCCESS.getMessage(), null);
     }
 
     /**
@@ -48,7 +56,8 @@ public class CommonResult<T> implements Serializable {
      * @param data 获取的数据
      */
     public static <T> CommonResult<T> success(T data) {
-        return new CommonResult<T>(ResultCodeEnum.SUCCESS.getCode(), ResultCodeEnum.SUCCESS.getMessage(), data);
+        return new CommonResult<T>(ResultCodeEnum.SUCCESS.getCode(),
+                ResultCodeEnum.SUCCESS.getMessage(), data);
     }
 
     /**
@@ -76,7 +85,8 @@ public class CommonResult<T> implements Serializable {
      * @param message 提示信息
      */
     public static <T> CommonResult<T> failed(String message) {
-        return new CommonResult<T>(ResultCodeEnum.FAILED.getCode(), message, null);
+        return new CommonResult<T>(ResultCodeEnum.FAILED.getCode(),
+                message, null);
     }
 
     /**
@@ -99,21 +109,24 @@ public class CommonResult<T> implements Serializable {
      * @param message 提示信息
      */
     public static <T> CommonResult<T> validateFailed(String message) {
-        return new CommonResult<T>(ResultCodeEnum.VALIDATE_FAILED.getCode(), message, null);
+        return new CommonResult<T>(ResultCodeEnum.VALIDATE_FAILED.getCode(),
+                message, null);
     }
 
     /**
      * 未登录返回结果
      */
     public static <T> CommonResult<T> unauthorized(T data) {
-        return new CommonResult<T>(ResultCodeEnum.UNAUTHORIZED.getCode(), ResultCodeEnum.UNAUTHORIZED.getMessage(), data);
+        return new CommonResult<T>(ResultCodeEnum.UNAUTHORIZED.getCode(),
+                ResultCodeEnum.UNAUTHORIZED.getMessage(), data);
     }
 
     /**
      * 未授权返回结果
      */
     public static <T> CommonResult<T> forbidden(T data) {
-        return new CommonResult<T>(ResultCodeEnum.FORBIDDEN.getCode(), ResultCodeEnum.FORBIDDEN.getMessage(), data);
+        return new CommonResult<T>(ResultCodeEnum.FORBIDDEN.getCode(),
+                ResultCodeEnum.FORBIDDEN.getMessage(), data);
     }
 
     public Long getCode() {

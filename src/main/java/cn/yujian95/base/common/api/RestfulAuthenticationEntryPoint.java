@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 自定义的返回结果（未登录，token失效）
+ *
  * @author YuJian95  clj9509@163.com
  * @date 2020/1/18
  */
