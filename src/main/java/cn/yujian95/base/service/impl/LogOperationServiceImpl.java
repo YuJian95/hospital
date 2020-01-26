@@ -6,10 +6,8 @@ import cn.yujian95.base.entity.LogOperationExample;
 import cn.yujian95.base.mapper.LogOperationMapper;
 import cn.yujian95.base.service.ILogOperationService;
 import com.github.pagehelper.PageHelper;
-import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -79,12 +77,6 @@ public class LogOperationServiceImpl implements ILogOperationService {
             criteria.andMethodEqualTo(method);
         }
 
-        List<LogOperation> list = operationMapper.selectByExampleWithBLOBs(example);
-
-        if (CollectionUtils.isEmpty(list)) {
-            return Lists.newArrayList();
-        }
-
-        return list;
+        return operationMapper.selectByExampleWithBLOBs(example);
     }
 }

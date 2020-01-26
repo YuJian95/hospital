@@ -41,6 +41,11 @@ public class PowerAccountServiceImpl implements IPowerAccountService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PowerAccountServiceImpl.class);
 
+    /**
+     * 一个空格字符
+     */
+    public static final String BLANK_SPACE = " ";
+
     @Resource
     private JwtTokenUtil jwtTokenUtil;
 
@@ -192,7 +197,8 @@ public class PowerAccountServiceImpl implements IPowerAccountService {
             updateLoginTime(name);
             logAccountLoginService.insert(name);
 
-            jwt = tokenHead + "" + token;
+            // 注意中间用空格隔开
+            jwt = tokenHead + BLANK_SPACE + token;
 
         } catch (AuthenticationException e) {
             LOGGER.warn("user :{} , login fail :{}", name, e.getMessage());
@@ -244,8 +250,8 @@ public class PowerAccountServiceImpl implements IPowerAccountService {
     /**
      * 修改用户角色关系
      *
-     * @param accountId 帐号id
-     * @param roleIdList   角色id列表
+     * @param accountId  帐号id
+     * @param roleIdList 角色id列表
      * @return 成功记录
      */
     @Override

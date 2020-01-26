@@ -95,12 +95,6 @@ public class LogAccountLoginServiceImpl implements ILogAccountLoginService {
             criteria.andAccountNameEqualTo(accountName);
         }
 
-        List<LogAccountLogin> list = accountLoginMapper.selectByExample(example);
-
-        if (CollectionUtils.isEmpty(list)) {
-            return Lists.newArrayList();
-        }
-
-        return list;
+        return accountLoginMapper.selectByExample(example);
     }
 }
