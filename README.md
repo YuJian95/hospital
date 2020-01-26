@@ -51,7 +51,9 @@ base-service
 
 ### 部署步骤
 
-1. 修改 `database.properties`中数据库相关配置
+1. 运行 `database.sql` 创建数据库
+
+2. 修改 `database.properties`中数据库相关配置
 
 ```properties
 jdbc.driver=com.mysql.cj.jdbc.Driver
@@ -60,7 +62,7 @@ jdbc.username=数据库用户名
 jdbc.password=数据库用户密码
 ```
 
-2. 修改 `application-dev.yml`中数据库相关配置
+3. 修改 `application-dev.yml`中数据库相关配置
 
 ```yml
 spring:
