@@ -40,7 +40,10 @@ public class LogOperationServiceImpl implements ILogOperationService {
         BeanUtils.copyProperties(dto, record);
 
         record.setResult(dto.getResult().toString());
-        record.setParameter(dto.getParameter().toString());
+
+        if (dto.getParameter() != null) {
+            record.setParameter(dto.getParameter().toString());
+        }
 
         Date date = new Date();
 
