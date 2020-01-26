@@ -11,6 +11,9 @@ import lombok.Data;
 @ApiModel(value = "WebLogDTO", description = "请求日志对象")
 @Data
 public class WebLogDTO {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 操作描述
      */

@@ -15,6 +15,9 @@ import java.io.Serializable;
 @ApiModel(value = "PowerRoleParam", description = "权限角色参数")
 @Data
 public class PowerRoleParam implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 英文名称
      *

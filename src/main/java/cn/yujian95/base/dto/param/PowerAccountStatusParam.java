@@ -14,6 +14,9 @@ import java.io.Serializable;
 @ApiModel(value = "PowerAccountStatusParam",description = "账号状态修改参数")
 @Data
 public class PowerAccountStatusParam implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(value = "账号编号")
     private Long accountId;
 

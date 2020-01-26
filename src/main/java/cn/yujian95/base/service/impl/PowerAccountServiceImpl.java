@@ -1,7 +1,7 @@
 package cn.yujian95.base.service.impl;
 
 import cn.yujian95.base.common.security.JwtTokenUtil;
-import cn.yujian95.base.dto.param.PowerAccountLoginParam;
+import cn.yujian95.base.dto.param.PowerAccountRegisterParam;
 import cn.yujian95.base.dto.param.PowerAccountStatusParam;
 import cn.yujian95.base.entity.*;
 import cn.yujian95.base.mapper.PowerAccountMapper;
@@ -145,7 +145,7 @@ public class PowerAccountServiceImpl implements IPowerAccountService {
      * @return 是否成功
      */
     @Override
-    public boolean register(PowerAccountLoginParam param) {
+    public boolean register(PowerAccountRegisterParam param) {
         PowerAccount account = new PowerAccount();
 
         account.setName(param.getName());

@@ -14,6 +14,9 @@ import java.io.Serializable;
 @ApiModel(value = "PowerAccountRegisterParam",description = "账号注册对象参数")
 @Data
 public class PowerAccountRegisterParam implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 登录账号 唯一
      *

@@ -15,6 +15,9 @@ import java.io.Serializable;
 @ApiModel(value = "PowerPermissionParam", description = "权限权值参数")
 @Data
 public class PowerPermissionParam implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 权限类型 0->目录；1->菜单；2->按钮（接口绑定权限）
      *

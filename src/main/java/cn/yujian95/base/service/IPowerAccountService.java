@@ -1,6 +1,6 @@
 package cn.yujian95.base.service;
 
-import cn.yujian95.base.dto.param.PowerAccountLoginParam;
+import cn.yujian95.base.dto.param.PowerAccountRegisterParam;
 import cn.yujian95.base.dto.param.PowerAccountStatusParam;
 import cn.yujian95.base.entity.PowerAccount;
 import cn.yujian95.base.entity.PowerPermission;
@@ -62,7 +62,7 @@ public interface IPowerAccountService {
      * @param param 账号注册参数（账号，密码）
      * @return 是否成功
      */
-    boolean register(PowerAccountLoginParam param);
+    boolean register(PowerAccountRegisterParam param);
 
     /**
      * 登录后返回 jwt 字符串

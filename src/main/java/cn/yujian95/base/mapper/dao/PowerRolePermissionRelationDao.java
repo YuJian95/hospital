@@ -1,9 +1,7 @@
 package cn.yujian95.base.mapper.dao;
 
-import cn.yujian95.base.entity.PowerAccountRoleRelation;
 import cn.yujian95.base.entity.PowerPermission;
-import cn.yujian95.base.entity.PowerRole;
-import org.apache.ibatis.annotations.Param;
+import cn.yujian95.base.entity.PowerRolePermissionRelation;
 
 import java.util.List;
 
@@ -16,17 +14,17 @@ public interface PowerRolePermissionRelationDao {
     /**
      * 批量插入用户角色关系
      *
-     * @param accountRoleRelationList 用户角色关系列表
+     * @param relationList 用户角色关系列表
      * @return 成功记录数
      */
-    int insertList(List<PowerAccountRoleRelation> accountRoleRelationList);
+    int insertList(List<PowerRolePermissionRelation> relationList);
 
     /**
      * 获取角色所有权限(包括+-权限)
      *
-     * @param accountId 账号编号
+     * @param roleId 账号编号
      * @return 角色所有权限
      */
-    List<PowerPermission> getPermissionList(Long accountId);
+    List<PowerPermission> listPermission(Long roleId);
 
 }

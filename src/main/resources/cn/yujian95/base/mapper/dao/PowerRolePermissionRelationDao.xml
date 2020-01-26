@@ -9,7 +9,7 @@
             #{item.permissionId,jdbcType=BIGINT})
         </foreach>
     </insert>
-    <select id="getPermissionList" resultMap="cn.yujian95.base.mapper.PowerPermissionMapper.BaseResultMap">
+    <select id="listPermission" resultMap="cn.yujian95.base.mapper.PowerPermissionMapper.BaseResultMap">
         SELECT
             p.*
         FROM
