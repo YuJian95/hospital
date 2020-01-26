@@ -166,7 +166,7 @@ public class PowerAccountController {
     @ApiImplicitParam(name = "accountId", value = "账号编号", paramType = "query", dataType = "Long",
             required = true)
     @RequestMapping(value = "/permission", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('power:account:permission')")
+    @PreAuthorize("hasAuthority('power:account:permission:get')")
     public CommonResult<List<PowerPermission>> listAccountPermission(@RequestParam Long accountId) {
 
         if (!accountService.count(accountId)) {

@@ -76,7 +76,7 @@ public class LogOperationServiceImpl implements ILogOperationService {
             criteria.andMethodEqualTo(method);
         }
 
-        List<LogOperation> list = operationMapper.selectByExample(example);
+        List<LogOperation> list = operationMapper.selectByExampleWithBLOBs(example);
 
         if (CollectionUtils.isEmpty(list)) {
             return Lists.newArrayList();

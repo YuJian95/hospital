@@ -16,15 +16,21 @@ public interface LogOperationMapper {
 
     int insertSelective(LogOperation record);
 
+    List<LogOperation> selectByExampleWithBLOBs(LogOperationExample example);
+
     List<LogOperation> selectByExample(LogOperationExample example);
 
     LogOperation selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") LogOperation record, @Param("example") LogOperationExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") LogOperation record, @Param("example") LogOperationExample example);
+
     int updateByExample(@Param("record") LogOperation record, @Param("example") LogOperationExample example);
 
     int updateByPrimaryKeySelective(LogOperation record);
+
+    int updateByPrimaryKeyWithBLOBs(LogOperation record);
 
     int updateByPrimaryKey(LogOperation record);
 }

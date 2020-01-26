@@ -94,14 +94,6 @@ public class LogOperation implements Serializable {
     private String parameter;
 
     /**
-     * 请求结果
-     *
-     * @mbg.generated
-     */
-    @ApiModelProperty(value = "请求结果")
-    private String result;
-
-    /**
      * 创建时间
      *
      * @mbg.generated
@@ -116,6 +108,14 @@ public class LogOperation implements Serializable {
      */
     @ApiModelProperty(value = "更新时间")
     private Date gmtModified;
+
+    /**
+     * 请求结果
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "请求结果")
+    private String result;
 
     private static final long serialVersionUID = 1L;
 
@@ -207,14 +207,6 @@ public class LogOperation implements Serializable {
         this.parameter = parameter == null ? null : parameter.trim();
     }
 
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result == null ? null : result.trim();
-    }
-
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -229,6 +221,14 @@ public class LogOperation implements Serializable {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result == null ? null : result.trim();
     }
 
     @Override
@@ -248,9 +248,9 @@ public class LogOperation implements Serializable {
         sb.append(", method=").append(method);
         sb.append(", ipAddress=").append(ipAddress);
         sb.append(", parameter=").append(parameter);
-        sb.append(", result=").append(result);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
+        sb.append(", result=").append(result);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
