@@ -18,9 +18,9 @@
 
 ### 相关说明
 
-- [部署步骤说明](https://github.com/YuJian95/base-service/document/deploy.md)
-- [代码结构说明](https://github.com/YuJian95/base-service/document/code-structure.md)
-- [数据库设计说明](https://github.com/YuJian95/base-service/document/database-table-structure.md)
+- [部署步骤说明](https://github.com/YuJian95/base-service/blob/master/document/deploy.md)
+- [代码结构说明](https://github.com/YuJian95/base-service/blob/master/document/code-structure.md)
+- [数据库设计说明](https://github.com/YuJian95/base-service/blob/master/document/database-table-structure.md)
 
 ### 参考项目
 
