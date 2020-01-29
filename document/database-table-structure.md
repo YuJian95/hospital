@@ -33,7 +33,7 @@
 
 **power_role_permission**
 
-![角色权限关系表](https://github.com/YuJian95/base-service/blob/master/document/images/power-role-permission.jpg)
+![角色权限关系表](https://github.com/YuJian95/base-service/blob/master/document/images/power-role-permission-relation.jpg)
 
 #### 日志模块
 
