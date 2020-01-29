@@ -21,7 +21,7 @@
 
 **power_account_permission_relation**
 
-![账号特别权限关系表](https://github.com/YuJian95/base-service/blob/master/document/images/power-account-relation.jpg)
+![账号特别权限关系表](https://github.com/YuJian95/base-service/blob/master/document/images/power-account-permission-relation.jpg)
 
 **power_account_role_relation**
 
