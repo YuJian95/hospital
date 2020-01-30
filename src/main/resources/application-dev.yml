@@ -17,6 +17,28 @@ spring:
       # 最大支持文件大小
       max-file-size: 10MB
 
+  redis:
+    # Redis服务器地址
+    host: localhost
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器连接端口
+    port: 6379
+    # Redis密码
+    password: password
+    # 连接超时时间（毫秒）
+    timeout: 10000ms
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 1024
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 10000ms
+        # 连接池中的最大空闲连接
+        max-idle: 200
+        # 连接池中的最小空闲连接
+        min-idle: 0
+
 mybatis:
   # mybatis pageHelper 分页配置
   config-location: classpath:/config/SqlMapConfig.xml
@@ -43,8 +65,31 @@ jwt:
   # JWT存储的请求头
   tokenHeader: Authorization
   # JWT加解密使用的密钥
-  secret: base-ChlGPaXjNSit1wdUBQ0LXDfduI2mFZ
+  secret: base-ChlGPaNSit1wdUBQ0LXDfduI2mFZ
   # JWT的超期限时间(60*60*24 = 一天)
   expiration: 604800
   # JWT负载中拿到开头
   tokenHead: Bearer
+
+# 阿里云短信服务配置
+aliSms:
+  # 阿里云短信服务 key
+  accessKeyId: ""
+  # 阿里云短信服务 secret
+  accessSecret: ""
+  # 短信抬头
+  signName: ""
+  # 注册短信验证码模板
+  loginTemplate: "SMS_"
+  regionId: "cn-hangzhou"
+  domain: "dysmsapi.aliyuncs.com"
+  version: "2017-05-25"
+
+# 自定义 redis key 用于存储短信验证码
+redis:
+  key:
+    prefix:
+      authCode: "base:register:authCode:"
+    expire:
+      # 验证码超时时间,默认 5分钟
+      authCode: 300

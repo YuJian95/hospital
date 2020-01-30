@@ -144,13 +144,33 @@ public class PowerAccountServiceImpl implements IPowerAccountService {
 
 
     /**
-     * 账号注册功能
+     * 注册普通用户账号
      *
      * @param param 账号注册参数（账号，密码）
      * @return 是否成功
      */
     @Override
-    public boolean register(PowerAccountRegisterParam param) {
+    public boolean registerUser(PowerAccountRegisterParam param) {
+        PowerAccount account = new PowerAccount();
+
+        account.setName(param.getName());
+        account.setPassword(passwordEncoder.encode(param.getPassword()));
+        account.setStatus(1);
+
+        account.setGmtCreate(new Date());
+        account.setGmtModified(new Date());
+
+        return accountMapper.insertSelective(account) > 0;
+    }
+
+    /**
+     * 管理账号注册功能
+     *
+     * @param param 账号注册参数（账号，密码）
+     * @return 是否成功
+     */
+    @Override
+    public boolean registerAdmin(PowerAccountRegisterParam param) {
         PowerAccount account = new PowerAccount();
 
         account.setName(param.getName());

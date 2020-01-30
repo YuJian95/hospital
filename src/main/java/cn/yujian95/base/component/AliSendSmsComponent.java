@@ -71,12 +71,16 @@ public class AliSendSmsComponent {
 
         try {
             CommonResponse response = client.getCommonResponse(request);
-            System.out.println(response);
+            System.out.println(response.toString());
             JSONObject jsonObject = JSONObject.parseObject(response.getData());
 
-            if ("OK".equals(jsonObject.getString("Code"))) {
+            String code = jsonObject.getString("Code");
+
+            if ("OK".equals(code)) {
                 LOGGER.info("send message success, phone: {} , templateCode: {} , param: {} .", phoneNumber, templateCode, templateParam);
                 return true;
+            } else {
+                LOGGER.error("send message fails, phone: {} , code: {} ", phoneNumber, code);
             }
 
         } catch (ClientException e) {

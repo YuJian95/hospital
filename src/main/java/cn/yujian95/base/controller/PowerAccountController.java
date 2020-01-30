@@ -43,14 +43,15 @@ public class PowerAccountController {
         return CommonResult.success(accountService.count(name));
     }
 
-    @ApiOperation(value = "账号注册", notes = "传入 登录对象参数（账号名称、密码）")
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ApiOperation(value = "管理账号注册", notes = "传入 注册对象参数（账号名称、密码）")
+    @RequestMapping(value = "/admin/register", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('power:account:admin:register:post')")
     public CommonResult registerAccount(@RequestBody PowerAccountRegisterParam param) {
         if (accountService.count(param.getName())) {
             return CommonResult.validateFailed("该账号名称已存在！");
         }
 
-        if (accountService.register(param)) {
+        if (accountService.registerAdmin(param)) {
             return CommonResult.success();
         }
 

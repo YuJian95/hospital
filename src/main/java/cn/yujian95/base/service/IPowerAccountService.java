@@ -62,7 +62,17 @@ public interface IPowerAccountService {
      * @param param 账号注册参数（账号，密码）
      * @return 是否成功
      */
-    boolean register(PowerAccountRegisterParam param);
+    @Transactional
+    boolean registerAdmin(PowerAccountRegisterParam param);
+
+    /**
+     * 注册普通用户账号
+     *
+     * @param param 账号注册参数（账号，密码）
+     * @return 是否成功
+     */
+    @Transactional
+    boolean registerUser(PowerAccountRegisterParam param);
 
     /**
      * 登录后返回 jwt 字符串
