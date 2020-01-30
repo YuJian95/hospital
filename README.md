@@ -21,6 +21,7 @@
 - [部署步骤说明](https://github.com/YuJian95/base-service/blob/master/document/deploy.md)
 - [代码结构说明](https://github.com/YuJian95/base-service/blob/master/document/code-structure.md)
 - [数据库设计说明](https://github.com/YuJian95/base-service/blob/master/document/database-table-structure.md)
+- [使用 mgb 编写增删改查](https://github.com/YuJian95/base-service/blob/master/document/add-new-feature.md)
 
 ### 参考项目
 
