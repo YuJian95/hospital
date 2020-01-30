@@ -21,9 +21,45 @@ spring:
     password: 用户密码
 ```
 
-4. 运行 `BaseApplication.java`, 启动项目
+4. 配置 `redis`和 阿里云短信服务 
 
-5. 访问 API文档，运行后，范围 http://localhost:8080/base/doc.html ,输入`application-dev.yml`配置的账号密码即可
+修改 host 和 password
+
+```yaml
+redis:
+    # Redis服务器地址
+    host: localhost
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器连接端口
+    port: 6379
+    # Redis密码
+    password: password
+```
+
+**阿里云短信服务**
+
+修改 accessKeyId，accessSecret，signNam，loginTemplate
+
+```yaml
+# 阿里云短信服务配置
+aliSms:
+  # 阿里云短信服务 key
+  accessKeyId: ""
+  # 阿里云短信服务 secret
+  accessSecret: ""
+  # 短信抬头
+  signName: ""
+  # 注册短信验证码模板
+  loginTemplate: "SMS_"
+  regionId: "cn-hangzhou"
+  domain: "dysmsapi.aliyuncs.com"
+  version: "2017-05-25"
+```
+
+5. 运行 `BaseApplication.java`, 启动项目
+
+6. 访问 API文档，运行后，范围 http://localhost:8080/base/doc.html ,输入`application-dev.yml`配置的账号密码即可
 
 默认账号、密码为`base`
 
