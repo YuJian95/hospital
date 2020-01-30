@@ -52,7 +52,7 @@ public class UserBasicInfoController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
     @ApiOperation(value = "校验短信验证码", notes = "传入 手机号、短信验证码")
@@ -94,7 +94,7 @@ public class UserBasicInfoController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
     @ApiOperation(value = "添加用户基础信息", notes = "传入 手机号、用户信息参数（姓名、性别、出生日期）")
@@ -111,7 +111,7 @@ public class UserBasicInfoController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
     @ApiOperation(value = "删除用户基础信息", notes = "传入 用户编号")
@@ -128,7 +128,7 @@ public class UserBasicInfoController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
     @ApiOperation(value = "分页：搜索用户信息", notes = "传入 用户姓名、手机号、性别、第几页、页大小")
