@@ -2,7 +2,6 @@
 
 本项目是一个基于[轻量级项目脚手架base-service](https://github.com/YuJian95/base-service)搭建的**医院预约挂号系统**（服务端）。
 
-
 ### 技术栈
 
 - `Spring boot + Mybatis` ： 实现基于 RESTful 的前后端分离架构。
@@ -15,7 +14,7 @@
 
 ### 部署步骤
 
-1. 运行 document文件夹下（mysql） `database.sql` 创建数据库 `base`
+1. 运行 resource 文件夹下（mysql） `hospital.sql` 创建数据库 `base`
 
 2. 修改 `database.properties`中数据库相关配置
 
@@ -72,11 +71,11 @@ aliSms:
   version: "2017-05-25"
 ```
 
-5. 运行 `BaseApplication.java`, 启动项目
+5. 运行 `HospitalApplication.java`, 启动项目
 
-6. 访问 API文档，运行后，范围 http://localhost:8080/base/doc.html ,输入`application-dev.yml`配置的账号密码即可
+6. 访问 API文档，运行后，范围 http://localhost:8080/hospital/doc.html ,输入`application-dev.yml`配置的账号密码即可
 
-默认账号、密码为`base`
+默认账号、密码为`hospital`
 
 ```yaml
 ## 开启 Swagger的 Basic认证功能,默认是false
