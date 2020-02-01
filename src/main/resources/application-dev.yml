@@ -46,7 +46,7 @@ mybatis:
 server:
   port: 8080
   servlet:
-    context-path: /base
+    context-path: /hospital
 
 ## 开启 Swagger的 Basic认证功能,默认是false
 swagger:
@@ -56,16 +56,16 @@ swagger:
     # 开启简单用户验证
     enable: true
     # 用户名
-    username: base
+    username: hospital
     # 用户密码
-    password: base
+    password: hospital
 
 # 自定义 JWT key
 jwt:
   # JWT存储的请求头
   tokenHeader: Authorization
   # JWT加解密使用的密钥
-  secret: base-ChlGPaNSit1wdUBQ0LXDfduI2mFZ
+  secret: hospital-ChlGPaNSit1wdUBQ0LXDfduI2mFZ
   # JWT的超期限时间(60*60*24 = 一天)
   expiration: 604800
   # JWT负载中拿到开头
@@ -89,7 +89,7 @@ aliSms:
 redis:
   key:
     prefix:
-      authCode: "base:register:authCode:"
+      authCode: "hospital:register:authCode:"
     expire:
       # 验证码超时时间,默认 5分钟
       authCode: 300

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yujian95.hospital.mapper.dao.PowerAccountPermissionRelationDao">
+    <!--批量新增回写主键支持-->
+    <insert id="insertList">
+        INSERT INTO power_account_permission_relation (account_id, permission_id, type) VALUES
+        <foreach collection="list" separator="," item="item" index="index">
+            (#{item.accountId,jdbcType=BIGINT},
+            #{item.permissionId,jdbcType=BIGINT},
+            #{item.type,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+</mapper>

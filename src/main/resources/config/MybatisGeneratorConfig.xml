@@ -19,7 +19,7 @@
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
 
         <!--可以自定义生成model的代码注释-->
-        <commentGenerator type="cn.yujian95.base.common.mbg.CommentGenerator">
+        <commentGenerator type="cn.yujian95.hospital.common.mbg.CommentGenerator">
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="true"/>
             <property name="suppressDate" value="true"/>
@@ -41,20 +41,20 @@
         </javaTypeResolver>
 
         <!-- 实体类生成的位置 -->
-        <javaModelGenerator targetPackage="cn.yujian95.base.entity"
+        <javaModelGenerator targetPackage="cn.yujian95.hospital.entity"
                             targetProject="src\main\java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!-- *Mapper.xml 文件的位置 -->
-        <sqlMapGenerator targetPackage="cn.yujian95.base.mapper"
+        <sqlMapGenerator targetPackage="cn.yujian95.hospital.mapper"
                          targetProject="src\main\resources">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
         <!-- Mapper 接口文件的位置 -->
-        <javaClientGenerator targetPackage="cn.yujian95.base.mapper"
+        <javaClientGenerator targetPackage="cn.yujian95.hospital.mapper"
                              targetProject="src\main\java" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
