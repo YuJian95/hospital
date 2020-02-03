@@ -1,5 +1,6 @@
 #/pom.xml
 /src/main/resources/application.yml
 /src/main/resources/db.properties
+/src/main/resources/config/MybatisGeneratorConfig.xml
 
 
