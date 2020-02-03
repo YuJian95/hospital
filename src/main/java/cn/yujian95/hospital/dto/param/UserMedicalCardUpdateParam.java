@@ -25,14 +25,6 @@ public class UserMedicalCardUpdateParam implements Serializable {
     private Integer type;
 
     /**
-     * 就诊卡号
-     *
-     * @mbg.generated
-     */
-    @ApiModelProperty(value = "就诊卡号")
-    private Long id;
-
-    /**
      * 姓名
      *
      * @mbg.generated

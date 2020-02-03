@@ -99,10 +99,10 @@ public class UserMedicalCardController {
         return CommonResult.success(medicalCardService.count(accountId) > MAX_CARD_NUMBER);
     }
 
-    @ApiOperation(value = "检查是否存在，身份证对应就诊卡信息", notes = "传入 身份证编号")
+    @ApiOperation(value = "检查就诊卡信息是否存在", notes = "传入 身份证编号")
     @ApiImplicitParam(name = "identificationNumber", value = "身份证编号", paramType = "path", dataType = "String",
             required = true)
-    @RequestMapping(value = "/card/number/{identificationNumber}", method = RequestMethod.GET)
+    @RequestMapping(value = "/card/identification/{identificationNumber}", method = RequestMethod.GET)
     public CommonResult<Boolean> countIdentificationNumber(@PathVariable String identificationNumber) {
         return CommonResult.success(medicalCardService.countIdentificationNumber(identificationNumber));
     }
