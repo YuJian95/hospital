@@ -87,27 +87,8 @@ public class UserMedicalCardController {
         return CommonResult.failed();
     }
 
-    @ApiOperation(value = "检查就诊卡数目是否超过限制", notes = "传入 账号编号")
-    @ApiImplicitParam(name = "accountId", value = "账号编号", paramType = "path", dataType = "Long",
-            required = true)
-    @RequestMapping(value = "/card/number/{accountId}", method = RequestMethod.GET)
-    public CommonResult<Boolean> countMedicalCard(@PathVariable Long accountId) {
-        if (!powerAccountService.count(accountId)) {
-            return CommonResult.validateFailed("不存在，该账号编号！");
-        }
 
-        return CommonResult.success(medicalCardService.count(accountId) > MAX_CARD_NUMBER);
-    }
-
-    @ApiOperation(value = "检查就诊卡信息是否存在", notes = "传入 身份证编号")
-    @ApiImplicitParam(name = "identificationNumber", value = "身份证编号", paramType = "path", dataType = "String",
-            required = true)
-    @RequestMapping(value = "/card/identification/{identificationNumber}", method = RequestMethod.GET)
-    public CommonResult<Boolean> countIdentificationNumber(@PathVariable String identificationNumber) {
-        return CommonResult.success(medicalCardService.countIdentificationNumber(identificationNumber));
-    }
-
-    @ApiOperation(value = "修改就诊卡", notes = "传入 关系编号、就诊卡更新信息参数（关系类型、性别、姓名、就诊卡编号）")
+    @ApiOperation(value = "修改就诊卡", notes = "传入 关系编号、就诊卡更新信息参数（关系类型、性别、姓名、出生日期、就诊卡编号）")
     @ApiImplicitParam(name = "relationId", value = "关系编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/card/{relationId}", method = RequestMethod.PUT)
     public CommonResult updateMedicalCard(@PathVariable Long relationId, @RequestBody UserMedicalCardUpdateParam param) {
@@ -146,6 +127,27 @@ public class UserMedicalCardController {
         }
 
         return CommonResult.failed();
+    }
+
+
+    @ApiOperation(value = "检查就诊卡数目是否超过限制", notes = "传入 账号编号")
+    @ApiImplicitParam(name = "accountId", value = "账号编号", paramType = "path", dataType = "Long",
+            required = true)
+    @RequestMapping(value = "/card/number/{accountId}", method = RequestMethod.GET)
+    public CommonResult<Boolean> countMedicalCard(@PathVariable Long accountId) {
+        if (!powerAccountService.count(accountId)) {
+            return CommonResult.validateFailed("不存在，该账号编号！");
+        }
+
+        return CommonResult.success(medicalCardService.count(accountId) > MAX_CARD_NUMBER);
+    }
+
+    @ApiOperation(value = "检查就诊卡信息是否存在", notes = "传入 身份证编号")
+    @ApiImplicitParam(name = "identificationNumber", value = "身份证编号", paramType = "path", dataType = "String",
+            required = true)
+    @RequestMapping(value = "/card/identification/{identificationNumber}", method = RequestMethod.GET)
+    public CommonResult<Boolean> countIdentificationNumber(@PathVariable String identificationNumber) {
+        return CommonResult.success(medicalCardService.countIdentificationNumber(identificationNumber));
     }
 
 }

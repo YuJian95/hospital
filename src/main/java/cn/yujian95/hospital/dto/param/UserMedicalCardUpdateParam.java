@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author YuJian95  clj9509@163.com
@@ -47,4 +48,12 @@ public class UserMedicalCardUpdateParam implements Serializable {
      */
     @ApiModelProperty(value = "性别 男：1，女：2")
     private Integer gender;
+
+    /**
+     * 出生日期
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "出生日期")
+    private Date birthDate;
 }
