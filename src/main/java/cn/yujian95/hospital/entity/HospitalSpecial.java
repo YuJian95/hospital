@@ -4,46 +4,22 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class HospitalDoctorInfo implements Serializable {
+public class HospitalSpecial implements Serializable {
     /**
-     * 医生编号
+     * 专科编号
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "医生编号")
+    @ApiModelProperty(value = "专科编号")
     private Long id;
 
     /**
-     * 医生姓名
+     * 专科名称
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "医生姓名")
+    @ApiModelProperty(value = "专科名称")
     private String name;
-
-    /**
-     * 医生相片
-     *
-     * @mbg.generated
-     */
-    @ApiModelProperty(value = "医生相片")
-    private String avatarUrl;
-
-    /**
-     * 医生职称
-     *
-     * @mbg.generated
-     */
-    @ApiModelProperty(value = "医生职称")
-    private String jobTitle;
-
-    /**
-     * 医生专长
-     *
-     * @mbg.generated
-     */
-    @ApiModelProperty(value = "医生专长")
-    private String specialty;
 
     /**
      * 创建时间
@@ -79,30 +55,6 @@ public class HospitalDoctorInfo implements Serializable {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
-    }
-
-    public String getJobTitle() {
-        return jobTitle;
-    }
-
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle == null ? null : jobTitle.trim();
-    }
-
-    public String getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty == null ? null : specialty.trim();
-    }
-
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -127,9 +79,6 @@ public class HospitalDoctorInfo implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", avatarUrl=").append(avatarUrl);
-        sb.append(", jobTitle=").append(jobTitle);
-        sb.append(", specialty=").append(specialty);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
         sb.append(", serialVersionUID=").append(serialVersionUID);
