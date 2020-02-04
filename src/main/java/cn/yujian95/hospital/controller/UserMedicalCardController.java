@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author YuJian95  clj9509@163.com
@@ -86,7 +87,7 @@ public class UserMedicalCardController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
 
@@ -102,7 +103,24 @@ public class UserMedicalCardController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
+    }
+
+    @ApiOperation(value = "获取就诊卡", notes = "传入 就诊卡编号")
+    @ApiImplicitParam(name = "id", value = "就诊卡编号", paramType = "path", dataType = "Long", required = true)
+    @RequestMapping(value = "/card/{cardId}", method = RequestMethod.GET)
+    public CommonResult updateMedicalCard(@PathVariable Long cardId) {
+        if (!medicalCardService.countCardId(cardId)) {
+            return CommonResult.validateFailed("不存在，该就诊卡编号！");
+        }
+
+        Optional<UserMedicalCard> cardOptional = medicalCardService.getOptional(cardId);
+
+        if (cardOptional.isPresent()) {
+            return CommonResult.success(cardOptional.get());
+        }
+
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
     @ApiOperation(value = "获取用户就诊卡", notes = "传入 账号编号")
@@ -128,7 +146,7 @@ public class UserMedicalCardController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
 

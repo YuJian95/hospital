@@ -38,7 +38,7 @@ public class HospitalInfoController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
     @ApiOperation(value = "更新医院信息", notes = "传入 医院编号、医院信息参数（名称，电话，地址，简介，图片）")
@@ -59,7 +59,7 @@ public class HospitalInfoController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
     @ApiOperation(value = "删除医院信息", notes = "传入 医院编号")
@@ -76,7 +76,7 @@ public class HospitalInfoController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
     @ApiOperation(value = "分页：搜索医院信息", notes = "传入 医院名称")
