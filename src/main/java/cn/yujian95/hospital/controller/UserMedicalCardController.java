@@ -90,7 +90,7 @@ public class UserMedicalCardController {
     }
 
 
-    @ApiOperation(value = "修改就诊卡", notes = "传入 关系编号、就诊卡更新信息参数（关系类型、性别、姓名、出生日期、就诊卡编号）")
+    @ApiOperation(value = "修改就诊卡", notes = "传入 关系编号、就诊卡更新信息参数（关系类型、性别、姓名、就诊卡编号）")
     @ApiImplicitParam(name = "relationId", value = "关系编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/card/{relationId}", method = RequestMethod.PUT)
     public CommonResult updateMedicalCard(@PathVariable Long relationId, @RequestBody UserMedicalCardUpdateParam param) {
