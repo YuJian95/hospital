@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -54,6 +55,7 @@ public class UserMedicalCardController {
                     required = true),
     })
     @RequestMapping(value = "/card/list", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('user:card:list:get')")
     public CommonResult<CommonPage<UserMedicalCard>> searchMedicalCard(@RequestParam(required = false) String name,
                                                                        @RequestParam(required = false) String phone,
                                                                        @RequestParam(defaultValue = "0") Integer gender,
