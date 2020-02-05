@@ -1,9 +1,13 @@
 package cn.yujian95.hospital.service.impl;
 
 import cn.yujian95.hospital.dto.param.HospitalInfoParam;
+import cn.yujian95.hospital.dto.param.HospitalSpecialRelationParam;
 import cn.yujian95.hospital.entity.HospitalInfo;
 import cn.yujian95.hospital.entity.HospitalInfoExample;
+import cn.yujian95.hospital.entity.HospitalSpecialRelation;
+import cn.yujian95.hospital.entity.HospitalSpecialRelationExample;
 import cn.yujian95.hospital.mapper.HospitalInfoMapper;
+import cn.yujian95.hospital.mapper.HospitalSpecialRelationMapper;
 import cn.yujian95.hospital.service.IHospitalInfoService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
@@ -25,6 +29,9 @@ public class HospitalInfoServiceImpl implements IHospitalInfoService {
 
     @Resource
     private HospitalInfoMapper infoMapper;
+
+    @Resource
+    private HospitalSpecialRelationMapper specialRelationMapper;
 
     /**
      * 添加医院信息
@@ -140,5 +147,67 @@ public class HospitalInfoServiceImpl implements IHospitalInfoService {
         }
 
         return infoMapper.selectByExample(example);
+    }
+
+    /**
+     * 插入专科到医院中去
+     *
+     * @param param 医院专科关系参数
+     * @return 是否成功
+     */
+    @Override
+    public boolean insertSpecialRelation(HospitalSpecialRelationParam param) {
+        HospitalSpecialRelation relation = new HospitalSpecialRelation();
+
+        BeanUtils.copyProperties(param, relation);
+
+        relation.setGmtCreate(new Date());
+        relation.setGmtModified(new Date());
+
+        return specialRelationMapper.insertSelective(relation) > 0;
+    }
+
+    /**
+     * 删除从医院中移除专科
+     *
+     * @param id 关系编号
+     * @return 是否成功
+     */
+    @Override
+    public boolean deleteSpecialRelation(Long id) {
+        return specialRelationMapper.deleteByPrimaryKey(id) > 0;
+    }
+
+    /**
+     * 判断关系是否存在
+     *
+     * @param id 关系编号
+     * @return 是否存在
+     */
+    @Override
+    public boolean countSpecialRelation(Long id) {
+        HospitalSpecialRelationExample example = new HospitalSpecialRelationExample();
+
+        example.createCriteria()
+                .andIdEqualTo(id);
+
+        return specialRelationMapper.countByExample(example) > 0;
+    }
+
+    /**
+     * 判断医院是否存在该专科
+     *
+     * @param param 医院专科关系参数
+     * @return 是否存在
+     */
+    @Override
+    public boolean countSpecialRelation(HospitalSpecialRelationParam param) {
+        HospitalSpecialRelationExample example = new HospitalSpecialRelationExample();
+
+        example.createCriteria()
+                .andHospitalIdEqualTo(param.getHospitalId())
+                .andSpecialIdEqualTo(param.getSpecialId());
+
+        return specialRelationMapper.countByExample(example) > 0;
     }
 }

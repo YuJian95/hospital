@@ -1,6 +1,7 @@
 package cn.yujian95.hospital.service;
 
 import cn.yujian95.hospital.dto.param.HospitalInfoParam;
+import cn.yujian95.hospital.dto.param.HospitalSpecialRelationParam;
 import cn.yujian95.hospital.entity.HospitalInfo;
 
 import java.util.List;
@@ -71,4 +72,36 @@ public interface IHospitalInfoService {
      * @return 医院列表
      */
     List<HospitalInfo> list(String name, Integer pageNum, Integer pageSize);
+
+    /**
+     * 插入专科到医院中去
+     *
+     * @param param 医院专科关系参数
+     * @return 是否成功
+     */
+    boolean insertSpecialRelation(HospitalSpecialRelationParam param);
+
+    /**
+     * 删除从医院中移除专科
+     *
+     * @param id 关系编号
+     * @return 是否成功
+     */
+    boolean deleteSpecialRelation(Long id);
+
+    /**
+     * 判断关系是否存在
+     *
+     * @param id 关系编号
+     * @return 是否存在
+     */
+    boolean countSpecialRelation(Long id);
+
+    /**
+     * 判断医院是否存在该专科
+     *
+     * @param param 医院专科关系参数
+     * @return 是否存在
+     */
+    boolean countSpecialRelation(HospitalSpecialRelationParam param);
 }
