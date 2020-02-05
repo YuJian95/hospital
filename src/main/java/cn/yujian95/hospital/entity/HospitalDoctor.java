@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class HospitalDoctorInfo implements Serializable {
+public class HospitalDoctor implements Serializable {
     /**
      * 医生编号
      *

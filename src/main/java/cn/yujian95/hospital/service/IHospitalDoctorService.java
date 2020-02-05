@@ -1,7 +1,7 @@
 package cn.yujian95.hospital.service;
 
 import cn.yujian95.hospital.dto.param.HospitalDoctorInfoParam;
-import cn.yujian95.hospital.entity.HospitalDoctorInfo;
+import cn.yujian95.hospital.entity.HospitalDoctor;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +44,7 @@ public interface IHospitalDoctorService {
      * @param id 医生编号
      * @return 医生编号
      */
-    Optional<HospitalDoctorInfo> getOptional(Long id);
+    Optional<HospitalDoctor> getOptional(Long id);
 
     /**
      * 删除医生信息
@@ -62,5 +62,5 @@ public interface IHospitalDoctorService {
      * @param pageSize 页大小
      * @return 医生信息列表
      */
-    List<HospitalDoctorInfo> list(String name, Integer pageNum, Integer pageSize);
+    List<HospitalDoctor> list(String name, Integer pageNum, Integer pageSize);
 }

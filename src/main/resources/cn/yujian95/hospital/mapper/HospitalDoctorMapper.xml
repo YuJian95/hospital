@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.yujian95.hospital.mapper.HospitalDoctorInfoMapper">
-  <resultMap id="BaseResultMap" type="cn.yujian95.hospital.entity.HospitalDoctorInfo">
+<mapper namespace="cn.yujian95.hospital.mapper.HospitalDoctorMapper">
+  <resultMap id="BaseResultMap" type="cn.yujian95.hospital.entity.HospitalDoctor">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
@@ -71,13 +71,13 @@
   <sql id="Base_Column_List">
     id, name, avatar_url, job_title, specialty, gmt_create, gmt_modified
   </sql>
-  <select id="selectByExample" parameterType="cn.yujian95.hospital.entity.HospitalDoctorInfoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="cn.yujian95.hospital.entity.HospitalDoctorExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from hospital_doctor_info
+    from hospital_doctor
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,29 +88,29 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from hospital_doctor_info
+    from hospital_doctor
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from hospital_doctor_info
+    delete from hospital_doctor
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.yujian95.hospital.entity.HospitalDoctorInfoExample">
-    delete from hospital_doctor_info
+  <delete id="deleteByExample" parameterType="cn.yujian95.hospital.entity.HospitalDoctorExample">
+    delete from hospital_doctor
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.yujian95.hospital.entity.HospitalDoctorInfo">
-    insert into hospital_doctor_info (id, name, avatar_url, 
+  <insert id="insert" parameterType="cn.yujian95.hospital.entity.HospitalDoctor">
+    insert into hospital_doctor (id, name, avatar_url, 
       job_title, specialty, gmt_create, 
       gmt_modified)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, 
       #{jobTitle,jdbcType=VARCHAR}, #{specialty,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="cn.yujian95.hospital.entity.HospitalDoctorInfo">
-    insert into hospital_doctor_info
+  <insert id="insertSelective" parameterType="cn.yujian95.hospital.entity.HospitalDoctor">
+    insert into hospital_doctor
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -158,14 +158,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.yujian95.hospital.entity.HospitalDoctorInfoExample" resultType="java.lang.Long">
-    select count(*) from hospital_doctor_info
+  <select id="countByExample" parameterType="cn.yujian95.hospital.entity.HospitalDoctorExample" resultType="java.lang.Long">
+    select count(*) from hospital_doctor
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update hospital_doctor_info
+    update hospital_doctor
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
@@ -194,7 +194,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update hospital_doctor_info
+    update hospital_doctor
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
@@ -206,8 +206,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.yujian95.hospital.entity.HospitalDoctorInfo">
-    update hospital_doctor_info
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yujian95.hospital.entity.HospitalDoctor">
+    update hospital_doctor
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -230,8 +230,8 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.yujian95.hospital.entity.HospitalDoctorInfo">
-    update hospital_doctor_info
+  <update id="updateByPrimaryKey" parameterType="cn.yujian95.hospital.entity.HospitalDoctor">
+    update hospital_doctor
     set name = #{name,jdbcType=VARCHAR},
       avatar_url = #{avatarUrl,jdbcType=VARCHAR},
       job_title = #{jobTitle,jdbcType=VARCHAR},

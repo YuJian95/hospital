@@ -3,8 +3,7 @@ package cn.yujian95.hospital.controller;
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.dto.param.HospitalDoctorInfoParam;
-import cn.yujian95.hospital.entity.HospitalDoctorInfo;
-import cn.yujian95.hospital.entity.HospitalInfo;
+import cn.yujian95.hospital.entity.HospitalDoctor;
 import cn.yujian95.hospital.service.IHospitalDoctorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -79,9 +78,9 @@ public class HospitalDoctorController {
                     required = true),
     })
     @RequestMapping(value = "/doctor/list", method = RequestMethod.GET)
-    public CommonResult<CommonPage<HospitalDoctorInfo>> searchDoctor(@RequestParam(required = false) String name,
-                                                                     @RequestParam Integer pageNum,
-                                                                     @RequestParam Integer pageSize) {
+    public CommonResult<CommonPage<HospitalDoctor>> searchDoctor(@RequestParam(required = false) String name,
+                                                                 @RequestParam Integer pageNum,
+                                                                 @RequestParam Integer pageSize) {
 
         return CommonResult.success(CommonPage.restPage(doctorService.list(name, pageNum, pageSize)));
     }
@@ -90,12 +89,12 @@ public class HospitalDoctorController {
     @ApiOperation(value = "获取医生信息", notes = "传入 医生编号")
     @ApiImplicitParam(name = "id", value = "医生编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/doctor/{id}", method = RequestMethod.GET)
-    public CommonResult<HospitalDoctorInfo> getDoctor(@PathVariable Long id) {
+    public CommonResult<HospitalDoctor> getDoctor(@PathVariable Long id) {
         if (!doctorService.count(id)) {
             return CommonResult.validateFailed("不存在，该医生编号");
         }
 
-        Optional<HospitalDoctorInfo> doctorOptional = doctorService.getOptional(id);
+        Optional<HospitalDoctor> doctorOptional = doctorService.getOptional(id);
 
         return doctorOptional.map(CommonResult::success)
                 .orElseGet(() -> CommonResult.failed("服务器错误，请联系管理员！"));

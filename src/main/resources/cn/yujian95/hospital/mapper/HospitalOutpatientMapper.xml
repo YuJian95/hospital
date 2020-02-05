@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.yujian95.hospital.mapper.HospitalSpecialMapper">
-  <resultMap id="BaseResultMap" type="cn.yujian95.hospital.entity.HospitalSpecial">
+<mapper namespace="cn.yujian95.hospital.mapper.HospitalOutpatientMapper">
+  <resultMap id="BaseResultMap" type="cn.yujian95.hospital.entity.HospitalOutpatient">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="special_id" jdbcType="BIGINT" property="specialId" />
+    <result column="hospital_id" jdbcType="BIGINT" property="hospitalId" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
@@ -67,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, description, gmt_create, gmt_modified
+    id, name, special_id, hospital_id, gmt_create, gmt_modified
   </sql>
-  <select id="selectByExample" parameterType="cn.yujian95.hospital.entity.HospitalSpecialExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="cn.yujian95.hospital.entity.HospitalOutpatientExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from hospital_special
+    from hospital_outpatient
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,27 +87,29 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from hospital_special
+    from hospital_outpatient
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from hospital_special
+    delete from hospital_outpatient
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.yujian95.hospital.entity.HospitalSpecialExample">
-    delete from hospital_special
+  <delete id="deleteByExample" parameterType="cn.yujian95.hospital.entity.HospitalOutpatientExample">
+    delete from hospital_outpatient
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.yujian95.hospital.entity.HospitalSpecial">
-    insert into hospital_special (id, name, description, 
-      gmt_create, gmt_modified)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="cn.yujian95.hospital.entity.HospitalOutpatient">
+    insert into hospital_outpatient (id, name, special_id, 
+      hospital_id, gmt_create, gmt_modified
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{specialId,jdbcType=BIGINT}, 
+      #{hospitalId,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="cn.yujian95.hospital.entity.HospitalSpecial">
-    insert into hospital_special
+  <insert id="insertSelective" parameterType="cn.yujian95.hospital.entity.HospitalOutpatient">
+    insert into hospital_outpatient
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -114,8 +117,11 @@
       <if test="name != null">
         name,
       </if>
-      <if test="description != null">
-        description,
+      <if test="specialId != null">
+        special_id,
+      </if>
+      <if test="hospitalId != null">
+        hospital_id,
       </if>
       <if test="gmtCreate != null">
         gmt_create,
@@ -131,8 +137,11 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
+      <if test="specialId != null">
+        #{specialId,jdbcType=BIGINT},
+      </if>
+      <if test="hospitalId != null">
+        #{hospitalId,jdbcType=BIGINT},
       </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
@@ -142,14 +151,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.yujian95.hospital.entity.HospitalSpecialExample" resultType="java.lang.Long">
-    select count(*) from hospital_special
+  <select id="countByExample" parameterType="cn.yujian95.hospital.entity.HospitalOutpatientExample" resultType="java.lang.Long">
+    select count(*) from hospital_outpatient
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update hospital_special
+    update hospital_outpatient
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
@@ -157,8 +166,11 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.description != null">
-        description = #{record.description,jdbcType=VARCHAR},
+      <if test="record.specialId != null">
+        special_id = #{record.specialId,jdbcType=BIGINT},
+      </if>
+      <if test="record.hospitalId != null">
+        hospital_id = #{record.hospitalId,jdbcType=BIGINT},
       </if>
       <if test="record.gmtCreate != null">
         gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
@@ -172,24 +184,28 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update hospital_special
+    update hospital_outpatient
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=VARCHAR},
+      special_id = #{record.specialId,jdbcType=BIGINT},
+      hospital_id = #{record.hospitalId,jdbcType=BIGINT},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.yujian95.hospital.entity.HospitalSpecial">
-    update hospital_special
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yujian95.hospital.entity.HospitalOutpatient">
+    update hospital_outpatient
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="description != null">
-        description = #{description,jdbcType=VARCHAR},
+      <if test="specialId != null">
+        special_id = #{specialId,jdbcType=BIGINT},
+      </if>
+      <if test="hospitalId != null">
+        hospital_id = #{hospitalId,jdbcType=BIGINT},
       </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -200,10 +216,11 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.yujian95.hospital.entity.HospitalSpecial">
-    update hospital_special
+  <update id="updateByPrimaryKey" parameterType="cn.yujian95.hospital.entity.HospitalOutpatient">
+    update hospital_outpatient
     set name = #{name,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
+      special_id = #{specialId,jdbcType=BIGINT},
+      hospital_id = #{hospitalId,jdbcType=BIGINT},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class HospitalSpecialExample {
+public class HospitalOutpatientExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public HospitalSpecialExample() {
+    public HospitalOutpatientExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -235,73 +235,123 @@ public class HospitalSpecialExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIsNull() {
-            addCriterion("description is null");
+        public Criteria andSpecialIdIsNull() {
+            addCriterion("special_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIsNotNull() {
-            addCriterion("description is not null");
+        public Criteria andSpecialIdIsNotNull() {
+            addCriterion("special_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionEqualTo(String value) {
-            addCriterion("description =", value, "description");
+        public Criteria andSpecialIdEqualTo(Long value) {
+            addCriterion("special_id =", value, "specialId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotEqualTo(String value) {
-            addCriterion("description <>", value, "description");
+        public Criteria andSpecialIdNotEqualTo(Long value) {
+            addCriterion("special_id <>", value, "specialId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionGreaterThan(String value) {
-            addCriterion("description >", value, "description");
+        public Criteria andSpecialIdGreaterThan(Long value) {
+            addCriterion("special_id >", value, "specialId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
-            addCriterion("description >=", value, "description");
+        public Criteria andSpecialIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("special_id >=", value, "specialId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLessThan(String value) {
-            addCriterion("description <", value, "description");
+        public Criteria andSpecialIdLessThan(Long value) {
+            addCriterion("special_id <", value, "specialId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLessThanOrEqualTo(String value) {
-            addCriterion("description <=", value, "description");
+        public Criteria andSpecialIdLessThanOrEqualTo(Long value) {
+            addCriterion("special_id <=", value, "specialId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLike(String value) {
-            addCriterion("description like", value, "description");
+        public Criteria andSpecialIdIn(List<Long> values) {
+            addCriterion("special_id in", values, "specialId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotLike(String value) {
-            addCriterion("description not like", value, "description");
+        public Criteria andSpecialIdNotIn(List<Long> values) {
+            addCriterion("special_id not in", values, "specialId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIn(List<String> values) {
-            addCriterion("description in", values, "description");
+        public Criteria andSpecialIdBetween(Long value1, Long value2) {
+            addCriterion("special_id between", value1, value2, "specialId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotIn(List<String> values) {
-            addCriterion("description not in", values, "description");
+        public Criteria andSpecialIdNotBetween(Long value1, Long value2) {
+            addCriterion("special_id not between", value1, value2, "specialId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionBetween(String value1, String value2) {
-            addCriterion("description between", value1, value2, "description");
+        public Criteria andHospitalIdIsNull() {
+            addCriterion("hospital_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotBetween(String value1, String value2) {
-            addCriterion("description not between", value1, value2, "description");
+        public Criteria andHospitalIdIsNotNull() {
+            addCriterion("hospital_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHospitalIdEqualTo(Long value) {
+            addCriterion("hospital_id =", value, "hospitalId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHospitalIdNotEqualTo(Long value) {
+            addCriterion("hospital_id <>", value, "hospitalId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHospitalIdGreaterThan(Long value) {
+            addCriterion("hospital_id >", value, "hospitalId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHospitalIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("hospital_id >=", value, "hospitalId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHospitalIdLessThan(Long value) {
+            addCriterion("hospital_id <", value, "hospitalId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHospitalIdLessThanOrEqualTo(Long value) {
+            addCriterion("hospital_id <=", value, "hospitalId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHospitalIdIn(List<Long> values) {
+            addCriterion("hospital_id in", values, "hospitalId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHospitalIdNotIn(List<Long> values) {
+            addCriterion("hospital_id not in", values, "hospitalId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHospitalIdBetween(Long value1, Long value2) {
+            addCriterion("hospital_id between", value1, value2, "hospitalId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHospitalIdNotBetween(Long value1, Long value2) {
+            addCriterion("hospital_id not between", value1, value2, "hospitalId");
             return (Criteria) this;
         }
 

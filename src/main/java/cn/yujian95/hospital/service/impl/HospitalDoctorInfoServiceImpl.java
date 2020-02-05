@@ -1,9 +1,9 @@
 package cn.yujian95.hospital.service.impl;
 
 import cn.yujian95.hospital.dto.param.HospitalDoctorInfoParam;
-import cn.yujian95.hospital.entity.HospitalDoctorInfo;
-import cn.yujian95.hospital.entity.HospitalDoctorInfoExample;
-import cn.yujian95.hospital.mapper.HospitalDoctorInfoMapper;
+import cn.yujian95.hospital.entity.HospitalDoctor;
+import cn.yujian95.hospital.entity.HospitalDoctorExample;
+import cn.yujian95.hospital.mapper.HospitalDoctorMapper;
 import cn.yujian95.hospital.service.IHospitalDoctorService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
@@ -23,7 +23,7 @@ import java.util.Optional;
 public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
 
     @Resource
-    private HospitalDoctorInfoMapper doctorInfoMapper;
+    private HospitalDoctorMapper doctorInfoMapper;
 
     /**
      * 添加医生信息
@@ -33,7 +33,7 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
      */
     @Override
     public boolean insert(HospitalDoctorInfoParam param) {
-        HospitalDoctorInfo info = new HospitalDoctorInfo();
+        HospitalDoctor info = new HospitalDoctor();
 
         BeanUtils.copyProperties(param, info);
 
@@ -52,7 +52,7 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
      */
     @Override
     public boolean update(Long id, HospitalDoctorInfoParam param) {
-        HospitalDoctorInfo info = new HospitalDoctorInfo();
+        HospitalDoctor info = new HospitalDoctor();
 
         BeanUtils.copyProperties(param, info);
 
@@ -70,7 +70,7 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
      */
     @Override
     public boolean count(Long id) {
-        HospitalDoctorInfoExample example = new HospitalDoctorInfoExample();
+        HospitalDoctorExample example = new HospitalDoctorExample();
 
         example.createCriteria()
                 .andIdEqualTo(id);
@@ -85,7 +85,7 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
      * @return 医生编号
      */
     @Override
-    public Optional<HospitalDoctorInfo> getOptional(Long id) {
+    public Optional<HospitalDoctor> getOptional(Long id) {
         return Optional.ofNullable(doctorInfoMapper.selectByPrimaryKey(id));
     }
 
@@ -109,11 +109,11 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
      * @return 医生信息列表
      */
     @Override
-    public List<HospitalDoctorInfo> list(String name, Integer pageNum, Integer pageSize) {
+    public List<HospitalDoctor> list(String name, Integer pageNum, Integer pageSize) {
 
         PageHelper.startPage(pageNum, pageSize);
 
-        HospitalDoctorInfoExample example = new HospitalDoctorInfoExample();
+        HospitalDoctorExample example = new HospitalDoctorExample();
 
         if (!StringUtils.isEmpty(name)) {
             example.createCriteria()
