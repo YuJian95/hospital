@@ -135,7 +135,7 @@ public class HospitalOutpatientController {
             @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer",
                     required = true),
     })
-    @RequestMapping(value = "/outpatient/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/outpatient/search", method = RequestMethod.GET)
     public CommonResult<CommonPage<HospitalOutpatient>> searchOutpatientByHospitalAndSpecial(
             @RequestParam(required = false, defaultValue = "0") Long hospitalId,
             @RequestParam(required = false, defaultValue = "0") Long specialId,
