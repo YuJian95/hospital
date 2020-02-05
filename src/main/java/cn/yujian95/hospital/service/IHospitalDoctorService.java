@@ -1,6 +1,6 @@
 package cn.yujian95.hospital.service;
 
-import cn.yujian95.hospital.dto.param.HospitalDoctorInfoParam;
+import cn.yujian95.hospital.dto.param.HospitalDoctorParam;
 import cn.yujian95.hospital.entity.HospitalDoctor;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface IHospitalDoctorService {
      * @param param 医生信息参数
      * @return 是否成功
      */
-    boolean insert(HospitalDoctorInfoParam param);
+    boolean insert(HospitalDoctorParam param);
 
     /**
      * 更新医生信息
@@ -28,7 +28,7 @@ public interface IHospitalDoctorService {
      * @param param 医生信息参数
      * @return 是否成功
      */
-    boolean update(Long id, HospitalDoctorInfoParam param);
+    boolean update(Long id, HospitalDoctorParam param);
 
     /**
      * 是否存在医生信息

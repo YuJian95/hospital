@@ -2,7 +2,7 @@ package cn.yujian95.hospital.controller;
 
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
-import cn.yujian95.hospital.dto.param.HospitalDoctorInfoParam;
+import cn.yujian95.hospital.dto.param.HospitalDoctorParam;
 import cn.yujian95.hospital.entity.HospitalDoctor;
 import cn.yujian95.hospital.service.IHospitalDoctorService;
 import io.swagger.annotations.Api;
@@ -25,12 +25,17 @@ import java.util.Optional;
 @RequestMapping("/hospital")
 public class HospitalDoctorController {
 
+    public static final int GIRL = 2;
     @Resource
     private IHospitalDoctorService doctorService;
 
-    @ApiOperation(value = "添加医生信息", notes = "传入 医生信息参数（姓名，头像，职称，专长）")
+    @ApiOperation(value = "添加医生信息", notes = "传入 医生信息参数（姓名，性别，职称，专长）")
     @RequestMapping(value = "/doctor", method = RequestMethod.GET)
-    public CommonResult insertDoctor(@RequestBody HospitalDoctorInfoParam param) {
+    public CommonResult insertDoctor(@RequestBody HospitalDoctorParam param) {
+
+        if (param.getGender() > GIRL || param.getGender() < 1) {
+            return CommonResult.validateFailed("性别参数错误！");
+        }
 
         if (doctorService.insert(param)) {
             return CommonResult.success();
@@ -39,12 +44,16 @@ public class HospitalDoctorController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation(value = "更新医生信息", notes = "传入 医生编号、医生信息参数（姓名，头像，职称，专长）")
+    @ApiOperation(value = "更新医生信息", notes = "传入 医生编号、医生信息参数（姓名，性别，职称，专长）")
     @ApiImplicitParam(name = "id", value = "医生编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/doctor/{id}", method = RequestMethod.PUT)
-    public CommonResult updateDoctor(@PathVariable Long id, @RequestBody HospitalDoctorInfoParam param) {
+    public CommonResult updateDoctor(@PathVariable Long id, @RequestBody HospitalDoctorParam param) {
         if (!doctorService.count(id)) {
             return CommonResult.validateFailed("不存在，该医生编号");
+        }
+
+        if (param.getGender() > GIRL || param.getGender() < 1) {
+            return CommonResult.validateFailed("性别参数错误！");
         }
 
         if (doctorService.update(id, param)) {

@@ -235,73 +235,63 @@ public class HospitalDoctorExample {
             return (Criteria) this;
         }
 
-        public Criteria andAvatarUrlIsNull() {
-            addCriterion("avatar_url is null");
+        public Criteria andGenderIsNull() {
+            addCriterion("gender is null");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarUrlIsNotNull() {
-            addCriterion("avatar_url is not null");
+        public Criteria andGenderIsNotNull() {
+            addCriterion("gender is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarUrlEqualTo(String value) {
-            addCriterion("avatar_url =", value, "avatarUrl");
+        public Criteria andGenderEqualTo(Integer value) {
+            addCriterion("gender =", value, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarUrlNotEqualTo(String value) {
-            addCriterion("avatar_url <>", value, "avatarUrl");
+        public Criteria andGenderNotEqualTo(Integer value) {
+            addCriterion("gender <>", value, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarUrlGreaterThan(String value) {
-            addCriterion("avatar_url >", value, "avatarUrl");
+        public Criteria andGenderGreaterThan(Integer value) {
+            addCriterion("gender >", value, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("avatar_url >=", value, "avatarUrl");
+        public Criteria andGenderGreaterThanOrEqualTo(Integer value) {
+            addCriterion("gender >=", value, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarUrlLessThan(String value) {
-            addCriterion("avatar_url <", value, "avatarUrl");
+        public Criteria andGenderLessThan(Integer value) {
+            addCriterion("gender <", value, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarUrlLessThanOrEqualTo(String value) {
-            addCriterion("avatar_url <=", value, "avatarUrl");
+        public Criteria andGenderLessThanOrEqualTo(Integer value) {
+            addCriterion("gender <=", value, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarUrlLike(String value) {
-            addCriterion("avatar_url like", value, "avatarUrl");
+        public Criteria andGenderIn(List<Integer> values) {
+            addCriterion("gender in", values, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarUrlNotLike(String value) {
-            addCriterion("avatar_url not like", value, "avatarUrl");
+        public Criteria andGenderNotIn(List<Integer> values) {
+            addCriterion("gender not in", values, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarUrlIn(List<String> values) {
-            addCriterion("avatar_url in", values, "avatarUrl");
+        public Criteria andGenderBetween(Integer value1, Integer value2) {
+            addCriterion("gender between", value1, value2, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarUrlNotIn(List<String> values) {
-            addCriterion("avatar_url not in", values, "avatarUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andAvatarUrlBetween(String value1, String value2) {
-            addCriterion("avatar_url between", value1, value2, "avatarUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andAvatarUrlNotBetween(String value1, String value2) {
-            addCriterion("avatar_url not between", value1, value2, "avatarUrl");
+        public Criteria andGenderNotBetween(Integer value1, Integer value2) {
+            addCriterion("gender not between", value1, value2, "gender");
             return (Criteria) this;
         }
 

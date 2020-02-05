@@ -22,12 +22,12 @@ public class HospitalDoctor implements Serializable {
     private String name;
 
     /**
-     * 医生相片
+     * 性别：1，男；2，女
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "医生相片")
-    private String avatarUrl;
+    @ApiModelProperty(value = "性别：1，男；2，女")
+    private Integer gender;
 
     /**
      * 医生职称
@@ -79,12 +79,12 @@ public class HospitalDoctor implements Serializable {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public Integer getGender() {
+        return gender;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 
     public String getJobTitle() {
@@ -127,7 +127,7 @@ public class HospitalDoctor implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", avatarUrl=").append(avatarUrl);
+        sb.append(", gender=").append(gender);
         sb.append(", jobTitle=").append(jobTitle);
         sb.append(", specialty=").append(specialty);
         sb.append(", gmtCreate=").append(gmtCreate);

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.yujian95.hospital.entity.HospitalDoctor">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
     <result column="job_title" jdbcType="VARCHAR" property="jobTitle" />
     <result column="specialty" jdbcType="VARCHAR" property="specialty" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, avatar_url, job_title, specialty, gmt_create, gmt_modified
+    id, name, gender, job_title, specialty, gmt_create, gmt_modified
   </sql>
   <select id="selectByExample" parameterType="cn.yujian95.hospital.entity.HospitalDoctorExample" resultMap="BaseResultMap">
     select
@@ -102,10 +102,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.yujian95.hospital.entity.HospitalDoctor">
-    insert into hospital_doctor (id, name, avatar_url, 
+    insert into hospital_doctor (id, name, gender, 
       job_title, specialty, gmt_create, 
       gmt_modified)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
       #{jobTitle,jdbcType=VARCHAR}, #{specialty,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
@@ -118,8 +118,8 @@
       <if test="name != null">
         name,
       </if>
-      <if test="avatarUrl != null">
-        avatar_url,
+      <if test="gender != null">
+        gender,
       </if>
       <if test="jobTitle != null">
         job_title,
@@ -141,8 +141,8 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="avatarUrl != null">
-        #{avatarUrl,jdbcType=VARCHAR},
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
       </if>
       <if test="jobTitle != null">
         #{jobTitle,jdbcType=VARCHAR},
@@ -173,8 +173,8 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.avatarUrl != null">
-        avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=INTEGER},
       </if>
       <if test="record.jobTitle != null">
         job_title = #{record.jobTitle,jdbcType=VARCHAR},
@@ -197,7 +197,7 @@
     update hospital_doctor
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
-      avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=INTEGER},
       job_title = #{record.jobTitle,jdbcType=VARCHAR},
       specialty = #{record.specialty,jdbcType=VARCHAR},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
@@ -212,8 +212,8 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="avatarUrl != null">
-        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
       </if>
       <if test="jobTitle != null">
         job_title = #{jobTitle,jdbcType=VARCHAR},
@@ -233,7 +233,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.yujian95.hospital.entity.HospitalDoctor">
     update hospital_doctor
     set name = #{name,jdbcType=VARCHAR},
-      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
       job_title = #{jobTitle,jdbcType=VARCHAR},
       specialty = #{specialty,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},

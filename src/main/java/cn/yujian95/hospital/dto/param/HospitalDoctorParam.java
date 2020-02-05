@@ -10,9 +10,9 @@ import java.io.Serializable;
  * @author YuJian95  clj9509@163.com
  * @date 2020/2/4
  */
-@ApiModel(value = "HospitalDoctorInfoParam", description = "医生信息参数")
+@ApiModel(value = "HospitalDoctorParam", description = "医生信息参数")
 @Data
-public class HospitalDoctorInfoParam implements Serializable {
+public class HospitalDoctorParam implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,12 +25,12 @@ public class HospitalDoctorInfoParam implements Serializable {
     private String name;
 
     /**
-     * 医生相片
+     * 性别：1，男；2，女
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "医生相片")
-    private String avatarUrl;
+    @ApiModelProperty(value = "性别：1，男；2，女")
+    private Integer gender;
 
     /**
      * 医生职称

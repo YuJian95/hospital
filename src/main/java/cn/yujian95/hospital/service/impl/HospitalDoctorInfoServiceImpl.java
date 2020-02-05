@@ -1,6 +1,6 @@
 package cn.yujian95.hospital.service.impl;
 
-import cn.yujian95.hospital.dto.param.HospitalDoctorInfoParam;
+import cn.yujian95.hospital.dto.param.HospitalDoctorParam;
 import cn.yujian95.hospital.entity.HospitalDoctor;
 import cn.yujian95.hospital.entity.HospitalDoctorExample;
 import cn.yujian95.hospital.mapper.HospitalDoctorMapper;
@@ -32,7 +32,7 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
      * @return 是否成功
      */
     @Override
-    public boolean insert(HospitalDoctorInfoParam param) {
+    public boolean insert(HospitalDoctorParam param) {
         HospitalDoctor info = new HospitalDoctor();
 
         BeanUtils.copyProperties(param, info);
@@ -51,7 +51,7 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
      * @return 是否成功
      */
     @Override
-    public boolean update(Long id, HospitalDoctorInfoParam param) {
+    public boolean update(Long id, HospitalDoctorParam param) {
         HospitalDoctor info = new HospitalDoctor();
 
         BeanUtils.copyProperties(param, info);
