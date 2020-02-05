@@ -25,7 +25,8 @@ import java.util.Optional;
  */
 
 @Service
-public class HospitalInfoServiceImpl implements IHospitalInfoService {
+public class
+HospitalInfoServiceImpl implements IHospitalInfoService {
 
     @Resource
     private HospitalInfoMapper infoMapper;

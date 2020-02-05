@@ -1,5 +1,6 @@
 package cn.yujian95.hospital.service;
 
+import cn.yujian95.hospital.dto.HospitalSpecialOutpatientDTO;
 import cn.yujian95.hospital.dto.param.HospitalSpecialParam;
 import cn.yujian95.hospital.entity.HospitalSpecial;
 
@@ -68,7 +69,7 @@ public interface IHospitalSpecialService {
      * @param hospitalId 医院编号
      * @return 医院专科列表
      */
-    List<HospitalSpecial> list(Long hospitalId);
+    List<HospitalSpecialOutpatientDTO> list(Long hospitalId);
 
     /**
      * 查找专科信息

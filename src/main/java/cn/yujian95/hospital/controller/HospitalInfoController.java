@@ -2,12 +2,10 @@ package cn.yujian95.hospital.controller;
 
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
+import cn.yujian95.hospital.dto.HospitalSpecialOutpatientDTO;
 import cn.yujian95.hospital.dto.param.HospitalInfoParam;
-import cn.yujian95.hospital.dto.param.HospitalSpecialParam;
 import cn.yujian95.hospital.dto.param.HospitalSpecialRelationParam;
 import cn.yujian95.hospital.entity.HospitalInfo;
-import cn.yujian95.hospital.entity.HospitalSpecial;
-import cn.yujian95.hospital.entity.HospitalSpecialRelation;
 import cn.yujian95.hospital.service.IHospitalInfoService;
 import cn.yujian95.hospital.service.IHospitalSpecialService;
 import io.swagger.annotations.*;
@@ -146,7 +144,7 @@ public class HospitalInfoController {
     @ApiOperation(value = "获取医院，所属专科列表", notes = "传入 专科名称")
     @ApiImplicitParam(name = "hospitalId", value = "医院编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/special/list/{hospitalId}", method = RequestMethod.GET)
-    public CommonResult<List<HospitalSpecial>> listSpecial(@PathVariable Long hospitalId) {
+    public CommonResult<List<HospitalSpecialOutpatientDTO>> listSpecial(@PathVariable Long hospitalId) {
 
         if (!infoService.count(hospitalId)) {
             return CommonResult.validateFailed("不存在，该医院编号！");
