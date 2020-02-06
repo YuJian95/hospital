@@ -71,9 +71,21 @@ aliSms:
   version: "2017-05-25"
 ```
 
-5. 运行 `HospitalApplication.java`, 启动项目
+5. 配置七牛云文件存储
 
-6. 访问 API文档，运行后，范围 http://localhost:8080/hospital/doc.html ,输入`application-dev.yml`配置的账号密码即可
+```yaml
+# 七牛云文件存储
+qiniu:
+  accessKey: 
+  secretKey: 
+  bucket: 存储空间名称
+  # 访问域名前缀  
+  url: http://q59ifzu6u.bkt.clouddn.com/
+```
+
+6. 运行 `HospitalApplication.java`, 启动项目
+
+7. 访问 API文档，运行后，范围 http://localhost:8080/hospital/doc.html ,输入`application-dev.yml`配置的账号密码即可
 
 默认账号、密码为`hospital`
 

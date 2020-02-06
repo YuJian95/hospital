@@ -11,6 +11,7 @@ import cn.yujian95.hospital.service.IHospitalSpecialService;
 import io.swagger.annotations.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -32,7 +33,7 @@ public class HospitalInfoController {
     @Resource
     private IHospitalSpecialService specialService;
 
-    @ApiOperation(value = "添加医院信息", notes = "传入 医院信息参数（名称，电话，地址，简介，图片）")
+    @ApiOperation(value = "添加医院信息", notes = "传入 医院信息参数（名称，图片、电话，地址，简介）")
     @RequestMapping(value = "/info", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('hospital:info:post')")
     public CommonResult insertHospitalInfo(@RequestBody HospitalInfoParam param) {
@@ -48,7 +49,7 @@ public class HospitalInfoController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation(value = "更新医院信息", notes = "传入 医院编号、医院信息参数（名称，电话，地址，简介，图片）")
+    @ApiOperation(value = "更新医院信息", notes = "传入 医院编号、医院信息参数（名称，图片、电话，地址，简介）")
     @ApiImplicitParam(name = "id", value = "医院编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/info/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('hospital:info:put')")

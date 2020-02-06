@@ -3,6 +3,7 @@ package cn.yujian95.hospital.service;
 import cn.yujian95.hospital.dto.param.HospitalInfoParam;
 import cn.yujian95.hospital.dto.param.HospitalSpecialRelationParam;
 import cn.yujian95.hospital.entity.HospitalInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;

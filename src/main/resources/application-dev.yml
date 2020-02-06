@@ -93,3 +93,11 @@ redis:
     expire:
       # 验证码超时时间,默认 5分钟
       authCode: 300
+
+# 七牛云文件存储
+qiniu:
+  accessKey:
+  secretKey:
+  bucket: 存储空间名称
+  # 访问域名前缀
+  url: http://q59ifzu6u.bkt.clouddn.com/
