@@ -10,6 +10,7 @@
 - `Mybatis generator` ： 逆向生成相关实体类与配置文件。并且添加了相关 Swagger 注释。
 - `Knife4j` ： 基于 Swagger + bootstrap 的 API 文档工具。 
 - `阿里云短信服务` : 实现短信发送验证码功能
+- `七牛云文件存储服务`: 实现图片存储
 - `redis` ：实现二级缓存。
 
 ### 部署步骤
