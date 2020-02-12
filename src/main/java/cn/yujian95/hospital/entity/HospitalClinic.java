@@ -14,6 +14,14 @@ public class HospitalClinic implements Serializable {
     private Long id;
 
     /**
+     * 所属门诊
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "所属门诊")
+    private Long outpatientId;
+
+    /**
      * 诊室地址
      *
      * @mbg.generated
@@ -47,6 +55,14 @@ public class HospitalClinic implements Serializable {
         this.id = id;
     }
 
+    public Long getOutpatientId() {
+        return outpatientId;
+    }
+
+    public void setOutpatientId(Long outpatientId) {
+        this.outpatientId = outpatientId;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -78,6 +94,7 @@ public class HospitalClinic implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", outpatientId=").append(outpatientId);
         sb.append(", address=").append(address);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);

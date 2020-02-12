@@ -3,7 +3,9 @@ package cn.yujian95.hospital.controller;
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.dto.param.HospitalOutpatientParam;
+import cn.yujian95.hospital.entity.HospitalClinic;
 import cn.yujian95.hospital.entity.HospitalOutpatient;
+import cn.yujian95.hospital.service.IHospitalClinicService;
 import cn.yujian95.hospital.service.IHospitalInfoService;
 import cn.yujian95.hospital.service.IHospitalOutpatientService;
 import cn.yujian95.hospital.service.IHospitalSpecialService;
@@ -35,6 +37,9 @@ public class HospitalOutpatientController {
 
     @Resource
     private IHospitalSpecialService specialService;
+
+    @Resource
+    private IHospitalClinicService clinicService;
 
     @ApiOperation(value = "添加门诊信息", notes = "传入 门诊信息参数（名称，描述）")
     @RequestMapping(value = "/outpatient", method = RequestMethod.POST)
@@ -143,5 +148,24 @@ public class HospitalOutpatientController {
             @RequestParam Integer pageSize) {
 
         return CommonResult.success(CommonPage.restPage(outpatientService.list(hospitalId, specialId, pageNum, pageSize)));
+    }
+
+    @ApiOperation(value = "获取门诊所属诊室信息", notes = "传入 门诊编号")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "门诊编号", paramType = "path", dataType = "Long",
+                    required = true),
+            @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "Integer",
+                    required = true),
+            @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer",
+                    required = true),
+    })
+    @RequestMapping(value = "/outpatient/clinic/list/{id}", method = RequestMethod.GET)
+    public CommonResult<CommonPage<HospitalClinic>> listClinic(@PathVariable Long id, @RequestParam Integer pageNum,
+                                                               @RequestParam Integer pageSize) {
+        if (!outpatientService.count(id)) {
+            return CommonResult.validateFailed("不存在，该门诊编号! ");
+        }
+
+        return CommonResult.success(CommonPage.restPage(clinicService.list(id, pageNum, pageSize)));
     }
 }

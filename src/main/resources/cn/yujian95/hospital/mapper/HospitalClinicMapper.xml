@@ -3,6 +3,7 @@
 <mapper namespace="cn.yujian95.hospital.mapper.HospitalClinicMapper">
   <resultMap id="BaseResultMap" type="cn.yujian95.hospital.entity.HospitalClinic">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="outpatient_id" jdbcType="BIGINT" property="outpatientId" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, address, gmt_create, gmt_modified
+    id, outpatient_id, address, gmt_create, gmt_modified
   </sql>
   <select id="selectByExample" parameterType="cn.yujian95.hospital.entity.HospitalClinicExample" resultMap="BaseResultMap">
     select
@@ -99,16 +100,19 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.yujian95.hospital.entity.HospitalClinic">
-    insert into hospital_clinic (id, address, gmt_create, 
-      gmt_modified)
-    values (#{id,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
-      #{gmtModified,jdbcType=TIMESTAMP})
+    insert into hospital_clinic (id, outpatient_id, address, 
+      gmt_create, gmt_modified)
+    values (#{id,jdbcType=BIGINT}, #{outpatientId,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.yujian95.hospital.entity.HospitalClinic">
     insert into hospital_clinic
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="outpatientId != null">
+        outpatient_id,
       </if>
       <if test="address != null">
         address,
@@ -123,6 +127,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="outpatientId != null">
+        #{outpatientId,jdbcType=BIGINT},
       </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
@@ -147,6 +154,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.outpatientId != null">
+        outpatient_id = #{record.outpatientId,jdbcType=BIGINT},
+      </if>
       <if test="record.address != null">
         address = #{record.address,jdbcType=VARCHAR},
       </if>
@@ -164,6 +174,7 @@
   <update id="updateByExample" parameterType="map">
     update hospital_clinic
     set id = #{record.id,jdbcType=BIGINT},
+      outpatient_id = #{record.outpatientId,jdbcType=BIGINT},
       address = #{record.address,jdbcType=VARCHAR},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
@@ -174,6 +185,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.yujian95.hospital.entity.HospitalClinic">
     update hospital_clinic
     <set>
+      <if test="outpatientId != null">
+        outpatient_id = #{outpatientId,jdbcType=BIGINT},
+      </if>
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
@@ -188,7 +202,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.yujian95.hospital.entity.HospitalClinic">
     update hospital_clinic
-    set address = #{address,jdbcType=VARCHAR},
+    set outpatient_id = #{outpatientId,jdbcType=BIGINT},
+      address = #{address,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
