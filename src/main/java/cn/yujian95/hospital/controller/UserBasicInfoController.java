@@ -104,7 +104,7 @@ public class UserBasicInfoController {
 
     @ApiOperation(value = "更新用户账号密码", notes = "传入 账号修改密码对象参数（手机号、密码、验证码）")
     @RequestMapping(value = "/basic/password", method = RequestMethod.PUT)
-    public CommonResult updateBasicInfo(@RequestBody PowerAccountPasswordParam param) {
+    public CommonResult updateBasicInfoPassword(@RequestBody PowerAccountPasswordParam param) {
 
         if (StringUtils.isEmpty(param.getPassword())) {
             return CommonResult.validateFailed("账号密码不能为空！");
