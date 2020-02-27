@@ -3,7 +3,6 @@ package cn.yujian95.hospital.controller;
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.dto.param.HospitalSpecialParam;
-import cn.yujian95.hospital.dto.param.HospitalSpecialRelationParam;
 import cn.yujian95.hospital.entity.HospitalSpecial;
 import cn.yujian95.hospital.service.IHospitalInfoService;
 import cn.yujian95.hospital.service.IHospitalSpecialService;
@@ -14,7 +13,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Optional;
 
 /**
