@@ -95,17 +95,17 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
     /**
      * 查找出诊列表
      *
-     * @param hospitalId 医院编号
-     * @param specialId  专科编号
-     * @param clinicId   门诊编号
-     * @param doctorId   医生编号
-     * @param day        出诊日期
-     * @param pageNum    第几页
-     * @param pageSize   页大小
+     * @param hospitalId   医院编号
+     * @param specialId    专科编号
+     * @param outpatientId 门诊编号
+     * @param doctorId     医生编号
+     * @param day          出诊日期
+     * @param pageNum      第几页
+     * @param pageSize     页大小
      * @return 出诊列表
      */
     @Override
-    public List<VisitPlan> list(Long hospitalId, Long specialId, Long clinicId, Long doctorId, Date day,
+    public List<VisitPlan> list(Long hospitalId, Long specialId, Long outpatientId, Long doctorId, Date day,
                                 Integer pageNum, Integer pageSize) {
 
         PageHelper.startPage(pageNum, pageSize);
@@ -122,9 +122,8 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
             criteria.andSpecialIdEqualTo(specialId);
         }
 
-        if (clinicId != null) {
-            criteria.andClinicIdEqualTo(clinicId);
-
+        if (outpatientId != null) {
+            criteria.andOutpatientEqualTo(outpatientId);
         }
 
         if (doctorId != null) {

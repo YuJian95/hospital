@@ -11,7 +11,7 @@ import java.util.Date;
  * @date 2020/3/1
  */
 
-@ApiModel(value = "VisitPlanParam",description = "出诊计划参数")
+@ApiModel(value = "VisitPlanParam", description = "出诊计划参数")
 @Data
 public class VisitPlanParam {
 
@@ -30,6 +30,14 @@ public class VisitPlanParam {
      */
     @ApiModelProperty(value = "专科编号")
     private Long specialId;
+
+    /**
+     * 门诊编号
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "门诊编号")
+    private Long outpatient;
 
     /**
      * 诊室编号

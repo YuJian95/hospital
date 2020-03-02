@@ -285,6 +285,66 @@ public class VisitPlanExample {
             return (Criteria) this;
         }
 
+        public Criteria andOutpatientIsNull() {
+            addCriterion("outpatient is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIsNotNull() {
+            addCriterion("outpatient is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientEqualTo(Long value) {
+            addCriterion("outpatient =", value, "outpatient");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientNotEqualTo(Long value) {
+            addCriterion("outpatient <>", value, "outpatient");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientGreaterThan(Long value) {
+            addCriterion("outpatient >", value, "outpatient");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientGreaterThanOrEqualTo(Long value) {
+            addCriterion("outpatient >=", value, "outpatient");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientLessThan(Long value) {
+            addCriterion("outpatient <", value, "outpatient");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientLessThanOrEqualTo(Long value) {
+            addCriterion("outpatient <=", value, "outpatient");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIn(List<Long> values) {
+            addCriterion("outpatient in", values, "outpatient");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientNotIn(List<Long> values) {
+            addCriterion("outpatient not in", values, "outpatient");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientBetween(Long value1, Long value2) {
+            addCriterion("outpatient between", value1, value2, "outpatient");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientNotBetween(Long value1, Long value2) {
+            addCriterion("outpatient not between", value1, value2, "outpatient");
+            return (Criteria) this;
+        }
+
         public Criteria andClinicIdIsNull() {
             addCriterion("clinic_id is null");
             return (Criteria) this;

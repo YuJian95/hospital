@@ -5,6 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="hospital_id" jdbcType="BIGINT" property="hospitalId" />
     <result column="special_id" jdbcType="BIGINT" property="specialId" />
+    <result column="outpatient" jdbcType="BIGINT" property="outpatient" />
     <result column="clinic_id" jdbcType="BIGINT" property="clinicId" />
     <result column="doctor_id" jdbcType="BIGINT" property="doctorId" />
     <result column="time_period" jdbcType="INTEGER" property="timePeriod" />
@@ -71,8 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, hospital_id, special_id, clinic_id, doctor_id, time_period, day, gmt_create, 
-    gmt_modified
+    id, hospital_id, special_id, outpatient, clinic_id, doctor_id, time_period, day, 
+    gmt_create, gmt_modified
   </sql>
   <select id="selectByExample" parameterType="cn.yujian95.hospital.entity.VisitPlanExample" resultMap="BaseResultMap">
     select
@@ -106,13 +107,13 @@
   </delete>
   <insert id="insert" parameterType="cn.yujian95.hospital.entity.VisitPlan">
     insert into visit_plan (id, hospital_id, special_id, 
-      clinic_id, doctor_id, time_period, 
-      day, gmt_create, gmt_modified
-      )
+      outpatient, clinic_id, doctor_id, 
+      time_period, day, gmt_create, 
+      gmt_modified)
     values (#{id,jdbcType=BIGINT}, #{hospitalId,jdbcType=BIGINT}, #{specialId,jdbcType=BIGINT}, 
-      #{clinicId,jdbcType=BIGINT}, #{doctorId,jdbcType=BIGINT}, #{timePeriod,jdbcType=INTEGER}, 
-      #{day,jdbcType=TIMESTAMP}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
-      )
+      #{outpatient,jdbcType=BIGINT}, #{clinicId,jdbcType=BIGINT}, #{doctorId,jdbcType=BIGINT}, 
+      #{timePeriod,jdbcType=INTEGER}, #{day,jdbcType=TIMESTAMP}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.yujian95.hospital.entity.VisitPlan">
     insert into visit_plan
@@ -125,6 +126,9 @@
       </if>
       <if test="specialId != null">
         special_id,
+      </if>
+      <if test="outpatient != null">
+        outpatient,
       </if>
       <if test="clinicId != null">
         clinic_id,
@@ -154,6 +158,9 @@
       </if>
       <if test="specialId != null">
         #{specialId,jdbcType=BIGINT},
+      </if>
+      <if test="outpatient != null">
+        #{outpatient,jdbcType=BIGINT},
       </if>
       <if test="clinicId != null">
         #{clinicId,jdbcType=BIGINT},
@@ -193,6 +200,9 @@
       <if test="record.specialId != null">
         special_id = #{record.specialId,jdbcType=BIGINT},
       </if>
+      <if test="record.outpatient != null">
+        outpatient = #{record.outpatient,jdbcType=BIGINT},
+      </if>
       <if test="record.clinicId != null">
         clinic_id = #{record.clinicId,jdbcType=BIGINT},
       </if>
@@ -221,6 +231,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       hospital_id = #{record.hospitalId,jdbcType=BIGINT},
       special_id = #{record.specialId,jdbcType=BIGINT},
+      outpatient = #{record.outpatient,jdbcType=BIGINT},
       clinic_id = #{record.clinicId,jdbcType=BIGINT},
       doctor_id = #{record.doctorId,jdbcType=BIGINT},
       time_period = #{record.timePeriod,jdbcType=INTEGER},
@@ -239,6 +250,9 @@
       </if>
       <if test="specialId != null">
         special_id = #{specialId,jdbcType=BIGINT},
+      </if>
+      <if test="outpatient != null">
+        outpatient = #{outpatient,jdbcType=BIGINT},
       </if>
       <if test="clinicId != null">
         clinic_id = #{clinicId,jdbcType=BIGINT},
@@ -265,6 +279,7 @@
     update visit_plan
     set hospital_id = #{hospitalId,jdbcType=BIGINT},
       special_id = #{specialId,jdbcType=BIGINT},
+      outpatient = #{outpatient,jdbcType=BIGINT},
       clinic_id = #{clinicId,jdbcType=BIGINT},
       doctor_id = #{doctorId,jdbcType=BIGINT},
       time_period = #{timePeriod,jdbcType=INTEGER},

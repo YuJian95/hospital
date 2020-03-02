@@ -30,6 +30,14 @@ public class VisitPlan implements Serializable {
     private Long specialId;
 
     /**
+     * 门诊编号
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "门诊编号")
+    private Long outpatient;
+
+    /**
      * 诊室编号
      *
      * @mbg.generated
@@ -103,6 +111,14 @@ public class VisitPlan implements Serializable {
         this.specialId = specialId;
     }
 
+    public Long getOutpatient() {
+        return outpatient;
+    }
+
+    public void setOutpatient(Long outpatient) {
+        this.outpatient = outpatient;
+    }
+
     public Long getClinicId() {
         return clinicId;
     }
@@ -160,6 +176,7 @@ public class VisitPlan implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", hospitalId=").append(hospitalId);
         sb.append(", specialId=").append(specialId);
+        sb.append(", outpatient=").append(outpatient);
         sb.append(", clinicId=").append(clinicId);
         sb.append(", doctorId=").append(doctorId);
         sb.append(", timePeriod=").append(timePeriod);

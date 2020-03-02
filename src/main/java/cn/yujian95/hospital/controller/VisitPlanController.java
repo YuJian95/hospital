@@ -84,8 +84,7 @@ public class VisitPlanController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "hospitalId", value = "医院编号", paramType = "query", dataType = "Long"),
             @ApiImplicitParam(name = "specialId", value = "专科编号", paramType = "query", dataType = "Long"),
-            @ApiImplicitParam(name = "clinicId", value = "门诊编号", paramType = "query", dataType = "Long"),
-            @ApiImplicitParam(name = "doctorId", value = "医生编号", paramType = "query", dataType = "Long"),
+            @ApiImplicitParam(name = "outpatientId", value = "门诊编号", paramType = "query", dataType = "Long"),
             @ApiImplicitParam(name = "day", value = "出诊日期", paramType = "query", dataType = "Date",
                     required = true),
             @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "Integer",
@@ -96,13 +95,12 @@ public class VisitPlanController {
     @RequestMapping(value = "/plan/list", method = RequestMethod.GET)
     public CommonResult searchVisitPlan(@RequestParam(required = false) Long hospitalId,
                                         @RequestParam(required = false) Long specialId,
-                                        @RequestParam(required = false) Long clinicId,
-                                        @RequestParam(required = false) Long doctorId,
+                                        @RequestParam(required = false) Long outpatientId,
                                         @RequestParam Date day,
                                         @RequestParam Integer pageNum,
                                         @RequestParam Integer pageSize) {
 
-        return CommonResult.success(CommonPage.restPage(planService.list(hospitalId, specialId, clinicId, doctorId,
+        return CommonResult.success(CommonPage.restPage(planService.list(hospitalId, specialId, outpatientId, null,
                 day, pageNum, pageSize)));
     }
 
