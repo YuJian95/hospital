@@ -35,8 +35,8 @@ public class UserMedicalCardController {
     /**
      * 女性
      */
-    public static final int GIRL = 2;
-    public static final int MAX_CARD_NUMBER = 6;
+    private static final int GIRL = 2;
+    private static final int MAX_CARD_NUMBER = 6;
 
     @Resource
     private IUserMedicalCardService medicalCardService;

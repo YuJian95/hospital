@@ -14,12 +14,20 @@ public class VisitPlan implements Serializable {
     private Long id;
 
     /**
-     * 医生编号
+     * 医院编号
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "医生编号")
-    private Long doctorId;
+    @ApiModelProperty(value = "医院编号")
+    private Long hospitalId;
+
+    /**
+     * 专科编号
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "专科编号")
+    private Long specialId;
 
     /**
      * 诊室编号
@@ -30,20 +38,28 @@ public class VisitPlan implements Serializable {
     private Long clinicId;
 
     /**
-     * 开始时间
+     * 医生编号
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "开始时间")
-    private Date start;
+    @ApiModelProperty(value = "医生编号")
+    private Long doctorId;
 
     /**
-     * 结束时间
+     * 时间段 1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，7：2点~2点半，8： 2点半~3点，9： 3点~3点半，10： 3点半~4点，11： 4点~4点半，12： 4点半~5点，13： 5点~5点半，14：5点半~6点
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "结束时间")
-    private Date end;
+    @ApiModelProperty(value = "时间段 1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，7：2点~2点半，8： 2点半~3点，9： 3点~3点半，10： 3点半~4点，11： 4点~4点半，12： 4点半~5点，13： 5点~5点半，14：5点半~6点")
+    private Integer timePeriod;
+
+    /**
+     * 出诊日期
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "出诊日期")
+    private Date day;
 
     /**
      * 创建时间
@@ -71,12 +87,20 @@ public class VisitPlan implements Serializable {
         this.id = id;
     }
 
-    public Long getDoctorId() {
-        return doctorId;
+    public Long getHospitalId() {
+        return hospitalId;
     }
 
-    public void setDoctorId(Long doctorId) {
-        this.doctorId = doctorId;
+    public void setHospitalId(Long hospitalId) {
+        this.hospitalId = hospitalId;
+    }
+
+    public Long getSpecialId() {
+        return specialId;
+    }
+
+    public void setSpecialId(Long specialId) {
+        this.specialId = specialId;
     }
 
     public Long getClinicId() {
@@ -87,20 +111,28 @@ public class VisitPlan implements Serializable {
         this.clinicId = clinicId;
     }
 
-    public Date getStart() {
-        return start;
+    public Long getDoctorId() {
+        return doctorId;
     }
 
-    public void setStart(Date start) {
-        this.start = start;
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
     }
 
-    public Date getEnd() {
-        return end;
+    public Integer getTimePeriod() {
+        return timePeriod;
     }
 
-    public void setEnd(Date end) {
-        this.end = end;
+    public void setTimePeriod(Integer timePeriod) {
+        this.timePeriod = timePeriod;
+    }
+
+    public Date getDay() {
+        return day;
+    }
+
+    public void setDay(Date day) {
+        this.day = day;
     }
 
     public Date getGmtCreate() {
@@ -126,10 +158,12 @@ public class VisitPlan implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", doctorId=").append(doctorId);
+        sb.append(", hospitalId=").append(hospitalId);
+        sb.append(", specialId=").append(specialId);
         sb.append(", clinicId=").append(clinicId);
-        sb.append(", start=").append(start);
-        sb.append(", end=").append(end);
+        sb.append(", doctorId=").append(doctorId);
+        sb.append(", timePeriod=").append(timePeriod);
+        sb.append(", day=").append(day);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
         sb.append(", serialVersionUID=").append(serialVersionUID);

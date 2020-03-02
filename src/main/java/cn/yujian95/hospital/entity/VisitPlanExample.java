@@ -165,63 +165,123 @@ public class VisitPlanExample {
             return (Criteria) this;
         }
 
-        public Criteria andDoctorIdIsNull() {
-            addCriterion("doctor_id is null");
+        public Criteria andHospitalIdIsNull() {
+            addCriterion("hospital_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andDoctorIdIsNotNull() {
-            addCriterion("doctor_id is not null");
+        public Criteria andHospitalIdIsNotNull() {
+            addCriterion("hospital_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDoctorIdEqualTo(Long value) {
-            addCriterion("doctor_id =", value, "doctorId");
+        public Criteria andHospitalIdEqualTo(Long value) {
+            addCriterion("hospital_id =", value, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andDoctorIdNotEqualTo(Long value) {
-            addCriterion("doctor_id <>", value, "doctorId");
+        public Criteria andHospitalIdNotEqualTo(Long value) {
+            addCriterion("hospital_id <>", value, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andDoctorIdGreaterThan(Long value) {
-            addCriterion("doctor_id >", value, "doctorId");
+        public Criteria andHospitalIdGreaterThan(Long value) {
+            addCriterion("hospital_id >", value, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andDoctorIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("doctor_id >=", value, "doctorId");
+        public Criteria andHospitalIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("hospital_id >=", value, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andDoctorIdLessThan(Long value) {
-            addCriterion("doctor_id <", value, "doctorId");
+        public Criteria andHospitalIdLessThan(Long value) {
+            addCriterion("hospital_id <", value, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andDoctorIdLessThanOrEqualTo(Long value) {
-            addCriterion("doctor_id <=", value, "doctorId");
+        public Criteria andHospitalIdLessThanOrEqualTo(Long value) {
+            addCriterion("hospital_id <=", value, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andDoctorIdIn(List<Long> values) {
-            addCriterion("doctor_id in", values, "doctorId");
+        public Criteria andHospitalIdIn(List<Long> values) {
+            addCriterion("hospital_id in", values, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andDoctorIdNotIn(List<Long> values) {
-            addCriterion("doctor_id not in", values, "doctorId");
+        public Criteria andHospitalIdNotIn(List<Long> values) {
+            addCriterion("hospital_id not in", values, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andDoctorIdBetween(Long value1, Long value2) {
-            addCriterion("doctor_id between", value1, value2, "doctorId");
+        public Criteria andHospitalIdBetween(Long value1, Long value2) {
+            addCriterion("hospital_id between", value1, value2, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andDoctorIdNotBetween(Long value1, Long value2) {
-            addCriterion("doctor_id not between", value1, value2, "doctorId");
+        public Criteria andHospitalIdNotBetween(Long value1, Long value2) {
+            addCriterion("hospital_id not between", value1, value2, "hospitalId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdIsNull() {
+            addCriterion("special_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdIsNotNull() {
+            addCriterion("special_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdEqualTo(Long value) {
+            addCriterion("special_id =", value, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdNotEqualTo(Long value) {
+            addCriterion("special_id <>", value, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdGreaterThan(Long value) {
+            addCriterion("special_id >", value, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("special_id >=", value, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdLessThan(Long value) {
+            addCriterion("special_id <", value, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdLessThanOrEqualTo(Long value) {
+            addCriterion("special_id <=", value, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdIn(List<Long> values) {
+            addCriterion("special_id in", values, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdNotIn(List<Long> values) {
+            addCriterion("special_id not in", values, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdBetween(Long value1, Long value2) {
+            addCriterion("special_id between", value1, value2, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdNotBetween(Long value1, Long value2) {
+            addCriterion("special_id not between", value1, value2, "specialId");
             return (Criteria) this;
         }
 
@@ -285,123 +345,183 @@ public class VisitPlanExample {
             return (Criteria) this;
         }
 
-        public Criteria andStartIsNull() {
-            addCriterion("start is null");
+        public Criteria andDoctorIdIsNull() {
+            addCriterion("doctor_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andStartIsNotNull() {
-            addCriterion("start is not null");
+        public Criteria andDoctorIdIsNotNull() {
+            addCriterion("doctor_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStartEqualTo(Date value) {
-            addCriterion("start =", value, "start");
+        public Criteria andDoctorIdEqualTo(Long value) {
+            addCriterion("doctor_id =", value, "doctorId");
             return (Criteria) this;
         }
 
-        public Criteria andStartNotEqualTo(Date value) {
-            addCriterion("start <>", value, "start");
+        public Criteria andDoctorIdNotEqualTo(Long value) {
+            addCriterion("doctor_id <>", value, "doctorId");
             return (Criteria) this;
         }
 
-        public Criteria andStartGreaterThan(Date value) {
-            addCriterion("start >", value, "start");
+        public Criteria andDoctorIdGreaterThan(Long value) {
+            addCriterion("doctor_id >", value, "doctorId");
             return (Criteria) this;
         }
 
-        public Criteria andStartGreaterThanOrEqualTo(Date value) {
-            addCriterion("start >=", value, "start");
+        public Criteria andDoctorIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("doctor_id >=", value, "doctorId");
             return (Criteria) this;
         }
 
-        public Criteria andStartLessThan(Date value) {
-            addCriterion("start <", value, "start");
+        public Criteria andDoctorIdLessThan(Long value) {
+            addCriterion("doctor_id <", value, "doctorId");
             return (Criteria) this;
         }
 
-        public Criteria andStartLessThanOrEqualTo(Date value) {
-            addCriterion("start <=", value, "start");
+        public Criteria andDoctorIdLessThanOrEqualTo(Long value) {
+            addCriterion("doctor_id <=", value, "doctorId");
             return (Criteria) this;
         }
 
-        public Criteria andStartIn(List<Date> values) {
-            addCriterion("start in", values, "start");
+        public Criteria andDoctorIdIn(List<Long> values) {
+            addCriterion("doctor_id in", values, "doctorId");
             return (Criteria) this;
         }
 
-        public Criteria andStartNotIn(List<Date> values) {
-            addCriterion("start not in", values, "start");
+        public Criteria andDoctorIdNotIn(List<Long> values) {
+            addCriterion("doctor_id not in", values, "doctorId");
             return (Criteria) this;
         }
 
-        public Criteria andStartBetween(Date value1, Date value2) {
-            addCriterion("start between", value1, value2, "start");
+        public Criteria andDoctorIdBetween(Long value1, Long value2) {
+            addCriterion("doctor_id between", value1, value2, "doctorId");
             return (Criteria) this;
         }
 
-        public Criteria andStartNotBetween(Date value1, Date value2) {
-            addCriterion("start not between", value1, value2, "start");
+        public Criteria andDoctorIdNotBetween(Long value1, Long value2) {
+            addCriterion("doctor_id not between", value1, value2, "doctorId");
             return (Criteria) this;
         }
 
-        public Criteria andEndIsNull() {
-            addCriterion("end is null");
+        public Criteria andTimePeriodIsNull() {
+            addCriterion("time_period is null");
             return (Criteria) this;
         }
 
-        public Criteria andEndIsNotNull() {
-            addCriterion("end is not null");
+        public Criteria andTimePeriodIsNotNull() {
+            addCriterion("time_period is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEndEqualTo(Date value) {
-            addCriterion("end =", value, "end");
+        public Criteria andTimePeriodEqualTo(Integer value) {
+            addCriterion("time_period =", value, "timePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andEndNotEqualTo(Date value) {
-            addCriterion("end <>", value, "end");
+        public Criteria andTimePeriodNotEqualTo(Integer value) {
+            addCriterion("time_period <>", value, "timePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andEndGreaterThan(Date value) {
-            addCriterion("end >", value, "end");
+        public Criteria andTimePeriodGreaterThan(Integer value) {
+            addCriterion("time_period >", value, "timePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andEndGreaterThanOrEqualTo(Date value) {
-            addCriterion("end >=", value, "end");
+        public Criteria andTimePeriodGreaterThanOrEqualTo(Integer value) {
+            addCriterion("time_period >=", value, "timePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andEndLessThan(Date value) {
-            addCriterion("end <", value, "end");
+        public Criteria andTimePeriodLessThan(Integer value) {
+            addCriterion("time_period <", value, "timePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andEndLessThanOrEqualTo(Date value) {
-            addCriterion("end <=", value, "end");
+        public Criteria andTimePeriodLessThanOrEqualTo(Integer value) {
+            addCriterion("time_period <=", value, "timePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andEndIn(List<Date> values) {
-            addCriterion("end in", values, "end");
+        public Criteria andTimePeriodIn(List<Integer> values) {
+            addCriterion("time_period in", values, "timePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andEndNotIn(List<Date> values) {
-            addCriterion("end not in", values, "end");
+        public Criteria andTimePeriodNotIn(List<Integer> values) {
+            addCriterion("time_period not in", values, "timePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andEndBetween(Date value1, Date value2) {
-            addCriterion("end between", value1, value2, "end");
+        public Criteria andTimePeriodBetween(Integer value1, Integer value2) {
+            addCriterion("time_period between", value1, value2, "timePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andEndNotBetween(Date value1, Date value2) {
-            addCriterion("end not between", value1, value2, "end");
+        public Criteria andTimePeriodNotBetween(Integer value1, Integer value2) {
+            addCriterion("time_period not between", value1, value2, "timePeriod");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayIsNull() {
+            addCriterion("day is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayIsNotNull() {
+            addCriterion("day is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayEqualTo(Date value) {
+            addCriterion("day =", value, "day");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayNotEqualTo(Date value) {
+            addCriterion("day <>", value, "day");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayGreaterThan(Date value) {
+            addCriterion("day >", value, "day");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayGreaterThanOrEqualTo(Date value) {
+            addCriterion("day >=", value, "day");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayLessThan(Date value) {
+            addCriterion("day <", value, "day");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayLessThanOrEqualTo(Date value) {
+            addCriterion("day <=", value, "day");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayIn(List<Date> values) {
+            addCriterion("day in", values, "day");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayNotIn(List<Date> values) {
+            addCriterion("day not in", values, "day");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayBetween(Date value1, Date value2) {
+            addCriterion("day between", value1, value2, "day");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayNotBetween(Date value1, Date value2) {
+            addCriterion("day not between", value1, value2, "day");
             return (Criteria) this;
         }
 
