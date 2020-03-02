@@ -53,7 +53,7 @@ public class VisitPlanController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
     @ApiOperation(value = "更新出诊计划", notes = "传入 出诊编号、出诊计划参数（医院编号、专科编号、门诊编号、诊室编号、医生编号、出诊日期）")
@@ -77,7 +77,7 @@ public class VisitPlanController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
     @ApiOperation(value = "搜索出诊计划", notes = "传入 医生编号、第几页、页大小")
@@ -117,6 +117,6 @@ public class VisitPlanController {
             return CommonResult.success();
         }
 
-        return CommonResult.failed();
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 }
