@@ -1,17 +1,29 @@
 ### 简介
 
-本项目是一个基于[轻量级项目脚手架base-service](https://github.com/YuJian95/base-service)搭建的**医院预约挂号系统**（服务端）。
+> 一个简单的医院预约挂号管理系统。包括 小程序、web管理系统、服务端。
 
-### 技术栈
+如对你有所帮助，麻烦请 **star**、 **watch**、 **fork**，一键三连支持一下！
+
+- [服务端](https://github.com/YuJian95/hospital-service)
+- [小程序端](https://gitee.com/yyyangyx/appointment-wxapp)
+- [web管理系统](https://gitee.com/yyyangyx/appointment-admin)
+
+### 软件界面
+
+- [小程序](https://github.com/YuJian95/Product-Prototype/tree/master/hospital-appointment#%E5%B0%8F%E7%A8%8B%E5%BA%8F)
+
+- [web管理系统](https://github.com/YuJian95/Product-Prototype/tree/master/hospital-appointment#web%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F)
+
+### 主要技术
 
 - `Spring boot + Mybatis` ： 实现基于 RESTful 的前后端分离架构。
 - `Spring security + JWT` ： 实现基于角色的动态权限管理。
-- `Lombok` ： 减少了冗余代码。
 - `Mybatis generator` ： 逆向生成相关实体类与配置文件。并且添加了相关 Swagger 注释。
 - `Knife4j` ： 基于 Swagger + bootstrap 的 API 文档工具。 
 - `阿里云短信服务` : 实现短信发送验证码功能
 - `七牛云文件存储服务`: 实现图片存储
-- `redis` ：实现二级缓存。
+- `Lombok` ： 减少了冗余代码。
+- `Redis` ：实现二级缓存。
 
 ### 部署步骤
 
