@@ -9,6 +9,7 @@ import cn.yujian95.hospital.service.IPowerRoleService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -84,6 +85,40 @@ public class PowerRoleServiceImpl implements IPowerRoleService {
     }
 
     /**
+     * 删除角色信息
+     *
+     * @param roleId 角色编号
+     * @return 是否成功
+     */
+    @Override
+    public boolean delete(Long roleId) {
+        return roleMapper.deleteByPrimaryKey(roleId) > 0;
+    }
+
+    /**
+     * 获取角色列表
+     *
+     * @param chineseName 中文名
+     * @param pageNum     第几页
+     * @param pageSize    页大小
+     * @return 角色列表
+     */
+    @Override
+    public List<PowerRole> list(String chineseName, Integer pageNum, Integer pageSize) {
+
+        PageHelper.startPage(pageNum, pageSize);
+
+        PowerRoleExample example = new PowerRoleExample();
+
+        if (!StringUtils.isEmpty(chineseName)) {
+            example.createCriteria()
+                    .andChineseNameLike("%" + chineseName + "%");
+        }
+
+        return roleMapper.selectByExample(example);
+    }
+
+    /**
      * 修改指定角色权限
      *
      * @param roleId         角色编号
@@ -136,19 +171,4 @@ public class PowerRoleServiceImpl implements IPowerRoleService {
         return roleMapper.countByExample(example) > 0;
     }
 
-    /**
-     * 获取角色列表
-     *
-     * @param pageNum  第几页
-     * @param pageSize 页大小
-     * @return 角色列表
-     */
-    @Override
-    public List<PowerRole> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-
-        PowerRoleExample example = new PowerRoleExample();
-
-        return roleMapper.selectByExample(example);
-    }
 }

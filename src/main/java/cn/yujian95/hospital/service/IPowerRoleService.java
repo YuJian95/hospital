@@ -32,6 +32,14 @@ public interface IPowerRoleService {
     boolean update(Long roleId, PowerRoleParam param);
 
     /**
+     * 删除角色信息
+     *
+     * @param roleId 角色编号
+     * @return 是否成功
+     */
+    boolean delete(Long roleId);
+
+    /**
      * 获取角色所有权限
      *
      * @param roleId 角色编号
@@ -52,11 +60,12 @@ public interface IPowerRoleService {
     /**
      * 获取角色列表
      *
-     * @param pageNum  第几页
-     * @param pageSize 页大小
+     * @param chineseName 中文名
+     * @param pageNum     第几页
+     * @param pageSize    页大小
      * @return 角色列表
      */
-    List<PowerRole> list(Integer pageNum, Integer pageSize);
+    List<PowerRole> list(String chineseName, Integer pageNum, Integer pageSize);
 
     /**
      * 判断角色是否存在

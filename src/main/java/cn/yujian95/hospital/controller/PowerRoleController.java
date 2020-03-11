@@ -34,6 +34,7 @@ public class PowerRoleController {
 
     @ApiOperation(value = "分页：搜索权限角色", notes = "传入 第几页、页大小")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "chineseName", value = "中文名称", paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "Integer",
                     required = true),
             @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer",
@@ -41,10 +42,11 @@ public class PowerRoleController {
     })
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('power:role:list:get')")
-    public CommonResult<CommonPage<PowerRole>> searchRole(@RequestParam Integer pageNum,
+    public CommonResult<CommonPage<PowerRole>> searchRole(@RequestParam(required = false) String chineseName,
+                                                          @RequestParam Integer pageNum,
                                                           @RequestParam Integer pageSize) {
 
-        return CommonResult.success(CommonPage.restPage(roleService.list(pageNum, pageSize)));
+        return CommonResult.success(CommonPage.restPage(roleService.list(chineseName, pageNum, pageSize)));
     }
 
     @ApiOperation(value = "增加权限角色", notes = "传入 权限角色参数")
@@ -71,6 +73,24 @@ public class PowerRoleController {
         }
 
         if (roleService.update(id, param)) {
+            return CommonResult.success();
+        }
+
+        return CommonResult.failed("服务器错误，请联系管理员！");
+    }
+
+    @ApiOperation(value = "删除权限角色", notes = "传入 权限角色编号")
+    @ApiImplicitParam(name = "id", value = "角色编号", paramType = "path", dataType = "Long",
+            required = true)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAnyAuthority('power:role:delete')")
+    public CommonResult deleteRole(@PathVariable Long id) {
+
+        if (!roleService.count(id)) {
+            return CommonResult.validateFailed("不存在，该角色编号！");
+        }
+
+        if (roleService.delete(id)) {
             return CommonResult.success();
         }
 
