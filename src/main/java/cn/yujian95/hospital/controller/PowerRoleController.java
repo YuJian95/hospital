@@ -3,6 +3,7 @@ package cn.yujian95.hospital.controller;
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.dto.param.PowerRoleParam;
+import cn.yujian95.hospital.dto.param.StatusParam;
 import cn.yujian95.hospital.entity.PowerPermission;
 import cn.yujian95.hospital.entity.PowerRole;
 import cn.yujian95.hospital.service.IPowerRoleService;
@@ -114,7 +115,7 @@ public class PowerRoleController {
     @ApiOperation(value = "更新角色所有权限", notes = "传入 权限角色编号")
     @ApiImplicitParam(name = "id", value = "角色编号", paramType = "path", dataType = "Long",
             required = true)
-    @RequestMapping(value = "/permission", method = RequestMethod.PUT)
+    @RequestMapping(value = "/permission/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyAuthority('power:role:permission:put')")
     public CommonResult updateRolePermission(@PathVariable Long id, @RequestBody List<Long> permissionList) {
 
@@ -126,6 +127,24 @@ public class PowerRoleController {
 
         if (count >= 0) {
             return CommonResult.success(count);
+        }
+
+        return CommonResult.failed("服务器错误，请联系管理员！");
+    }
+
+    @ApiOperation(value = "更新角色状态", notes = "传入 权限角色编号、状态参数")
+    @ApiImplicitParam(name = "id", value = "角色编号", paramType = "path", dataType = "Long",
+            required = true)
+    @RequestMapping(value = "/status/{id}", method = RequestMethod.PUT)
+    @PreAuthorize("hasAnyAuthority('power:role:status:put')")
+    public CommonResult updateRoleStatus(@PathVariable Long id, @RequestBody StatusParam param) {
+
+        if (!roleService.count(id)) {
+            return CommonResult.validateFailed("不存在，该角色编号！");
+        }
+
+        if (roleService.updateStatus(id, param)) {
+            return CommonResult.success();
         }
 
         return CommonResult.failed("服务器错误，请联系管理员！");

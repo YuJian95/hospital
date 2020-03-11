@@ -1,6 +1,7 @@
 package cn.yujian95.hospital.service;
 
 import cn.yujian95.hospital.dto.param.PowerRoleParam;
+import cn.yujian95.hospital.dto.param.StatusParam;
 import cn.yujian95.hospital.entity.PowerPermission;
 import cn.yujian95.hospital.entity.PowerRole;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,16 @@ public interface IPowerRoleService {
      * @return 成功记录数
      */
     boolean update(Long roleId, PowerRoleParam param);
+
+
+    /**
+     * 更新角色状态
+     *
+     * @param roleId 角色编号
+     * @param param  状态参数： 0 关闭，1 开启
+     * @return 是否成功
+     */
+    boolean updateStatus(Long roleId, StatusParam param);
 
     /**
      * 删除角色信息

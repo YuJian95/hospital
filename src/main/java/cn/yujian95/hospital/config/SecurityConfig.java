@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
 
-                // 测试时全部运行访问,注释后放开权限验证ls
+                // 测试时全部运行访问,注释后放开权限验证
 //                .antMatchers("/**")
 //                .permitAll()
 

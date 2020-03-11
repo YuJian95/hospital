@@ -1,6 +1,7 @@
 package cn.yujian95.hospital.service.impl;
 
 import cn.yujian95.hospital.dto.param.PowerRoleParam;
+import cn.yujian95.hospital.dto.param.StatusParam;
 import cn.yujian95.hospital.entity.*;
 import cn.yujian95.hospital.mapper.PowerRoleMapper;
 import cn.yujian95.hospital.mapper.PowerRolePermissionRelationMapper;
@@ -50,6 +51,26 @@ public class PowerRoleServiceImpl implements IPowerRoleService {
         role.setGmtModified(date);
 
         return roleMapper.insertSelective(role) > 0;
+    }
+
+    /**
+     * 更新角色状态
+     *
+     * @param roleId 角色编号
+     * @param param  状态参数： 0 关闭，1 开启
+     * @return 是否成功
+     */
+    @Override
+    public boolean updateStatus(Long roleId, StatusParam param) {
+        PowerRole role = new PowerRole();
+
+        role.setId(roleId);
+        role.setStatus(param.getStatus());
+
+        Date date = new Date();
+        role.setGmtModified(date);
+
+        return roleMapper.updateByPrimaryKeySelective(role) > 0;
     }
 
     /**
