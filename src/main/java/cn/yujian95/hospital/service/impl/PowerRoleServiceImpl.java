@@ -4,7 +4,10 @@ import cn.yujian95.hospital.dto.param.PowerRoleParam;
 import cn.yujian95.hospital.dto.param.StatusParam;
 import cn.yujian95.hospital.entity.*;
 import cn.yujian95.hospital.mapper.PowerRoleMapper;
+import cn.yujian95.hospital.mapper.PowerRoleMenuRelationMapper;
 import cn.yujian95.hospital.mapper.PowerRolePermissionRelationMapper;
+import cn.yujian95.hospital.mapper.PowerRoleResourceRelationMapper;
+import cn.yujian95.hospital.mapper.dao.PowerRoleDao;
 import cn.yujian95.hospital.mapper.dao.PowerRolePermissionRelationDao;
 import cn.yujian95.hospital.service.IPowerRoleService;
 import com.github.pagehelper.PageHelper;
@@ -34,6 +37,15 @@ public class PowerRoleServiceImpl implements IPowerRoleService {
     @Resource
     private PowerRolePermissionRelationDao rolePermissionRelationDao;
 
+    @Resource
+    private PowerRoleDao roleDao;
+
+    @Resource
+    private PowerRoleMenuRelationMapper roleMenuRelationMapper;
+
+    @Resource
+    private PowerRoleResourceRelationMapper roleResourceRelationMapper;
+
     /**
      * 添加角色
      *
@@ -52,6 +64,7 @@ public class PowerRoleServiceImpl implements IPowerRoleService {
 
         return roleMapper.insertSelective(role) > 0;
     }
+
 
     /**
      * 更新角色状态
@@ -103,6 +116,23 @@ public class PowerRoleServiceImpl implements IPowerRoleService {
     @Override
     public List<PowerPermission> listPermission(Long roleId) {
         return rolePermissionRelationDao.listPermission(roleId);
+    }
+
+    /**
+     * 批量删除角色
+     *
+     * @param idList 角色编号
+     * @return 成功记录数
+     */
+    @Override
+    public int delete(List<Long> idList) {
+
+        PowerRoleExample example = new PowerRoleExample();
+
+        example.createCriteria()
+                .andIdIn(idList);
+
+        return roleMapper.deleteByExample(example);
     }
 
     /**
@@ -174,6 +204,105 @@ public class PowerRoleServiceImpl implements IPowerRoleService {
         }
 
         return rolePermissionRelationDao.insertList(relationList);
+    }
+
+    /**
+     * 通过账号编号，获取菜单列表
+     *
+     * @param accountId 账号编号
+     * @return 菜单列表
+     */
+    @Override
+    public List<PowerMenu> listMenu(Long accountId) {
+        return roleDao.listMenu(accountId);
+    }
+
+    /**
+     * 通过角色编号，获取资源列表
+     *
+     * @param roleId 角色编号
+     * @return 资源列表
+     */
+    @Override
+    public List<PowerResource> listMenuResource(Long roleId) {
+        return roleDao.listResourceByRoleId(roleId);
+    }
+
+    /**
+     * 通过角色编号，获取菜单列表
+     *
+     * @param roleId 角色编号
+     * @return 菜单列表
+     */
+    @Override
+    public List<PowerMenu> listMenuByRoleId(Long roleId) {
+        return roleDao.listMenuByRoleId(roleId);
+    }
+
+    /**
+     * 更新角色菜单列表
+     *
+     * @param roleId     角色编号
+     * @param menuIdList 菜单列表
+     * @return 是否成功
+     */
+    @Override
+    public boolean allocMenu(Long roleId, List<Long> menuIdList) {
+
+        //先删除原有关系
+        PowerRoleMenuRelationExample example = new PowerRoleMenuRelationExample();
+
+        example.createCriteria()
+                .andRoleIdEqualTo(roleId);
+
+        roleMenuRelationMapper.deleteByExample(example);
+
+        //批量插入新关系
+        for (Long menuId : menuIdList) {
+            PowerRoleMenuRelation relation = new PowerRoleMenuRelation();
+
+            relation.setRoleId(roleId);
+            relation.setMenuId(menuId);
+            relation.setGmtCreate(new Date());
+            relation.setGmtModified(new Date());
+
+            roleMenuRelationMapper.insert(relation);
+        }
+
+        return true;
+    }
+
+    /**
+     * 更新角色资源列表
+     *
+     * @param roleId         角色编号
+     * @param resourceIdList 资源列表
+     * @return 是否成功
+     */
+    @Override
+    public boolean allocResource(Long roleId, List<Long> resourceIdList) {
+        // 先删除原有关系
+        PowerRoleResourceRelationExample example = new PowerRoleResourceRelationExample();
+
+        example.createCriteria()
+                .andRoleIdEqualTo(roleId);
+
+        roleResourceRelationMapper.deleteByExample(example);
+
+        // 批量插入新关系
+        for (Long resourceId : resourceIdList) {
+            PowerRoleResourceRelation relation = new PowerRoleResourceRelation();
+
+            relation.setRoleId(roleId);
+            relation.setResourceId(resourceId);
+
+            relation.setGmtCreate(new Date());
+            relation.setGmtModified(new Date());
+
+            roleResourceRelationMapper.insert(relation);
+        }
+
+        return true;
     }
 
     /**

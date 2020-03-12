@@ -5,6 +5,8 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="chinese_name" jdbcType="VARCHAR" property="chineseName" />
+    <result column="admin_count" jdbcType="INTEGER" property="adminCount" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, chinese_name, status, gmt_create, gmt_modified
+    id, name, chinese_name, admin_count, sort, status, gmt_create, gmt_modified
   </sql>
   <select id="selectByExample" parameterType="cn.yujian95.hospital.entity.PowerRoleExample" resultMap="BaseResultMap">
     select
@@ -102,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="cn.yujian95.hospital.entity.PowerRole">
     insert into power_role (id, name, chinese_name, 
-      status, gmt_create, gmt_modified
-      )
+      admin_count, sort, status, 
+      gmt_create, gmt_modified)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{chineseName,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
-      )
+      #{adminCount,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.yujian95.hospital.entity.PowerRole">
     insert into power_role
@@ -119,6 +121,12 @@
       </if>
       <if test="chineseName != null">
         chinese_name,
+      </if>
+      <if test="adminCount != null">
+        admin_count,
+      </if>
+      <if test="sort != null">
+        sort,
       </if>
       <if test="status != null">
         status,
@@ -139,6 +147,12 @@
       </if>
       <if test="chineseName != null">
         #{chineseName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminCount != null">
+        #{adminCount,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -169,6 +183,12 @@
       <if test="record.chineseName != null">
         chinese_name = #{record.chineseName,jdbcType=VARCHAR},
       </if>
+      <if test="record.adminCount != null">
+        admin_count = #{record.adminCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
@@ -188,6 +208,8 @@
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       chinese_name = #{record.chineseName,jdbcType=VARCHAR},
+      admin_count = #{record.adminCount,jdbcType=INTEGER},
+      sort = #{record.sort,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
@@ -203,6 +225,12 @@
       </if>
       <if test="chineseName != null">
         chinese_name = #{chineseName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminCount != null">
+        admin_count = #{adminCount,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -220,6 +248,8 @@
     update power_role
     set name = #{name,jdbcType=VARCHAR},
       chinese_name = #{chineseName,jdbcType=VARCHAR},
+      admin_count = #{adminCount,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}

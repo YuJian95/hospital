@@ -5,6 +5,8 @@ import cn.yujian95.hospital.dto.param.PowerAccountStatusParam;
 import cn.yujian95.hospital.dto.param.UserRegisterParam;
 import cn.yujian95.hospital.entity.PowerAccount;
 import cn.yujian95.hospital.entity.PowerPermission;
+import cn.yujian95.hospital.entity.PowerResource;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -134,5 +136,21 @@ public interface IPowerAccountService {
      * @param name 用户名称
      */
     void updateLoginTime(String name);
+
+    /**
+     * 通过账号编号，获取资源列表
+     *
+     * @param accountId 账号编号
+     * @return 资源列表
+     */
+    List<PowerResource> listResource(Long accountId);
+
+    /**
+     * 通过用户账号名称，获取用户详情
+     *
+     * @param userName 用户账号名称
+     * @return 用户详情
+     */
+    UserDetails loadUserByUserName(String userName);
 
 }

@@ -6,6 +6,7 @@ import cn.yujian95.hospital.dto.param.PowerAccountStatusParam;
 import cn.yujian95.hospital.entity.PowerAccount;
 import cn.yujian95.hospital.entity.PowerPermission;
 import cn.yujian95.hospital.service.IPowerAccountService;
+import cn.yujian95.hospital.service.IPowerRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -34,6 +37,9 @@ public class PowerAccountController {
 
     @Resource
     private IPowerAccountService accountService;
+
+    @Resource
+    private IPowerRoleService roleService;
 
     @ApiOperation(value = "验证账号名称", notes = "传入 账号名称, 返回是否存在")
     @ApiImplicitParam(name = "name", value = "账号名称", paramType = "query", dataType = "String",
@@ -88,10 +94,9 @@ public class PowerAccountController {
 
     @ApiOperation(value = "获取当前账号信息", notes = "无需参数，通过 jwt校验")
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('power:account:info:get')")
-    public CommonResult<PowerAccount> getCurrentAccount(Principal principal) {
+    public CommonResult<Map<String, Object>> getCurrentAccount(Principal principal) {
         if (principal == null) {
-            return CommonResult.validateFailed();
+            return CommonResult.unauthorized(null);
         }
 
         String name = principal.getName();
@@ -100,10 +105,16 @@ public class PowerAccountController {
 
         if (accountOptional.isPresent()) {
 
+            Map<String, Object> info = new HashMap<>();
+
             PowerAccount account = accountOptional.get();
             account.setPassword(null);
 
-            return CommonResult.success(account);
+            info.put("userName", account.getName());
+            info.put("roles", new String[]{"TEST"});
+            info.put("menus", roleService.listMenu(account.getId()));
+
+            return CommonResult.success(info);
         }
 
         return CommonResult.failed("服务器错误，请联系管理员！");
@@ -125,7 +136,6 @@ public class PowerAccountController {
 
     @ApiOperation(value = "更新账号状态", notes = "传入 账号编号、账号状态（1：开启，0：关闭）")
     @RequestMapping(value = "/status", method = RequestMethod.PUT)
-    @PreAuthorize("hasAuthority('power:account:status:put')")
     public CommonResult updateAccountStatus(@RequestBody PowerAccountStatusParam param) {
 
         if (param.getStatus() > 1 || param.getStatus() < 0) {
@@ -147,7 +157,6 @@ public class PowerAccountController {
     @ApiImplicitParam(name = "accountId", value = "账号编号", paramType = "query", dataType = "Long",
             required = true)
     @RequestMapping(value = "/role", method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('power:account:role:post')")
     public CommonResult<Integer> updateAccountRoleRelation(@RequestParam Long accountId,
                                                            @RequestBody List<Long> roleIdList) {
         if (!accountService.count(accountId)) {

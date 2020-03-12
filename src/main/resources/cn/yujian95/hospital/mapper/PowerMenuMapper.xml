@@ -3,7 +3,7 @@
 <mapper namespace="cn.yujian95.hospital.mapper.PowerMenuMapper">
   <resultMap id="BaseResultMap" type="cn.yujian95.hospital.entity.PowerMenu">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="parentId" jdbcType="BIGINT" property="parentid" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="level" jdbcType="INTEGER" property="level" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, parentId, title, level, sort, name, icon, hidden, gmt_create, gmt_modified
+    id, parent_id, title, level, sort, name, icon, hidden, gmt_create, gmt_modified
   </sql>
   <select id="selectByExample" parameterType="cn.yujian95.hospital.entity.PowerMenuExample" resultMap="BaseResultMap">
     select
@@ -105,11 +105,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.yujian95.hospital.entity.PowerMenu">
-    insert into power_menu (id, parentId, title, 
+    insert into power_menu (id, parent_id, title, 
       level, sort, name, 
       icon, hidden, gmt_create, 
       gmt_modified)
-    values (#{id,jdbcType=BIGINT}, #{parentid,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
       #{level,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{icon,jdbcType=VARCHAR}, #{hidden,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModified,jdbcType=TIMESTAMP})
@@ -120,8 +120,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="parentid != null">
-        parentId,
+      <if test="parentId != null">
+        parent_id,
       </if>
       <if test="title != null">
         title,
@@ -152,8 +152,8 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="parentid != null">
-        #{parentid,jdbcType=BIGINT},
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -193,8 +193,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.parentid != null">
-        parentId = #{record.parentid,jdbcType=BIGINT},
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=BIGINT},
       </if>
       <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
@@ -228,7 +228,7 @@
   <update id="updateByExample" parameterType="map">
     update power_menu
     set id = #{record.id,jdbcType=BIGINT},
-      parentId = #{record.parentid,jdbcType=BIGINT},
+      parent_id = #{record.parentId,jdbcType=BIGINT},
       title = #{record.title,jdbcType=VARCHAR},
       level = #{record.level,jdbcType=INTEGER},
       sort = #{record.sort,jdbcType=INTEGER},
@@ -244,8 +244,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.yujian95.hospital.entity.PowerMenu">
     update power_menu
     <set>
-      <if test="parentid != null">
-        parentId = #{parentid,jdbcType=BIGINT},
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
       </if>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
@@ -276,7 +276,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.yujian95.hospital.entity.PowerMenu">
     update power_menu
-    set parentId = #{parentid,jdbcType=BIGINT},
+    set parent_id = #{parentId,jdbcType=BIGINT},
       title = #{title,jdbcType=VARCHAR},
       level = #{level,jdbcType=INTEGER},
       sort = #{sort,jdbcType=INTEGER},

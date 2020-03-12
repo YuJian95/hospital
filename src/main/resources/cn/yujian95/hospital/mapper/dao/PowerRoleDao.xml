@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yujian95.hospital.mapper.dao.PowerRoleDao">
+
+    <select id="listMenu" resultType="cn.yujian95.hospital.entity.PowerMenu">
+        SELECT
+            m.id id,
+            m.parent_id parentId,
+            m.gmt_create gmtCreate,
+            m.gmt_modified gmtmodified,
+            m.title title,
+            m.level level,
+            m.sort sort,
+            m.name name,
+            m.icon icon,
+            m.hidden hidden
+        FROM
+            power_account_role_relation arr
+                LEFT JOIN power_role r ON arr.role_id = r.id
+                LEFT JOIN power_role_menu_relation rmr ON r.id = rmr.role_id
+                LEFT JOIN power_menu m ON rmr.menu_id = m.id
+        WHERE
+            arr.account_id = #{id}
+          AND m.id IS NOT NULL
+        GROUP BY
+            m.id
+    </select>
+    <select id="listMenuByRoleId" resultType="cn.yujian95.hospital.entity.PowerMenu">
+        SELECT
+            m.id id,
+            m.parent_id parentId,
+            m.gmt_create gmtCreate,
+            m.gmt_modified gmtmodified,
+            m.title title,
+            m.level level,
+            m.sort sort,
+            m.name name,
+            m.icon icon,
+            m.hidden hidden
+        FROM
+            power_role_menu_relation rmr
+                LEFT JOIN power_menu m ON rmr.menu_id = m.id
+        WHERE
+            rmr.role_id = #{roleId}
+          AND m.id IS NOT NULL
+        GROUP BY
+            m.id
+    </select>
+    <select id="listResourceByRoleId" resultType="cn.yujian95.hospital.entity.PowerResource">
+        SELECT
+            r.id id,
+            r.gmt_create gmtCreate,
+            r.gmt_modified gmtmodified,
+            r.`name` `name`,
+            r.url url,
+            r.description description,
+            r.category_id categoryId
+        FROM
+            power_role_resource_relation rrr
+                LEFT JOIN power_resource r ON rrr.resource_id = r.id
+        WHERE
+            rrr.role_id = #{roleId}
+          AND r.id IS NOT NULL
+        GROUP BY
+            r.id
+    </select>
+</mapper>

@@ -30,6 +30,22 @@ public class PowerRole implements Serializable {
     private String chineseName;
 
     /**
+     * 用户数目
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "用户数目")
+    private Integer adminCount;
+
+    /**
+     * 排序 越小越靠前
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "排序 越小越靠前")
+    private Integer sort;
+
+    /**
      * 角色状态 1：启用，0：禁用
      *
      * @mbg.generated
@@ -79,6 +95,22 @@ public class PowerRole implements Serializable {
         this.chineseName = chineseName == null ? null : chineseName.trim();
     }
 
+    public Integer getAdminCount() {
+        return adminCount;
+    }
+
+    public void setAdminCount(Integer adminCount) {
+        this.adminCount = adminCount;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -112,6 +144,8 @@ public class PowerRole implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", chineseName=").append(chineseName);
+        sb.append(", adminCount=").append(adminCount);
+        sb.append(", sort=").append(sort);
         sb.append(", status=").append(status);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);

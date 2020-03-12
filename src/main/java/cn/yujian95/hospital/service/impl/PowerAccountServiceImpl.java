@@ -1,5 +1,6 @@
 package cn.yujian95.hospital.service.impl;
 
+import cn.yujian95.hospital.common.security.AccountDetails;
 import cn.yujian95.hospital.common.security.JwtTokenUtil;
 import cn.yujian95.hospital.dto.param.PowerAccountPasswordParam;
 import cn.yujian95.hospital.dto.param.PowerAccountRegisterParam;
@@ -23,6 +24,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -333,6 +335,38 @@ public class PowerAccountServiceImpl implements IPowerAccountService {
         account.setGmtModified(new Date());
 
         return accountMapper.updateByPrimaryKeySelective(account) > 0;
+    }
+
+    /**
+     * 通过用户账号名称，获取用户详情
+     *
+     * @param userName 用户账号名称
+     * @return 用户详情
+     */
+    @Override
+    public UserDetails loadUserByUserName(String userName) {
+        Optional<PowerAccount> accountOptional = getByName(userName);
+
+        if (accountOptional.isPresent()) {
+            PowerAccount account = accountOptional.get();
+
+            List<PowerResource> resourceList = listResource(account.getId());
+
+            return new AccountDetails(account, resourceList);
+        }
+
+        throw new UsernameNotFoundException("用户名或密码错误！");
+    }
+
+    /**
+     * 通过账号编号，获取资源列表
+     *
+     * @param accountId 账号编号
+     * @return 资源列表
+     */
+    @Override
+    public List<PowerResource> listResource(Long accountId) {
+        return accountRoleRelationDao.getResourceList(accountId);
     }
 
     /**

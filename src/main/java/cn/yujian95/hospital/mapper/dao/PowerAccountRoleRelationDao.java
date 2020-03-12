@@ -2,6 +2,7 @@ package cn.yujian95.hospital.mapper.dao;
 
 import cn.yujian95.hospital.entity.PowerAccountRoleRelation;
 import cn.yujian95.hospital.entity.PowerPermission;
+import cn.yujian95.hospital.entity.PowerResource;
 import cn.yujian95.hospital.entity.PowerRole;
 
 import java.util.List;
@@ -43,4 +44,12 @@ public interface PowerAccountRoleRelationDao {
      * @return 所有权限
      */
     List<PowerPermission> getPermissionList(Long accountId);
+
+    /**
+     * 获取用户所有可访问资源
+     *
+     * @param accountId 账号编号
+     * @return 资源列表
+     */
+    List<PowerResource> getResourceList(Long accountId);
 }

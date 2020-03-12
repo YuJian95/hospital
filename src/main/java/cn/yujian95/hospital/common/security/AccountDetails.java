@@ -2,6 +2,7 @@ package cn.yujian95.hospital.common.security;
 
 import cn.yujian95.hospital.entity.PowerAccount;
 import cn.yujian95.hospital.entity.PowerPermission;
+import cn.yujian95.hospital.entity.PowerResource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,13 +26,13 @@ public class AccountDetails implements UserDetails {
     private PowerAccount account;
 
     /**
-     * 账号拥有的所有权限
+     * 账号拥护资源列表
      */
-    private List<PowerPermission> permissionList;
+    private List<PowerResource> resourceList;
 
-    public AccountDetails(PowerAccount account, List<PowerPermission> powerPermissions) {
+    public AccountDetails(PowerAccount account, List<PowerResource> resourceList) {
         this.account = account;
-        this.permissionList = powerPermissions;
+        this.resourceList = resourceList;
     }
 
     /**
@@ -42,14 +43,9 @@ public class AccountDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        //返回当前用户的权限
-        return permissionList.stream()
-                // 过滤调权限值为空的情况。
-                // 注意权限值为“ "的情况会报错 A granted authority textual representation is required
-                // 这是因为 SimpleGrantAuthority（String role）为空。
-                .filter(permission -> permission.getValue() != null)
-                // 将权限值 转换为 SimpleGrantedAuthority对象
-                .map(permission -> new SimpleGrantedAuthority(permission.getValue()))
+        //返回当前用户的角色
+        return resourceList.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getId() + ":" + role.getName()))
                 .collect(Collectors.toList());
     }
 

@@ -2,7 +2,9 @@ package cn.yujian95.hospital.service;
 
 import cn.yujian95.hospital.dto.param.PowerRoleParam;
 import cn.yujian95.hospital.dto.param.StatusParam;
+import cn.yujian95.hospital.entity.PowerMenu;
 import cn.yujian95.hospital.entity.PowerPermission;
+import cn.yujian95.hospital.entity.PowerResource;
 import cn.yujian95.hospital.entity.PowerRole;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +53,14 @@ public interface IPowerRoleService {
     boolean delete(Long roleId);
 
     /**
+     * 批量删除角色
+     *
+     * @param idList 角色编号
+     * @return 成功记录数
+     */
+    int delete(List<Long> idList);
+
+    /**
      * 获取角色所有权限
      *
      * @param roleId 角色编号
@@ -85,4 +95,46 @@ public interface IPowerRoleService {
      * @return 是否存在
      */
     boolean count(Long id);
+
+    /**
+     * 通过账号编号，获取菜单列表
+     *
+     * @param accountId 账号编号
+     * @return 菜单列表
+     */
+    List<PowerMenu> listMenu(Long accountId);
+
+    /**
+     * 通过角色编号，获取菜单列表
+     *
+     * @param roleId 角色编号
+     * @return 菜单列表
+     */
+    List<PowerMenu> listMenuByRoleId(Long roleId);
+
+    /**
+     * 通过角色编号，获取资源列表
+     *
+     * @param roleId 角色编号
+     * @return 资源列表
+     */
+    List<PowerResource> listMenuResource(Long roleId);
+
+    /**
+     * 更新角色菜单列表
+     *
+     * @param roleId     角色编号
+     * @param menuIdList 菜单列表
+     * @return 是否成功
+     */
+    boolean allocMenu(Long roleId, List<Long> menuIdList);
+
+    /**
+     * 更新角色资源列表
+     *
+     * @param roleId         角色编号
+     * @param resourceIdList 资源列表
+     * @return 是否成功
+     */
+    boolean allocResource(Long roleId, List<Long> resourceIdList);
 }

@@ -19,7 +19,7 @@ public class PowerMenu implements Serializable {
      * @mbg.generated
      */
     @ApiModelProperty(value = "父级菜单")
-    private Long parentid;
+    private Long parentId;
 
     /**
      * 菜单名称
@@ -95,12 +95,12 @@ public class PowerMenu implements Serializable {
         this.id = id;
     }
 
-    public Long getParentid() {
-        return parentid;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setParentid(Long parentid) {
-        this.parentid = parentid;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public String getTitle() {
@@ -174,7 +174,7 @@ public class PowerMenu implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", parentid=").append(parentid);
+        sb.append(", parentId=").append(parentId);
         sb.append(", title=").append(title);
         sb.append(", level=").append(level);
         sb.append(", sort=").append(sort);
