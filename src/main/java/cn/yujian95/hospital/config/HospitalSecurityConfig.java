@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -36,27 +37,27 @@ public class HospitalSecurityConfig extends SecurityConfig {
     @Override
     @Bean
     public UserDetailsService userDetailsService() {
-        //获取登录用户信息
+        // 获取登录用户信息
         return username -> accountService.loadUserByUserName(username);
     }
 
     @Bean
     public IDynamicSecurityService dynamicSecurityService() {
 
-        return new IDynamicSecurityService() {
-            @Override
-            public Map<String, ConfigAttribute> loadDataSource() {
+        return () -> {
 
-                Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
+            Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
 
-                List<PowerResource> resourceList = resourceService.listAll();
+// TODO fix resultMap error.
+// List<PowerResource> resourceList = resourceService.listAll();
 
-                for (PowerResource resource : resourceList) {
-                    map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
-                }
+            List<PowerResource> resourceList = new ArrayList<>();
 
-                return map;
+            for (PowerResource resource : resourceList) {
+                map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
             }
+
+            return map;
         };
     }
 }

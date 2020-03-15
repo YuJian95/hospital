@@ -24,7 +24,7 @@ public class PowerResourceCategoryController {
     @Resource
     private IPowerResourceCategoryService resourceCategoryService;
 
-    @ApiOperation("查询所有后台资源分类")
+    @ApiOperation("查询所有权限资源分类")
     @RequestMapping(value = "/category/list", method = RequestMethod.GET)
     public CommonResult<List<PowerResourceCategory>> listAllCategory() {
 
@@ -33,7 +33,7 @@ public class PowerResourceCategoryController {
         return CommonResult.success(resourceList);
     }
 
-    @ApiOperation("添加后台资源分类")
+    @ApiOperation("添加权限资源分类")
     @RequestMapping(value = "/category", method = RequestMethod.POST)
     public CommonResult insertCategory(@RequestBody PowerResourceCategoryParam param) {
 
@@ -44,7 +44,7 @@ public class PowerResourceCategoryController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation("修改后台资源分类")
+    @ApiOperation("修改权限资源分类")
     @RequestMapping(value = "/category/{id}", method = RequestMethod.PUT)
     public CommonResult updateCategory(@PathVariable Long id, @RequestBody PowerResourceCategoryParam param) {
 
@@ -59,7 +59,7 @@ public class PowerResourceCategoryController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation("根据ID删除后台资源")
+    @ApiOperation("删除权限资源")
     @RequestMapping(value = "/category/{id}", method = RequestMethod.DELETE)
     public CommonResult deleteCategory(@PathVariable Long id) {
 

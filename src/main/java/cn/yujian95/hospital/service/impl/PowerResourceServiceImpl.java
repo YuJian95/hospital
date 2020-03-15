@@ -145,8 +145,6 @@ public class PowerResourceServiceImpl implements IPowerResourceService {
 
         PowerResourceExample example = new PowerResourceExample();
 
-//        return resourceMapper.selectByExample(example);
-
-        return new ArrayList<>();
+        return resourceMapper.selectByExample(example);
     }
 }

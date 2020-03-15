@@ -50,7 +50,6 @@ public class PowerAccountController {
 
     @ApiOperation(value = "管理账号注册", notes = "传入 注册对象参数（账号名称、密码）")
     @RequestMapping(value = "/admin/register", method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('power:account:admin:register:post')")
     public CommonResult registerAccount(@RequestBody PowerAccountRegisterParam param) {
         if (accountService.count(param.getName())) {
             return CommonResult.validateFailed("该账号名称已存在！");

@@ -41,7 +41,6 @@ public class LogController {
             @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer", required = true),
     })
     @RequestMapping(value = "/account/login/list", method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('log:account:login:list:get')")
     public CommonResult<CommonPage<LogAccountLogin>> searchAccountLogin(@RequestParam(required = false) String accountName,
                                                                         @RequestParam Integer pageNum,
                                                                         @RequestParam Integer pageSize) {
@@ -58,7 +57,6 @@ public class LogController {
             @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer", required = true),
     })
     @RequestMapping(value = "/operation/list", method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('log:opreation:list:get')")
     public CommonResult<CommonPage<LogOperation>> searchOperation(@RequestParam(required = false) String accountName,
                                                                   @RequestParam(required = false) String method,
                                                                   @RequestParam Integer pageNum,

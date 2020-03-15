@@ -35,7 +35,6 @@ public class HospitalInfoController {
 
     @ApiOperation(value = "添加医院信息", notes = "传入 医院信息参数（名称，图片、电话，地址，简介）")
     @RequestMapping(value = "/info", method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('hospital:info:post')")
     public CommonResult insertHospitalInfo(@RequestBody HospitalInfoParam param) {
 
         if (infoService.count(param.getPhone())) {
@@ -52,7 +51,6 @@ public class HospitalInfoController {
     @ApiOperation(value = "更新医院信息", notes = "传入 医院编号、医院信息参数（名称，图片、电话，地址，简介）")
     @ApiImplicitParam(name = "id", value = "医院编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/info/{id}", method = RequestMethod.PUT)
-    @PreAuthorize("hasAuthority('hospital:info:put')")
     public CommonResult updateHospitalInfo(@PathVariable Long id, @RequestBody HospitalInfoParam param) {
 
         if (infoService.count(param.getPhone())) {
@@ -73,7 +71,6 @@ public class HospitalInfoController {
     @ApiOperation(value = "删除医院信息", notes = "传入 医院编号")
     @ApiImplicitParam(name = "id", value = "医院编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/info/{id}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasAuthority('hospital:info:delete')")
     public CommonResult deleteHospitalInfo(@PathVariable Long id) {
 
         if (!infoService.count(id)) {

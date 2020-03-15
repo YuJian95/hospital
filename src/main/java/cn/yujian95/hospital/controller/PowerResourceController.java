@@ -30,7 +30,7 @@ public class PowerResourceController {
     @Resource
     private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
 
-    @ApiOperation("添加后台资源")
+    @ApiOperation("添加权限资源")
     @RequestMapping(value = "/resource", method = RequestMethod.POST)
     public CommonResult insertResource(@RequestBody PowerResourceParam param) {
 
@@ -42,7 +42,7 @@ public class PowerResourceController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation("修改后台资源")
+    @ApiOperation("修改权限资源")
     @RequestMapping(value = "/resource/{id}", method = RequestMethod.PUT)
     public CommonResult updateResource(@PathVariable Long id, @RequestBody PowerResourceParam param) {
 
@@ -58,7 +58,7 @@ public class PowerResourceController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation("根据ID获取资源详情")
+    @ApiOperation("获取资源详情")
     @RequestMapping(value = "/resource/{id}", method = RequestMethod.GET)
     public CommonResult<PowerResource> getResource(@PathVariable Long id) {
 
@@ -73,7 +73,7 @@ public class PowerResourceController {
 
     }
 
-    @ApiOperation("根据ID删除后台资源")
+    @ApiOperation("删除权限资源")
     @RequestMapping(value = "/resource/{id}", method = RequestMethod.DELETE)
     public CommonResult deleteResource(@PathVariable Long id) {
 
@@ -89,7 +89,7 @@ public class PowerResourceController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation("分页模糊查询后台资源")
+    @ApiOperation("分页：模糊查询权限资源")
     @RequestMapping(value = "/resource/search", method = RequestMethod.GET)
     public CommonResult<CommonPage<PowerResource>> listResource(@RequestParam(required = false) Long categoryId,
                                                                 @RequestParam(required = false) String nameKeyword,
@@ -100,7 +100,7 @@ public class PowerResourceController {
         return CommonResult.success(CommonPage.restPage(resourceList));
     }
 
-    @ApiOperation("查询所有后台资源")
+    @ApiOperation("查询所有权限资源")
     @RequestMapping(value = "/resource/list", method = RequestMethod.GET)
     public CommonResult<List<PowerResource>> listAllResource() {
         List<PowerResource> resourceList = resourceService.listAll();

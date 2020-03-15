@@ -43,7 +43,6 @@ public class PowerRoleController {
                     required = true),
     })
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('power:role:list:get')")
     public CommonResult<CommonPage<PowerRole>> searchRole(@RequestParam(required = false) String chineseName,
                                                           @RequestParam Integer pageNum,
                                                           @RequestParam Integer pageSize) {
@@ -53,7 +52,6 @@ public class PowerRoleController {
 
     @ApiOperation(value = "增加权限角色", notes = "传入 权限角色参数")
     @RequestMapping(value = "", method = RequestMethod.POST)
-    @PreAuthorize("hasAnyAuthority('power:role:post')")
     public CommonResult insertRole(@RequestBody PowerRoleParam param) {
 
         if (roleService.insert(param)) {
@@ -67,7 +65,6 @@ public class PowerRoleController {
     @ApiImplicitParam(name = "id", value = "角色编号", paramType = "path", dataType = "Long",
             required = true)
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @PreAuthorize("hasAnyAuthority('power:role:put')")
     public CommonResult updateRole(@PathVariable Long id, @RequestBody PowerRoleParam param) {
 
         if (!roleService.count(id)) {
@@ -85,7 +82,6 @@ public class PowerRoleController {
     @ApiImplicitParam(name = "id", value = "角色编号", paramType = "path", dataType = "Long",
             required = true)
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasAnyAuthority('power:role:delete')")
     public CommonResult deleteRole(@PathVariable Long id) {
 
         if (!roleService.count(id)) {
@@ -104,7 +100,6 @@ public class PowerRoleController {
     @ApiImplicitParam(name = "id", value = "角色编号", paramType = "path", dataType = "Long",
             required = true)
     @RequestMapping(value = "/status/{id}", method = RequestMethod.PUT)
-    @PreAuthorize("hasAnyAuthority('power:role:status:put')")
     public CommonResult updateRoleStatus(@PathVariable Long id, @RequestBody StatusParam param) {
 
         if (!roleService.count(id)) {

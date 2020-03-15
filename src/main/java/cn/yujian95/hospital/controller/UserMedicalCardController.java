@@ -56,7 +56,6 @@ public class UserMedicalCardController {
                     required = true),
     })
     @RequestMapping(value = "/card/list", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('user:card:list:get')")
     public CommonResult<CommonPage<UserMedicalCard>> searchMedicalCard(@RequestParam(required = false) String name,
                                                                        @RequestParam(required = false) String phone,
                                                                        @RequestParam(defaultValue = "0") Integer gender,

@@ -135,7 +135,6 @@ public class UserBasicInfoController {
     @ApiImplicitParam(name = "id", value = "用户编号", paramType = "path", dataType = "Long",
             required = true)
     @RequestMapping(value = "/basic/{id}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasAuthority('user:basic:delete')")
     public CommonResult deleteBasicInfo(@PathVariable Long id) {
         if (!basicInfoService.count(id)) {
             return CommonResult.validateFailed("不存在，该用户编号！");
@@ -157,7 +156,6 @@ public class UserBasicInfoController {
             @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer",
                     required = true),
     })
-    @PreAuthorize("hasAnyAuthority('user:basic:list:get')")
     @RequestMapping(value = "/basic/list", method = RequestMethod.GET)
     public CommonResult<CommonPage<UserBasicInfo>> searchBasicInfo(@RequestParam(required = false) String name,
                                                                    @RequestParam(required = false) String phone,

@@ -28,7 +28,7 @@ public class PowerMenuController {
     @Resource
     private IPowerMenuService menuService;
 
-    @ApiOperation("添加后台菜单")
+    @ApiOperation("添加权限菜单")
     @RequestMapping(value = "/menu", method = RequestMethod.POST)
     public CommonResult insertMenu(@RequestBody PowerMenuParam param) {
 
@@ -40,7 +40,7 @@ public class PowerMenuController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation("修改后台菜单")
+    @ApiOperation("修改权限菜单")
     @RequestMapping(value = "/menu/{id}", method = RequestMethod.PUT)
     public CommonResult updateMenu(@PathVariable Long id, @RequestBody PowerMenuParam param) {
 
@@ -55,7 +55,7 @@ public class PowerMenuController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation("根据ID获取菜单详情")
+    @ApiOperation("获取菜单详情")
     @RequestMapping(value = "/menu/{id}", method = RequestMethod.GET)
     public CommonResult<PowerMenu> getMenu(@PathVariable Long id) {
         if (!menuService.count(id)) {
@@ -69,7 +69,7 @@ public class PowerMenuController {
 
     }
 
-    @ApiOperation("根据ID删除后台菜单")
+    @ApiOperation("删除权限菜单")
     @RequestMapping(value = "/menu/{id}", method = RequestMethod.DELETE)
     public CommonResult deleteMenu(@PathVariable Long id) {
         if (!menuService.count(id)) {
@@ -83,7 +83,7 @@ public class PowerMenuController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation("分页查询后台菜单")
+    @ApiOperation("分页查询权限菜单")
     @RequestMapping(value = "/menu/list/{parentId}", method = RequestMethod.GET)
     public CommonResult<CommonPage<PowerMenu>> listMenu(@PathVariable Long parentId,
                                                         @RequestParam(defaultValue = "1") Integer pageNum,
