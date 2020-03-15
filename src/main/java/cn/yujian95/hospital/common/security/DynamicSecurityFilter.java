@@ -40,11 +40,13 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         FilterInvocation fi = new FilterInvocation(servletRequest, servletResponse, filterChain);
+
         // OPTIONS请求直接放行
         if(request.getMethod().equals(HttpMethod.OPTIONS.toString())){
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
             return;
         }
+
         // 白名单请求直接放行
         PathMatcher pathMatcher = new AntPathMatcher();
         for (String path : ignoreUrlsConfig.getUrls()) {
@@ -53,6 +55,7 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
                 return;
             }
         }
+
         // 此处会调用AccessDecisionManager中的decide方法进行鉴权操作
         InterceptorStatusToken token = super.beforeInvocation(fi);
         try {

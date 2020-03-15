@@ -5,6 +5,7 @@ import cn.yujian95.hospital.common.api.RestfulAuthenticationEntryPoint;
 import cn.yujian95.hospital.config.IgnoreUrlsConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.annotation.Resource;
+
 /**
  * Spring Security 配置类
  *
@@ -30,13 +33,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired(required = false)
     private IDynamicSecurityService dynamicSecurityService;
 
+    @Resource
+    private IgnoreUrlsConfig ignoreUrlsConfig;
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity
                 .authorizeRequests();
 
         // 不需要保护的资源路径允许访问
-        for (String url : ignoreUrlsConfig().getUrls()) {
+        for (String url : ignoreUrlsConfig.getUrls()) {
             registry.antMatchers(url).permitAll();
         }
 
@@ -103,11 +109,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public RestfulAuthenticationEntryPoint restAuthenticationEntryPoint() {
         return new RestfulAuthenticationEntryPoint();
-    }
-
-    @Bean
-    public IgnoreUrlsConfig ignoreUrlsConfig() {
-        return new IgnoreUrlsConfig();
     }
 
     @Bean

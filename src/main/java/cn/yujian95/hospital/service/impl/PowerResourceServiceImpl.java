@@ -11,9 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author YuJian95  clj9509@163.com
@@ -147,6 +145,8 @@ public class PowerResourceServiceImpl implements IPowerResourceService {
 
         PowerResourceExample example = new PowerResourceExample();
 
-        return resourceMapper.selectByExample(example);
+//        return resourceMapper.selectByExample(example);
+
+        return new ArrayList<>();
     }
 }
