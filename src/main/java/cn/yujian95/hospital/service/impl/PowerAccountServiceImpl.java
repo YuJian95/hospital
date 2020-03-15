@@ -2,15 +2,12 @@ package cn.yujian95.hospital.service.impl;
 
 import cn.yujian95.hospital.common.security.AccountDetails;
 import cn.yujian95.hospital.common.security.JwtTokenUtil;
-import cn.yujian95.hospital.dto.param.PowerAccountPasswordParam;
 import cn.yujian95.hospital.dto.param.PowerAccountRegisterParam;
 import cn.yujian95.hospital.dto.param.PowerAccountStatusParam;
 import cn.yujian95.hospital.dto.param.UserRegisterParam;
 import cn.yujian95.hospital.entity.*;
 import cn.yujian95.hospital.mapper.PowerAccountMapper;
-import cn.yujian95.hospital.mapper.PowerAccountPermissionRelationMapper;
 import cn.yujian95.hospital.mapper.PowerAccountRoleRelationMapper;
-import cn.yujian95.hospital.mapper.dao.PowerAccountPermissionRelationDao;
 import cn.yujian95.hospital.mapper.dao.PowerAccountRoleRelationDao;
 import cn.yujian95.hospital.service.ILogAccountLoginService;
 import cn.yujian95.hospital.service.IPowerAccountService;
@@ -34,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author YuJian95  clj9509@163.com
@@ -49,7 +45,7 @@ public class PowerAccountServiceImpl implements IPowerAccountService {
     /**
      * 一个空格字符
      */
-    public static final String BLANK_SPACE = " ";
+    private static final String BLANK_SPACE = " ";
 
     @Resource
     private JwtTokenUtil jwtTokenUtil;
@@ -66,15 +62,8 @@ public class PowerAccountServiceImpl implements IPowerAccountService {
     @Resource
     private PowerAccountMapper accountMapper;
 
-
     @Resource
     private PowerAccountRoleRelationDao accountRoleRelationDao;
-
-    @Resource
-    private PowerAccountPermissionRelationDao accountPermissionRelationDao;
-
-    @Resource
-    private PowerAccountPermissionRelationMapper accountPermissionRelationMapper;
 
     @Resource
     private PowerAccountRoleRelationMapper accountRoleRelationMapper;
@@ -110,13 +99,7 @@ public class PowerAccountServiceImpl implements IPowerAccountService {
      */
     @Override
     public String refreshToken(String oldToken) {
-        String token = oldToken.substring(tokenHead.length());
-
-        if (jwtTokenUtil.canRefresh(token)) {
-            return jwtTokenUtil.refreshToken(token);
-        }
-
-        return null;
+        return jwtTokenUtil.refreshHeadToken(oldToken);
     }
 
     /**
@@ -389,79 +372,4 @@ public class PowerAccountServiceImpl implements IPowerAccountService {
         }
     }
 
-    /**
-     * 修改用户的+-权限
-     *
-     * @param accountId        用户id
-     * @param permissionIdList 权限列表
-     * @return 成功记录
-     */
-    @Override
-    public int updatePermission(Long accountId, List<Long> permissionIdList) {
-        // 删除原所有权限关系
-        PowerAccountPermissionRelationExample relationExample = new PowerAccountPermissionRelationExample();
-        relationExample.createCriteria().andAccountIdEqualTo(accountId);
-
-        accountPermissionRelationMapper.deleteByExample(relationExample);
-
-        // 获取用户所有角色权限
-        List<PowerPermission> permissionList = accountRoleRelationDao.getRolePermissionList(accountId);
-
-        List<Long> rolePermissionList = permissionList.stream()
-                .map(PowerPermission::getId)
-                .collect(Collectors.toList());
-
-        if (!CollectionUtils.isEmpty(permissionIdList)) {
-
-            List<PowerAccountPermissionRelation> relationList = new ArrayList<>();
-
-            // 筛选出 +权限
-            List<Long> addPermissionIdList = permissionIdList.stream()
-                    // 筛选出+权限
-                    .filter(permissionId -> !rolePermissionList.contains(permissionId))
-                    .collect(Collectors.toList());
-
-            // 筛选出-权限
-            List<Long> subPermissionIdList = rolePermissionList.stream()
-                    // 筛选出-权限
-                    .filter(permissionId -> !permissionIdList.contains(permissionId))
-                    .collect(Collectors.toList());
-
-            // 插入 + - 权限关系
-            relationList.addAll(convert(accountId, 1, addPermissionIdList));
-            relationList.addAll(convert(accountId, -1, subPermissionIdList));
-
-            return accountPermissionRelationDao.insertList(relationList);
-        }
-
-        return 0;
-    }
-
-    /**
-     * 获取帐号所有权限（包括角色权限 和 +-权限）
-     *
-     * @param accountId 账号编号
-     * @return 权限列表
-     */
-    @Override
-    public List<PowerPermission> listPermission(Long accountId) {
-        return accountRoleRelationDao.getPermissionList(accountId);
-    }
-
-    /**
-     * 将+-权限关系转化为对象
-     */
-    private List<PowerAccountPermissionRelation> convert(Long accountId, Integer type, List<Long> permissionIdList) {
-        return permissionIdList.stream()
-                .map(permissionId -> {
-
-                    PowerAccountPermissionRelation relation = new PowerAccountPermissionRelation();
-
-                    relation.setAccountId(accountId);
-                    relation.setType(type);
-                    relation.setPermissionId(permissionId);
-                    return relation;
-
-                }).collect(Collectors.toList());
-    }
 }

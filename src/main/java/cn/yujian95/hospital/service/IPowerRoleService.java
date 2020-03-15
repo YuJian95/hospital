@@ -3,10 +3,8 @@ package cn.yujian95.hospital.service;
 import cn.yujian95.hospital.dto.param.PowerRoleParam;
 import cn.yujian95.hospital.dto.param.StatusParam;
 import cn.yujian95.hospital.entity.PowerMenu;
-import cn.yujian95.hospital.entity.PowerPermission;
 import cn.yujian95.hospital.entity.PowerResource;
 import cn.yujian95.hospital.entity.PowerRole;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -59,24 +57,6 @@ public interface IPowerRoleService {
      * @return 成功记录数
      */
     int delete(List<Long> idList);
-
-    /**
-     * 获取角色所有权限
-     *
-     * @param roleId 角色编号
-     * @return 权限列表
-     */
-    List<PowerPermission> listPermission(Long roleId);
-
-    /**
-     * 修改指定角色权限
-     *
-     * @param roleId         角色编号
-     * @param permissionList 权限列表
-     * @return 成功记录
-     */
-    @Transactional
-    int updatePermission(Long roleId, List<Long> permissionList);
 
     /**
      * 获取角色列表

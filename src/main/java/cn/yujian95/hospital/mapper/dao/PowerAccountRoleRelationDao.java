@@ -1,7 +1,6 @@
 package cn.yujian95.hospital.mapper.dao;
 
 import cn.yujian95.hospital.entity.PowerAccountRoleRelation;
-import cn.yujian95.hospital.entity.PowerPermission;
 import cn.yujian95.hospital.entity.PowerResource;
 import cn.yujian95.hospital.entity.PowerRole;
 
@@ -28,22 +27,6 @@ public interface PowerAccountRoleRelationDao {
      * @return 账号拥有角色列表
      */
     List<PowerRole> getRoleList(Long accountId);
-
-    /**
-     * 获取用户所有角色权限
-     *
-     * @param accountId 账号编号
-     * @return 账号所有权限
-     */
-    List<PowerPermission> getRolePermissionList(Long accountId);
-
-    /**
-     * 获取用户所有权限(包括+-权限)
-     *
-     * @param accountId 账号编号
-     * @return 所有权限
-     */
-    List<PowerPermission> getPermissionList(Long accountId);
 
     /**
      * 获取用户所有可访问资源

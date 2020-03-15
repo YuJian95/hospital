@@ -4,7 +4,6 @@ import cn.yujian95.hospital.dto.param.PowerAccountRegisterParam;
 import cn.yujian95.hospital.dto.param.PowerAccountStatusParam;
 import cn.yujian95.hospital.dto.param.UserRegisterParam;
 import cn.yujian95.hospital.entity.PowerAccount;
-import cn.yujian95.hospital.entity.PowerPermission;
 import cn.yujian95.hospital.entity.PowerResource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,14 +33,6 @@ public interface IPowerAccountService {
      * @return 新token
      */
     String refreshToken(String oldToken);
-
-    /**
-     * 获取帐号所有权限（包括角色权限和+-权限）
-     *
-     * @param accountId 账号编号
-     * @return 权限列表
-     */
-    List<PowerPermission> listPermission(Long accountId);
 
     /**
      * 判断用户名是否已使用
@@ -119,16 +110,6 @@ public interface IPowerAccountService {
      * @return 成功记录
      */
     int updateRole(Long accountId, List<Long> roleIdList);
-
-    /**
-     * 修改用户的+-权限
-     *
-     * @param accountId        用户id
-     * @param permissionIdList 权限列表
-     * @return 成功记录
-     */
-    @Transactional
-    int updatePermission(Long accountId, List<Long> permissionIdList);
 
     /**
      * 更新最后登录时间

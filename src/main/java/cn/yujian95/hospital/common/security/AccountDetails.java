@@ -1,7 +1,6 @@
 package cn.yujian95.hospital.common.security;
 
 import cn.yujian95.hospital.entity.PowerAccount;
-import cn.yujian95.hospital.entity.PowerPermission;
 import cn.yujian95.hospital.entity.PowerResource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

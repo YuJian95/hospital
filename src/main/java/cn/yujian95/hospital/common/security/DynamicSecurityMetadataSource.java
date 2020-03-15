@@ -1,30 +1,26 @@
 package cn.yujian95.hospital.common.security;
 
 import cn.hutool.core.util.URLUtil;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.util.*;
 
 /**
  * @author YuJian95  clj9509@163.com
  * @date 2020/3/12
  */
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+
 public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
+
     private static Map<String, ConfigAttribute> configAttributeMap = null;
 
-    @Resource
+    @Autowired
     private IDynamicSecurityService dynamicSecurityService;
 
     @PostConstruct
@@ -42,15 +38,15 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
         if (configAttributeMap == null) {
             this.loadDataSource();
         }
-
-        List<ConfigAttribute> configAttributes = new ArrayList<>();
-        // 获取当前访问的路径
+        List<ConfigAttribute>  configAttributes = new ArrayList<>();
+        //获取当前访问的路径
         String url = ((FilterInvocation) o).getRequestUrl();
         String path = URLUtil.getPath(url);
         PathMatcher pathMatcher = new AntPathMatcher();
-
+        Iterator<String> iterator = configAttributeMap.keySet().iterator();
         // 获取访问该路径所需资源
-        for (String pattern : configAttributeMap.keySet()) {
+        while (iterator.hasNext()) {
+            String pattern = iterator.next();
             if (pathMatcher.match(pattern, path)) {
                 configAttributes.add(configAttributeMap.get(pattern));
             }
@@ -68,5 +64,6 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
     public boolean supports(Class<?> aClass) {
         return true;
     }
+
 
 }

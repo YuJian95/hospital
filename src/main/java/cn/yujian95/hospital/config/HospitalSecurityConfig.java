@@ -1,11 +1,10 @@
 package cn.yujian95.hospital.config;
 
-
 import cn.yujian95.hospital.common.security.IDynamicSecurityService;
+import cn.yujian95.hospital.common.security.SecurityConfig;
 import cn.yujian95.hospital.entity.PowerResource;
 import cn.yujian95.hospital.service.IPowerAccountService;
 import cn.yujian95.hospital.service.IPowerResourceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.ConfigAttribute;
@@ -20,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author YuJian95  clj9509@163.com
- * @date 2020/3/12
+ * @date 2020/3/14
  */
 
 @Configuration
@@ -34,25 +33,30 @@ public class HospitalSecurityConfig extends SecurityConfig {
     @Resource
     private IPowerResourceService resourceService;
 
-
-    @Bean
     @Override
+    @Bean
     public UserDetailsService userDetailsService() {
-        // 获取账号信息
+        //获取登录用户信息
         return username -> accountService.loadUserByUserName(username);
     }
 
     @Bean
     public IDynamicSecurityService dynamicSecurityService() {
-        return () -> {
-            Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
 
-            List<PowerResource> resourceList = resourceService.listAll();
+        return new IDynamicSecurityService() {
+            @Override
+            public Map<String, ConfigAttribute> loadDataSource() {
 
-            for (PowerResource resource : resourceList) {
-                map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
+                Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
+
+                List<PowerResource> resourceList = resourceService.listAll();
+
+                for (PowerResource resource : resourceList) {
+                    map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
+                }
+
+                return map;
             }
-            return map;
         };
     }
 }

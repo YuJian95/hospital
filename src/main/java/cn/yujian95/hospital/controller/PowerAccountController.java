@@ -4,7 +4,6 @@ import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.dto.param.PowerAccountRegisterParam;
 import cn.yujian95.hospital.dto.param.PowerAccountStatusParam;
 import cn.yujian95.hospital.entity.PowerAccount;
-import cn.yujian95.hospital.entity.PowerPermission;
 import cn.yujian95.hospital.service.IPowerAccountService;
 import cn.yujian95.hospital.service.IPowerRoleService;
 import io.swagger.annotations.Api;
@@ -172,17 +171,4 @@ public class PowerAccountController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation(value = "获取账号拥有所有权限（包括特殊权限）", notes = "传入 账号编号")
-    @ApiImplicitParam(name = "accountId", value = "账号编号", paramType = "query", dataType = "Long",
-            required = true)
-    @RequestMapping(value = "/permission", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('power:account:permission:get')")
-    public CommonResult<List<PowerPermission>> listAccountPermission(@RequestParam Long accountId) {
-
-        if (!accountService.count(accountId)) {
-            return CommonResult.validateFailed("不存在，该账号编号！");
-        }
-
-        return CommonResult.success(accountService.listPermission(accountId));
-    }
 }

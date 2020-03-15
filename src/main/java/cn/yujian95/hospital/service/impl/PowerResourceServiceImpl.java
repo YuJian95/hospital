@@ -144,6 +144,9 @@ public class PowerResourceServiceImpl implements IPowerResourceService {
      */
     @Override
     public List<PowerResource> listAll() {
-        return resourceMapper.selectByExample(new PowerResourceExample());
+
+        PowerResourceExample example = new PowerResourceExample();
+
+        return resourceMapper.selectByExample(example);
     }
 }

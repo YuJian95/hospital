@@ -5,10 +5,8 @@ import cn.yujian95.hospital.dto.param.StatusParam;
 import cn.yujian95.hospital.entity.*;
 import cn.yujian95.hospital.mapper.PowerRoleMapper;
 import cn.yujian95.hospital.mapper.PowerRoleMenuRelationMapper;
-import cn.yujian95.hospital.mapper.PowerRolePermissionRelationMapper;
 import cn.yujian95.hospital.mapper.PowerRoleResourceRelationMapper;
 import cn.yujian95.hospital.mapper.dao.PowerRoleDao;
-import cn.yujian95.hospital.mapper.dao.PowerRolePermissionRelationDao;
 import cn.yujian95.hospital.service.IPowerRoleService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,11 +28,6 @@ public class PowerRoleServiceImpl implements IPowerRoleService {
     @Resource
     private PowerRoleMapper roleMapper;
 
-    @Resource
-    private PowerRolePermissionRelationMapper rolePermissionRelationMapper;
-
-    @Resource
-    private PowerRolePermissionRelationDao rolePermissionRelationDao;
 
     @Resource
     private PowerRoleDao roleDao;
@@ -108,17 +100,6 @@ public class PowerRoleServiceImpl implements IPowerRoleService {
     }
 
     /**
-     * 获取角色所有权限
-     *
-     * @param roleId 角色编号
-     * @return 权限列表
-     */
-    @Override
-    public List<PowerPermission> listPermission(Long roleId) {
-        return rolePermissionRelationDao.listPermission(roleId);
-    }
-
-    /**
      * 批量删除角色
      *
      * @param idList 角色编号
@@ -167,43 +148,6 @@ public class PowerRoleServiceImpl implements IPowerRoleService {
         }
 
         return roleMapper.selectByExample(example);
-    }
-
-    /**
-     * 修改指定角色权限
-     *
-     * @param roleId         角色编号
-     * @param permissionList 权限列表
-     * @return 成功记录
-     */
-    @Override
-    public int updatePermission(Long roleId, List<Long> permissionList) {
-        // 删除原有关系
-        PowerRolePermissionRelationExample example = new PowerRolePermissionRelationExample();
-
-        example.createCriteria()
-                .andRoleIdEqualTo(roleId);
-
-        rolePermissionRelationMapper.deleteByExample(example);
-
-        // 批量添加新关系
-        List<PowerRolePermissionRelation> relationList = new ArrayList<>();
-
-        for (Long permissionId : permissionList) {
-            PowerRolePermissionRelation relation = new PowerRolePermissionRelation();
-
-            relation.setRoleId(roleId);
-            relation.setPermissionId(permissionId);
-
-            Date date = new Date();
-
-            relation.setGmtCreate(date);
-            relation.setGmtModified(date);
-
-            relationList.add(relation);
-        }
-
-        return rolePermissionRelationDao.insertList(relationList);
     }
 
     /**
