@@ -77,11 +77,8 @@ public class PowerAccountController {
 
         Optional<String> stringOptional = accountService.login(name, password);
 
-        if (stringOptional.isPresent()) {
-            return CommonResult.success(stringOptional.get());
-        }
+        return stringOptional.map(CommonResult::success).orElseGet(() -> CommonResult.validateFailed("用户名或密码错误"));
 
-        return CommonResult.validateFailed("用户名或密码错误");
     }
 
     @ApiOperation(value = "退出登录账号", notes = "无需参数，需要前端清除 header中的 jwt字符串")

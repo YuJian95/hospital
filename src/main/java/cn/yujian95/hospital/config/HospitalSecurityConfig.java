@@ -48,9 +48,8 @@ public class HospitalSecurityConfig extends SecurityConfig {
 
             Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
 
-// TODO fix resultMap error.
-// List<PowerResource> resourceList = resourceService.listAll();
-
+            // TODO fix resultMap error.
+//            List<PowerResource> resourceList = resourceService.listAll();
             List<PowerResource> resourceList = new ArrayList<>();
 
             for (PowerResource resource : resourceList) {

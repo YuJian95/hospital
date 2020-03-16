@@ -108,6 +108,7 @@ secure:
       - /swagger-ui.html
       - /swagger-resources/**
       - /swagger/**
+      - /doc.html
       - /**/v2/api-docs
       - /**/*.js
       - /**/*.css
@@ -116,8 +117,12 @@ secure:
       - /webjars/springfox-swagger-ui/**
       - /actuator/**
       - /druid/**
-      - /admin/login
-      - /admin/register
-      - /admin/info
-      - /admin/logout
-      - /minio/upload
+      - /power/account/login
+      - /power/account/register
+      - /power/account/info
+      - /power/account/logout
+      - /power/name/validation
+      - /power/account/token
+      - /user/basic/code
+      - /user/basic/message
+      - /user/basic/account/register
