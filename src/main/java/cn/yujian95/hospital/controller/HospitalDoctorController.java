@@ -127,12 +127,12 @@ public class HospitalDoctorController {
     @ApiOperation(value = "获取医生信息", notes = "传入 医生编号")
     @ApiImplicitParam(name = "id", value = "医生编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/doctor/{id}", method = RequestMethod.GET)
-    public CommonResult<HospitalDoctor> getDoctor(@PathVariable Long id) {
+    public CommonResult<HospitalDoctorDTO> getDoctor(@PathVariable Long id) {
         if (!doctorService.count(id)) {
             return CommonResult.validateFailed("不存在，该医生编号");
         }
 
-        Optional<HospitalDoctor> doctorOptional = doctorService.getOptional(id);
+        Optional<HospitalDoctorDTO> doctorOptional = doctorService.getConvert(id);
 
         return doctorOptional.map(CommonResult::success)
                 .orElseGet(() -> CommonResult.failed("服务器错误，请联系管理员！"));
