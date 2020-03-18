@@ -152,6 +152,7 @@ public class HospitalOutpatientServiceImpl implements IHospitalOutpatientService
         // 门诊编号列表
         List<Long> outpatientIdList = getOutpatientIdList(outpatientRelationExample);
 
+        // 即医院没有添加的门诊
         if (CollectionUtil.isEmpty(outpatientIdList)) {
             return null;
         }
@@ -211,18 +212,17 @@ public class HospitalOutpatientServiceImpl implements IHospitalOutpatientService
         // 门诊编号列表
         List<Long> outpatientIdList = getOutpatientIdList(outpatientRelationExample);
 
-        if (CollectionUtil.isEmpty(outpatientIdList)) {
-            return null;
-        }
-
         // 设置分页
         PageHelper.startPage(pageNum, pageSize);
 
         // 筛选门诊中符合的专科
         HospitalOutpatientExample example = new HospitalOutpatientExample();
 
-        example.createCriteria()
-                .andIdNotIn(outpatientIdList);
+        // 当存在已添加的记录时
+        if (CollectionUtil.isNotEmpty(outpatientIdList)) {
+            example.createCriteria()
+                    .andIdNotIn(outpatientIdList);
+        }
 
         return outpatientMapper.selectByExample(example);
     }

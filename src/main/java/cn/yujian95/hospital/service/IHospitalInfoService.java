@@ -95,10 +95,11 @@ public interface IHospitalInfoService {
     /**
      * 删除从医院中移除门诊
      *
-     * @param id 关系编号
+     * @param hospitalId   医院编号
+     * @param outpatientId 门诊编号
      * @return 是否成功
      */
-    boolean deleteOutpatientRelation(Long id);
+    boolean deleteOutpatientRelation(Long hospitalId, Long outpatientId);
 
     /**
      * 删除从医院中移除专科
