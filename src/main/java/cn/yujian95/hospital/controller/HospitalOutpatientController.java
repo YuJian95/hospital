@@ -6,7 +6,6 @@ import cn.yujian95.hospital.dto.param.HospitalOutpatientParam;
 import cn.yujian95.hospital.entity.HospitalClinic;
 import cn.yujian95.hospital.entity.HospitalOutpatient;
 import cn.yujian95.hospital.service.IHospitalClinicService;
-import cn.yujian95.hospital.service.IHospitalInfoService;
 import cn.yujian95.hospital.service.IHospitalOutpatientService;
 import cn.yujian95.hospital.service.IHospitalSpecialService;
 import io.swagger.annotations.Api;
@@ -30,9 +29,6 @@ import java.util.Optional;
 public class HospitalOutpatientController {
 
     @Resource
-    private IHospitalInfoService infoService;
-
-    @Resource
     private IHospitalOutpatientService outpatientService;
 
     @Resource
@@ -44,10 +40,6 @@ public class HospitalOutpatientController {
     @ApiOperation(value = "添加门诊信息", notes = "传入 门诊信息参数（名称，描述）")
     @RequestMapping(value = "/outpatient", method = RequestMethod.POST)
     public CommonResult insertOutpatient(@RequestBody HospitalOutpatientParam param) {
-
-        if (!infoService.count(param.getHospitalId())) {
-            return CommonResult.validateFailed("不存在，该医院编号！");
-        }
 
         if (!specialService.count(param.getSpecialId())) {
             return CommonResult.validateFailed("不存在，该专科编号！");
@@ -67,10 +59,6 @@ public class HospitalOutpatientController {
 
         if (!outpatientService.count(id)) {
             return CommonResult.validateFailed("不存在，该门诊编号! ");
-        }
-
-        if (!infoService.count(param.getHospitalId())) {
-            return CommonResult.validateFailed("不存在，该医院编号！");
         }
 
         if (!specialService.count(param.getSpecialId())) {
@@ -131,9 +119,8 @@ public class HospitalOutpatientController {
         return CommonResult.success(CommonPage.restPage(outpatientService.list(name, pageNum, pageSize)));
     }
 
-    @ApiOperation(value = "分页：搜索指定医院、专科，门诊信息", notes = "传入 医院编号、专科编号")
+    @ApiOperation(value = "分页：搜索指定专科，门诊信息", notes = "传入 专科编号（0：全部）")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "hospitalId", value = "医院编号（0：全部）", paramType = "query", dataType = "Long", defaultValue = "0"),
             @ApiImplicitParam(name = "specialId", value = "专科编号（0：全部）", paramType = "query", dataType = "Long", defaultValue = "0"),
             @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "Integer",
                     required = true),
@@ -142,12 +129,11 @@ public class HospitalOutpatientController {
     })
     @RequestMapping(value = "/outpatient/search", method = RequestMethod.GET)
     public CommonResult<CommonPage<HospitalOutpatient>> searchOutpatientByHospitalAndSpecial(
-            @RequestParam(required = false, defaultValue = "0") Long hospitalId,
             @RequestParam(required = false, defaultValue = "0") Long specialId,
             @RequestParam Integer pageNum,
             @RequestParam Integer pageSize) {
 
-        return CommonResult.success(CommonPage.restPage(outpatientService.list(hospitalId, specialId, pageNum, pageSize)));
+        return CommonResult.success(CommonPage.restPage(outpatientService.list(specialId, pageNum, pageSize)));
     }
 
     @ApiOperation(value = "获取门诊所属诊室信息", notes = "传入 门诊编号")

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class HospitalOutpatientExample {
+public class HospitalOutpatientRelationExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public HospitalOutpatientExample() {
+    public HospitalOutpatientRelationExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -165,133 +165,123 @@ public class HospitalOutpatientExample {
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNull() {
-            addCriterion("name is null");
+        public Criteria andHospitalIdIsNull() {
+            addCriterion("hospital_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNotNull() {
-            addCriterion("name is not null");
+        public Criteria andHospitalIdIsNotNull() {
+            addCriterion("hospital_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNameEqualTo(String value) {
-            addCriterion("name =", value, "name");
+        public Criteria andHospitalIdEqualTo(Long value) {
+            addCriterion("hospital_id =", value, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotEqualTo(String value) {
-            addCriterion("name <>", value, "name");
+        public Criteria andHospitalIdNotEqualTo(Long value) {
+            addCriterion("hospital_id <>", value, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThan(String value) {
-            addCriterion("name >", value, "name");
+        public Criteria andHospitalIdGreaterThan(Long value) {
+            addCriterion("hospital_id >", value, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("name >=", value, "name");
+        public Criteria andHospitalIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("hospital_id >=", value, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThan(String value) {
-            addCriterion("name <", value, "name");
+        public Criteria andHospitalIdLessThan(Long value) {
+            addCriterion("hospital_id <", value, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("name <=", value, "name");
+        public Criteria andHospitalIdLessThanOrEqualTo(Long value) {
+            addCriterion("hospital_id <=", value, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+        public Criteria andHospitalIdIn(List<Long> values) {
+            addCriterion("hospital_id in", values, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
+        public Criteria andHospitalIdNotIn(List<Long> values) {
+            addCriterion("hospital_id not in", values, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andNameIn(List<String> values) {
-            addCriterion("name in", values, "name");
+        public Criteria andHospitalIdBetween(Long value1, Long value2) {
+            addCriterion("hospital_id between", value1, value2, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotIn(List<String> values) {
-            addCriterion("name not in", values, "name");
+        public Criteria andHospitalIdNotBetween(Long value1, Long value2) {
+            addCriterion("hospital_id not between", value1, value2, "hospitalId");
             return (Criteria) this;
         }
 
-        public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("name between", value1, value2, "name");
+        public Criteria andOutpatientIdIsNull() {
+            addCriterion("outpatient_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("name not between", value1, value2, "name");
+        public Criteria andOutpatientIdIsNotNull() {
+            addCriterion("outpatient_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSpecialIdIsNull() {
-            addCriterion("special_id is null");
+        public Criteria andOutpatientIdEqualTo(Long value) {
+            addCriterion("outpatient_id =", value, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecialIdIsNotNull() {
-            addCriterion("special_id is not null");
+        public Criteria andOutpatientIdNotEqualTo(Long value) {
+            addCriterion("outpatient_id <>", value, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecialIdEqualTo(Long value) {
-            addCriterion("special_id =", value, "specialId");
+        public Criteria andOutpatientIdGreaterThan(Long value) {
+            addCriterion("outpatient_id >", value, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecialIdNotEqualTo(Long value) {
-            addCriterion("special_id <>", value, "specialId");
+        public Criteria andOutpatientIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("outpatient_id >=", value, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecialIdGreaterThan(Long value) {
-            addCriterion("special_id >", value, "specialId");
+        public Criteria andOutpatientIdLessThan(Long value) {
+            addCriterion("outpatient_id <", value, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecialIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("special_id >=", value, "specialId");
+        public Criteria andOutpatientIdLessThanOrEqualTo(Long value) {
+            addCriterion("outpatient_id <=", value, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecialIdLessThan(Long value) {
-            addCriterion("special_id <", value, "specialId");
+        public Criteria andOutpatientIdIn(List<Long> values) {
+            addCriterion("outpatient_id in", values, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecialIdLessThanOrEqualTo(Long value) {
-            addCriterion("special_id <=", value, "specialId");
+        public Criteria andOutpatientIdNotIn(List<Long> values) {
+            addCriterion("outpatient_id not in", values, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecialIdIn(List<Long> values) {
-            addCriterion("special_id in", values, "specialId");
+        public Criteria andOutpatientIdBetween(Long value1, Long value2) {
+            addCriterion("outpatient_id between", value1, value2, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecialIdNotIn(List<Long> values) {
-            addCriterion("special_id not in", values, "specialId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialIdBetween(Long value1, Long value2) {
-            addCriterion("special_id between", value1, value2, "specialId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialIdNotBetween(Long value1, Long value2) {
-            addCriterion("special_id not between", value1, value2, "specialId");
+        public Criteria andOutpatientIdNotBetween(Long value1, Long value2) {
+            addCriterion("outpatient_id not between", value1, value2, "outpatientId");
             return (Criteria) this;
         }
 

@@ -63,13 +63,13 @@ public interface IHospitalSpecialService {
      */
     boolean count(String name);
 
-    /**
-     * 查找医院所有，专科信息列表
-     *
-     * @param hospitalId 医院编号
-     * @return 医院专科列表
-     */
-    List<HospitalSpecialOutpatientDTO> list(Long hospitalId);
+//    /**
+//     * 查找医院所有，专科信息列表
+//     *
+//     * @param hospitalId 医院编号
+//     * @return 医院专科列表
+//     */
+//    List<HospitalSpecialOutpatientDTO> list(Long hospitalId);
 
     /**
      * 查找专科信息

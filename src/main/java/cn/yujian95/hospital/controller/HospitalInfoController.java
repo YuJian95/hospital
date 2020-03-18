@@ -9,9 +9,7 @@ import cn.yujian95.hospital.entity.HospitalInfo;
 import cn.yujian95.hospital.service.IHospitalInfoService;
 import cn.yujian95.hospital.service.IHospitalSpecialService;
 import io.swagger.annotations.*;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -139,15 +137,15 @@ public class HospitalInfoController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation(value = "获取医院，所属专科列表", notes = "传入 专科名称")
-    @ApiImplicitParam(name = "hospitalId", value = "医院编号", paramType = "path", dataType = "Long", required = true)
-    @RequestMapping(value = "/special/list/{hospitalId}", method = RequestMethod.GET)
-    public CommonResult<List<HospitalSpecialOutpatientDTO>> listSpecial(@PathVariable Long hospitalId) {
-
-        if (!infoService.count(hospitalId)) {
-            return CommonResult.validateFailed("不存在，该医院编号！");
-        }
-
-        return CommonResult.success(specialService.list(hospitalId));
-    }
+//    @ApiOperation(value = "获取医院，所属专科列表", notes = "传入 专科名称")
+//    @ApiImplicitParam(name = "hospitalId", value = "医院编号", paramType = "path", dataType = "Long", required = true)
+//    @RequestMapping(value = "/special/list/{hospitalId}", method = RequestMethod.GET)
+//    public CommonResult<List<HospitalSpecialOutpatientDTO>> listSpecial(@PathVariable Long hospitalId) {
+//
+//        if (!infoService.count(hospitalId)) {
+//            return CommonResult.validateFailed("不存在，该医院编号！");
+//        }
+//
+//        return CommonResult.success(specialService.list(hospitalId));
+//    }
 }

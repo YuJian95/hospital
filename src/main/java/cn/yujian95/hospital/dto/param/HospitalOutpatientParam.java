@@ -31,12 +31,4 @@ public class HospitalOutpatientParam implements Serializable {
      */
     @ApiModelProperty(value = "所属专科")
     private Long specialId;
-
-    /**
-     * 所属医院
-     *
-     * @mbg.generated
-     */
-    @ApiModelProperty(value = "所属医院")
-    private Long hospitalId;
 }

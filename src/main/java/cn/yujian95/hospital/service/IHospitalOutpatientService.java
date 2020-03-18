@@ -66,20 +66,11 @@ public interface IHospitalOutpatientService {
     /**
      * 查找门诊列表
      *
-     * @param hospitalId 医院编号
-     * @param specialId  门诊编号
-     * @param pageNum    第几页
-     * @param pageSize   页大小
+     * @param specialId 门诊编号
+     * @param pageNum   第几页
+     * @param pageSize  页大小
      * @return 门诊列表
      */
-    List<HospitalOutpatient> list(Long hospitalId, Long specialId, Integer pageNum, Integer pageSize);
+    List<HospitalOutpatient> list(Long specialId, Integer pageNum, Integer pageSize);
 
-    /**
-     * 查找门诊列表
-     *
-     * @param hospitalId 医院编号
-     * @param specialId  门诊编号
-     * @return 门诊列表
-     */
-    List<HospitalOutpatient> list(Long hospitalId, Long specialId);
 }

@@ -126,48 +126,18 @@ public class HospitalOutpatientServiceImpl implements IHospitalOutpatientService
     /**
      * 查找门诊列表
      *
-     * @param hospitalId 医院编号
      * @param specialId  门诊编号
      * @param pageNum    第几页
      * @param pageSize   页大小
      * @return 门诊列表
      */
     @Override
-    public List<HospitalOutpatient> list(Long hospitalId, Long specialId, Integer pageNum, Integer pageSize) {
+    public List<HospitalOutpatient> list(Long specialId, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
 
         HospitalOutpatientExample example = new HospitalOutpatientExample();
 
         HospitalOutpatientExample.Criteria criteria = example.createCriteria();
-
-        if (hospitalId != 0) {
-            criteria.andHospitalIdEqualTo(hospitalId);
-        }
-
-        if (specialId != 0) {
-            criteria.andSpecialIdEqualTo(specialId);
-        }
-
-        return outpatientMapper.selectByExample(example);
-    }
-
-    /**
-     * 查找门诊列表
-     *
-     * @param hospitalId 医院编号
-     * @param specialId  门诊编号
-     * @return 门诊列表
-     */
-    @Override
-    public List<HospitalOutpatient> list(Long hospitalId, Long specialId) {
-
-        HospitalOutpatientExample example = new HospitalOutpatientExample();
-
-        HospitalOutpatientExample.Criteria criteria = example.createCriteria();
-
-        if (hospitalId != 0) {
-            criteria.andHospitalIdEqualTo(hospitalId);
-        }
 
         if (specialId != 0) {
             criteria.andSpecialIdEqualTo(specialId);

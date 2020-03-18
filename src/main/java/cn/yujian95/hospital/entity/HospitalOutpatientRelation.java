@@ -4,30 +4,30 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class HospitalOutpatient implements Serializable {
+public class HospitalOutpatientRelation implements Serializable {
+    /**
+     * 关系编号
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "关系编号")
+    private Long id;
+
+    /**
+     * 医院编号
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "医院编号")
+    private Long hospitalId;
+
     /**
      * 门诊编号
      *
      * @mbg.generated
      */
     @ApiModelProperty(value = "门诊编号")
-    private Long id;
-
-    /**
-     * 门诊名称
-     *
-     * @mbg.generated
-     */
-    @ApiModelProperty(value = "门诊名称")
-    private String name;
-
-    /**
-     * 所属专科
-     *
-     * @mbg.generated
-     */
-    @ApiModelProperty(value = "所属专科")
-    private Long specialId;
+    private Long outpatientId;
 
     /**
      * 创建时间
@@ -55,20 +55,20 @@ public class HospitalOutpatient implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getHospitalId() {
+        return hospitalId;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setHospitalId(Long hospitalId) {
+        this.hospitalId = hospitalId;
     }
 
-    public Long getSpecialId() {
-        return specialId;
+    public Long getOutpatientId() {
+        return outpatientId;
     }
 
-    public void setSpecialId(Long specialId) {
-        this.specialId = specialId;
+    public void setOutpatientId(Long outpatientId) {
+        this.outpatientId = outpatientId;
     }
 
     public Date getGmtCreate() {
@@ -94,8 +94,8 @@ public class HospitalOutpatient implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", specialId=").append(specialId);
+        sb.append(", hospitalId=").append(hospitalId);
+        sb.append(", outpatientId=").append(outpatientId);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
         sb.append(", serialVersionUID=").append(serialVersionUID);

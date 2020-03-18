@@ -32,12 +32,6 @@ public class HospitalSpecialServiceImpl implements IHospitalSpecialService {
     @Resource
     private HospitalSpecialMapper specialMapper;
 
-    @Resource
-    private HospitalSpecialRelationMapper specialRelationMapper;
-
-    @Resource
-    private IHospitalOutpatientService outpatientService;
-
     /**
      * 添加专科信息
      *
@@ -150,56 +144,5 @@ public class HospitalSpecialServiceImpl implements IHospitalSpecialService {
         }
 
         return specialMapper.selectByExample(example);
-    }
-
-    /**
-     * 查找医院所有，专科信息列表
-     *
-     * @param hospitalId 医院编号
-     * @return 医院专科列表
-     */
-    @Override
-    public List<HospitalSpecialOutpatientDTO> list(Long hospitalId) {
-
-        HospitalSpecialRelationExample example = new HospitalSpecialRelationExample();
-
-        example.createCriteria()
-                .andHospitalIdEqualTo(hospitalId);
-
-        List<Long> specialIdList = specialRelationMapper.selectByExample(example).stream()
-                .distinct()
-                .map(HospitalSpecialRelation::getSpecialId)
-                .collect(Collectors.toList());
-
-        if (CollectionUtils.isEmpty(specialIdList)) {
-            return null;
-        }
-
-        // 获取专科信息
-        HospitalSpecialExample example2 = new HospitalSpecialExample();
-
-        example2.createCriteria()
-                .andIdIn(specialIdList);
-
-        // 获取专科对应门诊列表，转换为封装类
-        return specialMapper.selectByExample(example2).stream()
-                .map(special -> convert(hospitalId, special))
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * 转换为医院所属专科以及门诊封装类
-     *
-     * @param hospitalId 医院编号
-     * @param special    专科编号
-     * @return 医院所属专科以及门诊封装类
-     */
-    private HospitalSpecialOutpatientDTO convert(Long hospitalId, HospitalSpecial special) {
-        HospitalSpecialOutpatientDTO dto = new HospitalSpecialOutpatientDTO();
-
-        dto.setSpecial(special);
-        dto.setOutpatientList(outpatientService.list(hospitalId, special.getId()));
-
-        return dto;
     }
 }
