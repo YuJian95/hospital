@@ -71,6 +71,7 @@ public interface IHospitalSpecialService {
 //     */
 //    List<HospitalSpecialOutpatientDTO> list(Long hospitalId);
 
+
     /**
      * 查找专科信息
      *
@@ -80,4 +81,14 @@ public interface IHospitalSpecialService {
      * @return 专科列表
      */
     List<HospitalSpecial> list(String name, Integer pageNum, Integer pageSize);
+
+    /**
+     * 查找医院，所属专科信息
+     *
+     * @param hospitalId 医院编号
+     * @param pageNum    第几页
+     * @param pageSize   页大小
+     * @return 专科列表
+     */
+    List<HospitalSpecial> list(Long hospitalId, Integer pageNum, Integer pageSize);
 }

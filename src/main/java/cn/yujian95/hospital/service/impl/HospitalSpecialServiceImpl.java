@@ -32,6 +32,9 @@ public class HospitalSpecialServiceImpl implements IHospitalSpecialService {
     @Resource
     private HospitalSpecialMapper specialMapper;
 
+    @Resource
+    private HospitalSpecialRelationMapper specialRelationMapper;
+
     /**
      * 添加专科信息
      *
@@ -144,5 +147,39 @@ public class HospitalSpecialServiceImpl implements IHospitalSpecialService {
         }
 
         return specialMapper.selectByExample(example);
+    }
+
+    /**
+     * 查找医院，所属专科信息
+     *
+     * @param hospitalId 医院编号
+     * @param pageNum    第几页
+     * @param pageSize   页大小
+     * @return 专科列表
+     */
+    @Override
+    public List<HospitalSpecial> list(Long hospitalId, Integer pageNum, Integer pageSize) {
+
+        HospitalSpecialRelationExample example = new HospitalSpecialRelationExample();
+
+        example.createCriteria()
+                .andHospitalIdEqualTo(hospitalId);
+
+        List<Long> specialList = specialRelationMapper.selectByExample(example).stream()
+                .map(HospitalSpecialRelation::getSpecialId)
+                .collect(Collectors.toList());
+
+        if (CollectionUtils.isEmpty(specialList)) {
+            return null;
+        }
+
+        PageHelper.startPage(pageNum, pageSize);
+
+        HospitalSpecialExample specialExample = new HospitalSpecialExample();
+
+        specialExample.createCriteria()
+                .andIdIn(specialList);
+
+        return specialMapper.selectByExample(specialExample);
     }
 }
