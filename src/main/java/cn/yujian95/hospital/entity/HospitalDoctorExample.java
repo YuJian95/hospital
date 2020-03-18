@@ -435,6 +435,126 @@ public class HospitalDoctorExample {
             return (Criteria) this;
         }
 
+        public Criteria andSpecialIdIsNull() {
+            addCriterion("special_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdIsNotNull() {
+            addCriterion("special_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdEqualTo(Long value) {
+            addCriterion("special_id =", value, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdNotEqualTo(Long value) {
+            addCriterion("special_id <>", value, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdGreaterThan(Long value) {
+            addCriterion("special_id >", value, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("special_id >=", value, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdLessThan(Long value) {
+            addCriterion("special_id <", value, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdLessThanOrEqualTo(Long value) {
+            addCriterion("special_id <=", value, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdIn(List<Long> values) {
+            addCriterion("special_id in", values, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdNotIn(List<Long> values) {
+            addCriterion("special_id not in", values, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdBetween(Long value1, Long value2) {
+            addCriterion("special_id between", value1, value2, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecialIdNotBetween(Long value1, Long value2) {
+            addCriterion("special_id not between", value1, value2, "specialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIdIsNull() {
+            addCriterion("outpatient_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIdIsNotNull() {
+            addCriterion("outpatient_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIdEqualTo(Long value) {
+            addCriterion("outpatient_id =", value, "outpatientId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIdNotEqualTo(Long value) {
+            addCriterion("outpatient_id <>", value, "outpatientId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIdGreaterThan(Long value) {
+            addCriterion("outpatient_id >", value, "outpatientId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("outpatient_id >=", value, "outpatientId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIdLessThan(Long value) {
+            addCriterion("outpatient_id <", value, "outpatientId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIdLessThanOrEqualTo(Long value) {
+            addCriterion("outpatient_id <=", value, "outpatientId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIdIn(List<Long> values) {
+            addCriterion("outpatient_id in", values, "outpatientId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIdNotIn(List<Long> values) {
+            addCriterion("outpatient_id not in", values, "outpatientId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIdBetween(Long value1, Long value2) {
+            addCriterion("outpatient_id between", value1, value2, "outpatientId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutpatientIdNotBetween(Long value1, Long value2) {
+            addCriterion("outpatient_id not between", value1, value2, "outpatientId");
+            return (Criteria) this;
+        }
+
         public Criteria andGmtCreateIsNull() {
             addCriterion("gmt_create is null");
             return (Criteria) this;

@@ -84,6 +84,24 @@ public class HospitalSpecialServiceImpl implements IHospitalSpecialService {
     }
 
     /**
+     * 获取专科名称
+     *
+     * @param id 专科编号
+     * @return 专科名称
+     */
+    @Override
+    public String getName(Long id) {
+
+        Optional<HospitalSpecial> special = getOptional(id);
+
+        if (special.isPresent()) {
+            return special.get().getName();
+        }
+
+        return special.map(HospitalSpecial::getName).orElse("未知");
+    }
+
+    /**
      * 获取专科信息
      *
      * @param id 专科编号

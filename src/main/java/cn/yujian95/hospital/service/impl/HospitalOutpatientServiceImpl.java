@@ -82,6 +82,21 @@ public class HospitalOutpatientServiceImpl implements IHospitalOutpatientService
     }
 
     /**
+     * 获取门诊名称
+     *
+     * @param id 门诊编号
+     * @return 门诊名称
+     */
+    @Override
+    public String getName(Long id) {
+
+        Optional<HospitalOutpatient> outpatient = getOptional(id);
+
+        return outpatient.map(HospitalOutpatient::getName).orElse("未知");
+
+    }
+
+    /**
      * 获取门诊信息
      *
      * @param id 门诊编号

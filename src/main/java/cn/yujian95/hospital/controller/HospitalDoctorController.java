@@ -2,9 +2,12 @@ package cn.yujian95.hospital.controller;
 
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
+import cn.yujian95.hospital.dto.HospitalDoctorDTO;
 import cn.yujian95.hospital.dto.param.HospitalDoctorParam;
 import cn.yujian95.hospital.entity.HospitalDoctor;
 import cn.yujian95.hospital.service.IHospitalDoctorService;
+import cn.yujian95.hospital.service.IHospitalOutpatientService;
+import cn.yujian95.hospital.service.IHospitalSpecialService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -25,17 +28,34 @@ import java.util.Optional;
 @RequestMapping("/hospital")
 public class HospitalDoctorController {
 
-    public static final int GIRL = 2;
+    private static final int GIRL = 2;
+    private static final int BOY = 1;
+
+    @Resource
+    private IHospitalOutpatientService outpatientService;
+
+    @Resource
+    private IHospitalSpecialService specialService;
+
     @Resource
     private IHospitalDoctorService doctorService;
 
-    @ApiOperation(value = "添加医生信息", notes = "传入 医生信息参数（姓名，性别，职称，专长）")
+    @ApiOperation(value = "添加医生信息", notes = "传入 医生信息参数（姓名，性别，职称，专长，所属专科，所属门诊）")
     @RequestMapping(value = "/doctor", method = RequestMethod.GET)
     public CommonResult insertDoctor(@RequestBody HospitalDoctorParam param) {
 
-        if (param.getGender() > GIRL || param.getGender() < 1) {
+        if (param.getGender() > GIRL || param.getGender() < BOY) {
             return CommonResult.validateFailed("性别参数错误！");
         }
+
+        if (outpatientService.count(param.getOutpatientId())) {
+            return CommonResult.validateFailed("不存在，该门诊编号！");
+        }
+
+        if (specialService.count(param.getSpecialId())) {
+            return CommonResult.validateFailed("不存在，该专科编号！");
+        }
+
 
         if (doctorService.insert(param)) {
             return CommonResult.success();
@@ -44,16 +64,25 @@ public class HospitalDoctorController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation(value = "更新医生信息", notes = "传入 医生编号、医生信息参数（姓名，性别，职称，专长）")
+    @ApiOperation(value = "更新医生信息", notes = "传入 医生编号、医生信息参数（姓名，性别，职称，专长，所属专科，所属门诊）")
     @ApiImplicitParam(name = "id", value = "医生编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/doctor/{id}", method = RequestMethod.PUT)
     public CommonResult updateDoctor(@PathVariable Long id, @RequestBody HospitalDoctorParam param) {
+
         if (!doctorService.count(id)) {
             return CommonResult.validateFailed("不存在，该医生编号");
         }
 
-        if (param.getGender() > GIRL || param.getGender() < 1) {
+        if (param.getGender() > GIRL || param.getGender() < BOY) {
             return CommonResult.validateFailed("性别参数错误！");
+        }
+
+        if (outpatientService.count(param.getOutpatientId())) {
+            return CommonResult.validateFailed("不存在，该门诊编号！");
+        }
+
+        if (specialService.count(param.getSpecialId())) {
+            return CommonResult.validateFailed("不存在，该专科编号！");
         }
 
         if (doctorService.update(id, param)) {
@@ -87,9 +116,9 @@ public class HospitalDoctorController {
                     required = true),
     })
     @RequestMapping(value = "/doctor/list", method = RequestMethod.GET)
-    public CommonResult<CommonPage<HospitalDoctor>> searchDoctor(@RequestParam(required = false) String name,
-                                                                 @RequestParam Integer pageNum,
-                                                                 @RequestParam Integer pageSize) {
+    public CommonResult<CommonPage<HospitalDoctorDTO>> searchDoctor(@RequestParam(required = false) String name,
+                                                                    @RequestParam Integer pageNum,
+                                                                    @RequestParam Integer pageSize) {
 
         return CommonResult.success(CommonPage.restPage(doctorService.list(name, pageNum, pageSize)));
     }

@@ -46,6 +46,22 @@ public class HospitalDoctor implements Serializable {
     private String specialty;
 
     /**
+     * 专科编号
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "专科编号")
+    private Long specialId;
+
+    /**
+     * 门诊编号
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "门诊编号")
+    private Long outpatientId;
+
+    /**
      * 创建时间
      *
      * @mbg.generated
@@ -103,6 +119,22 @@ public class HospitalDoctor implements Serializable {
         this.specialty = specialty == null ? null : specialty.trim();
     }
 
+    public Long getSpecialId() {
+        return specialId;
+    }
+
+    public void setSpecialId(Long specialId) {
+        this.specialId = specialId;
+    }
+
+    public Long getOutpatientId() {
+        return outpatientId;
+    }
+
+    public void setOutpatientId(Long outpatientId) {
+        this.outpatientId = outpatientId;
+    }
+
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -130,6 +162,8 @@ public class HospitalDoctor implements Serializable {
         sb.append(", gender=").append(gender);
         sb.append(", jobTitle=").append(jobTitle);
         sb.append(", specialty=").append(specialty);
+        sb.append(", specialId=").append(specialId);
+        sb.append(", outpatientId=").append(outpatientId);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
         sb.append(", serialVersionUID=").append(serialVersionUID);

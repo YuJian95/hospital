@@ -47,4 +47,20 @@ public class HospitalDoctorParam implements Serializable {
      */
     @ApiModelProperty(value = "医生专长")
     private String specialty;
+
+    /**
+     * 专科编号
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "专科编号")
+    private Long specialId;
+
+    /**
+     * 门诊编号
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "门诊编号")
+    private Long outpatientId;
 }

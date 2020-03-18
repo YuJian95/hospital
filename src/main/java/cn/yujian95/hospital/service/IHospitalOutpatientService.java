@@ -38,6 +38,14 @@ public interface IHospitalOutpatientService {
     Optional<HospitalOutpatient> getOptional(Long id);
 
     /**
+     * 获取门诊名称
+     *
+     * @param id 门诊编号
+     * @return 门诊名称
+     */
+    String getName(Long id);
+
+    /**
      * 删除门诊信息
      *
      * @param id 门诊编号

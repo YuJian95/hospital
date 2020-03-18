@@ -1,10 +1,13 @@
 package cn.yujian95.hospital.service.impl;
 
+import cn.yujian95.hospital.dto.HospitalDoctorDTO;
 import cn.yujian95.hospital.dto.param.HospitalDoctorParam;
 import cn.yujian95.hospital.entity.HospitalDoctor;
 import cn.yujian95.hospital.entity.HospitalDoctorExample;
 import cn.yujian95.hospital.mapper.HospitalDoctorMapper;
 import cn.yujian95.hospital.service.IHospitalDoctorService;
+import cn.yujian95.hospital.service.IHospitalOutpatientService;
+import cn.yujian95.hospital.service.IHospitalSpecialService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author YuJian95  clj9509@163.com
@@ -24,6 +28,12 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
 
     @Resource
     private HospitalDoctorMapper doctorInfoMapper;
+
+    @Resource
+    private IHospitalSpecialService specialService;
+
+    @Resource
+    private IHospitalOutpatientService outpatientService;
 
     /**
      * 添加医生信息
@@ -79,6 +89,17 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
     }
 
     /**
+     * 获取转换后的对象信息
+     *
+     * @param id 医生编号
+     * @return 转换后的对象
+     */
+    @Override
+    public Optional<HospitalDoctorDTO> getConvert(Long id) {
+        return Optional.ofNullable(convert(doctorInfoMapper.selectByPrimaryKey(id)));
+    }
+
+    /**
      * 获取医生信息
      *
      * @param id 医生编号
@@ -109,7 +130,7 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
      * @return 医生信息列表
      */
     @Override
-    public List<HospitalDoctor> list(String name, Integer pageNum, Integer pageSize) {
+    public List<HospitalDoctorDTO> list(String name, Integer pageNum, Integer pageSize) {
 
         PageHelper.startPage(pageNum, pageSize);
 
@@ -120,6 +141,30 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
                     .andNameLike("%" + name + "%");
         }
 
-        return doctorInfoMapper.selectByExample(example);
+        return doctorInfoMapper.selectByExample(example).stream()
+                .map(this::convert)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 转换医生信息
+     * 增加专科名称，门诊名称
+     *
+     * @param doctor 医生信息
+     * @return 医生信息封装对象
+     */
+    private HospitalDoctorDTO convert(HospitalDoctor doctor) {
+
+        HospitalDoctorDTO dto = new HospitalDoctorDTO();
+
+        BeanUtils.copyProperties(doctor, dto);
+
+        // 设置专科名称
+        dto.setSpecialName(specialService.getName(doctor.getSpecialId()));
+
+        // 设置门诊名称
+        dto.setOutpatientName(outpatientService.getName(doctor.getOutpatientId()));
+
+        return dto;
     }
 }

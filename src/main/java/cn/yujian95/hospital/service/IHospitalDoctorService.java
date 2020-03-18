@@ -1,5 +1,6 @@
 package cn.yujian95.hospital.service;
 
+import cn.yujian95.hospital.dto.HospitalDoctorDTO;
 import cn.yujian95.hospital.dto.param.HospitalDoctorParam;
 import cn.yujian95.hospital.entity.HospitalDoctor;
 
@@ -47,6 +48,14 @@ public interface IHospitalDoctorService {
     Optional<HospitalDoctor> getOptional(Long id);
 
     /**
+     * 获取转换后的对象信息
+     *
+     * @param id 医生编号
+     * @return 转换后的对象
+     */
+    Optional<HospitalDoctorDTO> getConvert(Long id);
+
+    /**
      * 删除医生信息
      *
      * @param id 医生编号
@@ -62,5 +71,5 @@ public interface IHospitalDoctorService {
      * @param pageSize 页大小
      * @return 医生信息列表
      */
-    List<HospitalDoctor> list(String name, Integer pageNum, Integer pageSize);
+    List<HospitalDoctorDTO> list(String name, Integer pageNum, Integer pageSize);
 }

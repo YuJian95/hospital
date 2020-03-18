@@ -210,7 +210,6 @@ public class HospitalInfoController {
             @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer",
                     required = true)
     })
-
     @RequestMapping(value = "/special/list/{hospitalId}", method = RequestMethod.GET)
     public CommonResult<CommonPage<HospitalSpecial>> listSpecialByHospital(@PathVariable Long hospitalId,
                                                                            @RequestParam Integer pageNum,

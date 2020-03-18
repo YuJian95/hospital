@@ -48,6 +48,13 @@ public interface IHospitalSpecialService {
     Optional<HospitalSpecial> getOptional(Long id);
 
     /**
+     * 获取专科名称
+     * @param id 专科编号
+     * @return 专科名称
+     */
+    String getName(Long id);
+
+    /**
      * 判断专科信息是否存在
      *
      * @param id 专科信息
