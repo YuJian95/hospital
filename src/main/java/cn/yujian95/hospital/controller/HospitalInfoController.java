@@ -2,7 +2,6 @@ package cn.yujian95.hospital.controller;
 
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
-import cn.yujian95.hospital.dto.HospitalSpecialOutpatientDTO;
 import cn.yujian95.hospital.dto.param.HospitalInfoParam;
 import cn.yujian95.hospital.dto.param.HospitalOutpatientRelationParam;
 import cn.yujian95.hospital.dto.param.HospitalSpecialRelationParam;
@@ -15,7 +14,6 @@ import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author YuJian95  clj9509@163.com

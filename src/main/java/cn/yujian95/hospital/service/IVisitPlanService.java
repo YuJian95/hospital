@@ -2,7 +2,6 @@ package cn.yujian95.hospital.service;
 
 import cn.yujian95.hospital.dto.VisitPlanDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
-import cn.yujian95.hospital.entity.VisitPlan;
 
 import java.util.Date;
 import java.util.List;
@@ -59,6 +58,6 @@ public interface IVisitPlanService {
      * @param pageSize   页大小
      * @return 出诊列表
      */
-    List<VisitPlan> list(Long hospitalId, Long specialId, Long clinicId, Long doctorId, Date day,
-                         Integer pageNum, Integer pageSize);
+    List<VisitPlanDTO> list(Long hospitalId, Long specialId, Long clinicId, Long doctorId, Date day,
+                            Integer pageNum, Integer pageSize);
 }

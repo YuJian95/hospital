@@ -63,6 +63,17 @@ public class HospitalClinicServiceImpl implements IHospitalClinicService {
     }
 
     /**
+     * 获取诊室名称
+     *
+     * @param id 诊室编号
+     * @return 诊室地址，空则返回，未知
+     */
+    @Override
+    public String getAddress(Long id) {
+        return getOptional(id).map(HospitalClinic::getAddress).orElse("未知");
+    }
+
+    /**
      * 获取诊室信息
      *
      * @param id 诊室编号

@@ -31,6 +31,14 @@ public interface IHospitalClinicService {
     boolean update(Long id, HospitalClinicParam param);
 
     /**
+     * 获取诊室名称
+     *
+     * @param id 诊室编号
+     * @return 诊室地址，空则返回，未知
+     */
+    String getAddress(Long id);
+
+    /**
      * 获取诊室信息
      *
      * @param id 诊室编号

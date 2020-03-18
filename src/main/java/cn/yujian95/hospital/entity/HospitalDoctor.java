@@ -46,19 +46,19 @@ public class HospitalDoctor implements Serializable {
     private String specialty;
 
     /**
-     * 专科编号
+     * 所属专科
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "专科编号")
+    @ApiModelProperty(value = "所属专科")
     private Long specialId;
 
     /**
-     * 门诊编号
+     * 所属门诊
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "门诊编号")
+    @ApiModelProperty(value = "所属门诊")
     private Long outpatientId;
 
     /**

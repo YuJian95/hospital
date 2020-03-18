@@ -101,6 +101,17 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
     }
 
     /**
+     * 获取医生名称
+     *
+     * @param id 医生编号
+     * @return 医生名称，空则，返回未知
+     */
+    @Override
+    public String getName(Long id) {
+        return getOptional(id).map(HospitalDoctor::getName).orElse("未知");
+    }
+
+    /**
      * 获取医生信息
      *
      * @param id 医生编号

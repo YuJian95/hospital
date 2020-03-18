@@ -1,10 +1,15 @@
 package cn.yujian95.hospital.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import cn.yujian95.hospital.dto.VisitPlanDTO;
+import cn.yujian95.hospital.dto.VisitPlanResiduesDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
 import cn.yujian95.hospital.entity.VisitPlan;
 import cn.yujian95.hospital.entity.VisitPlanExample;
 import cn.yujian95.hospital.mapper.VisitPlanMapper;
+import cn.yujian95.hospital.service.IHospitalClinicService;
+import cn.yujian95.hospital.service.IHospitalDoctorService;
+import cn.yujian95.hospital.service.IVisitOrderService;
 import cn.yujian95.hospital.service.IVisitPlanService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
@@ -13,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author YuJian95  clj9509@163.com
@@ -22,8 +28,22 @@ import java.util.List;
 @Service
 public class VisitPlanServiceImpl implements IVisitPlanService {
 
+    /**
+     * 每段时间内 最大就诊人数
+     */
+    private static final Integer MAX_NUMBER_OF_PATIENTS = 5;
+
     @Resource
     private VisitPlanMapper planMapper;
+
+    @Resource
+    private IHospitalDoctorService hospitalDoctorService;
+
+    @Resource
+    private IHospitalClinicService hospitalClinicService;
+
+    @Resource
+    private IVisitOrderService orderService;
 
     /**
      * 创建出诊计划
@@ -105,8 +125,8 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
      * @return 出诊列表
      */
     @Override
-    public List<VisitPlan> list(Long hospitalId, Long specialId, Long outpatientId, Long doctorId, Date day,
-                                Integer pageNum, Integer pageSize) {
+    public List<VisitPlanDTO> list(Long hospitalId, Long specialId, Long outpatientId, Long doctorId, Date day,
+                                   Integer pageNum, Integer pageSize) {
 
         PageHelper.startPage(pageNum, pageSize);
 
@@ -123,7 +143,7 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
         }
 
         if (outpatientId != null) {
-            criteria.andOutpatientEqualTo(outpatientId);
+            criteria.andOutpatientIdEqualTo(outpatientId);
         }
 
         if (doctorId != null) {
@@ -132,6 +152,56 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
         criteria.andDayBetween(DateUtil.beginOfDay(day), DateUtil.endOfDay(day));
 
-        return planMapper.selectByExample(example);
+        return planMapper.selectByExample(example).stream()
+                .map(this::covert)
+                .collect(Collectors.toList());
     }
+
+
+    /**
+     * 转换为出诊计划封装类
+     * 增加诊室地址、医生名称
+     *
+     * @param plan 出诊计划
+     * @return 出诊计划封装类
+     */
+    private VisitPlanDTO covert(VisitPlan plan) {
+        VisitPlanDTO dto = new VisitPlanDTO();
+
+        BeanUtils.copyProperties(plan, dto);
+
+        // 设置诊室地址
+        dto.setClinicName(hospitalClinicService.getAddress(plan.getClinicId()));
+
+        // 设置医生名称
+        dto.setDoctorName(hospitalDoctorService.getName(plan.getDoctorId()));
+
+        return dto;
+    }
+
+    /**
+     * 转换为出诊计划挂号封装类
+     * 增加诊室地址、医生名称、剩余挂号
+     *
+     * @param plan 出诊计划
+     * @return 出诊计划封装类
+     */
+    private VisitPlanResiduesDTO covertToResidues(VisitPlan plan) {
+
+        VisitPlanResiduesDTO dto = new VisitPlanResiduesDTO();
+
+        BeanUtils.copyProperties(plan, dto);
+
+        // 设置诊室地址
+        dto.setClinicName(hospitalClinicService.getAddress(plan.getClinicId()));
+
+        // 设置医生名称
+        dto.setDoctorName(hospitalDoctorService.getName(plan.getDoctorId()));
+
+        // 设置剩余号数
+        dto.setResidues(orderService.countByPlanId(MAX_NUMBER_OF_PATIENTS - plan.getId()));
+
+        return dto;
+    }
+
 }

@@ -5,6 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="plan_id" jdbcType="BIGINT" property="planId" />
     <result column="card_id" jdbcType="BIGINT" property="cardId" />
+    <result column="account_id" jdbcType="BIGINT" property="accountId" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, plan_id, card_id, status, gmt_create, gmt_modified
+    id, plan_id, card_id, account_id, status, gmt_create, gmt_modified
   </sql>
   <select id="selectByExample" parameterType="cn.yujian95.hospital.entity.VisitOrderExample" resultMap="BaseResultMap">
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="cn.yujian95.hospital.entity.VisitOrder">
     insert into visit_order (id, plan_id, card_id, 
-      status, gmt_create, gmt_modified
-      )
+      account_id, status, gmt_create, 
+      gmt_modified)
     values (#{id,jdbcType=BIGINT}, #{planId,jdbcType=BIGINT}, #{cardId,jdbcType=BIGINT}, 
-      #{status,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
-      )
+      #{accountId,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.yujian95.hospital.entity.VisitOrder">
     insert into visit_order
@@ -119,6 +120,9 @@
       </if>
       <if test="cardId != null">
         card_id,
+      </if>
+      <if test="accountId != null">
+        account_id,
       </if>
       <if test="status != null">
         status,
@@ -139,6 +143,9 @@
       </if>
       <if test="cardId != null">
         #{cardId,jdbcType=BIGINT},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=BIGINT},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -169,6 +176,9 @@
       <if test="record.cardId != null">
         card_id = #{record.cardId,jdbcType=BIGINT},
       </if>
+      <if test="record.accountId != null">
+        account_id = #{record.accountId,jdbcType=BIGINT},
+      </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
@@ -188,6 +198,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       plan_id = #{record.planId,jdbcType=BIGINT},
       card_id = #{record.cardId,jdbcType=BIGINT},
+      account_id = #{record.accountId,jdbcType=BIGINT},
       status = #{record.status,jdbcType=INTEGER},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
@@ -203,6 +214,9 @@
       </if>
       <if test="cardId != null">
         card_id = #{cardId,jdbcType=BIGINT},
+      </if>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=BIGINT},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -220,6 +234,7 @@
     update visit_order
     set plan_id = #{planId,jdbcType=BIGINT},
       card_id = #{cardId,jdbcType=BIGINT},
+      account_id = #{accountId,jdbcType=BIGINT},
       status = #{status,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}

@@ -285,63 +285,63 @@ public class VisitPlanExample {
             return (Criteria) this;
         }
 
-        public Criteria andOutpatientIsNull() {
-            addCriterion("outpatient is null");
+        public Criteria andOutpatientIdIsNull() {
+            addCriterion("outpatient_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andOutpatientIsNotNull() {
-            addCriterion("outpatient is not null");
+        public Criteria andOutpatientIdIsNotNull() {
+            addCriterion("outpatient_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOutpatientEqualTo(Long value) {
-            addCriterion("outpatient =", value, "outpatient");
+        public Criteria andOutpatientIdEqualTo(Long value) {
+            addCriterion("outpatient_id =", value, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andOutpatientNotEqualTo(Long value) {
-            addCriterion("outpatient <>", value, "outpatient");
+        public Criteria andOutpatientIdNotEqualTo(Long value) {
+            addCriterion("outpatient_id <>", value, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andOutpatientGreaterThan(Long value) {
-            addCriterion("outpatient >", value, "outpatient");
+        public Criteria andOutpatientIdGreaterThan(Long value) {
+            addCriterion("outpatient_id >", value, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andOutpatientGreaterThanOrEqualTo(Long value) {
-            addCriterion("outpatient >=", value, "outpatient");
+        public Criteria andOutpatientIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("outpatient_id >=", value, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andOutpatientLessThan(Long value) {
-            addCriterion("outpatient <", value, "outpatient");
+        public Criteria andOutpatientIdLessThan(Long value) {
+            addCriterion("outpatient_id <", value, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andOutpatientLessThanOrEqualTo(Long value) {
-            addCriterion("outpatient <=", value, "outpatient");
+        public Criteria andOutpatientIdLessThanOrEqualTo(Long value) {
+            addCriterion("outpatient_id <=", value, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andOutpatientIn(List<Long> values) {
-            addCriterion("outpatient in", values, "outpatient");
+        public Criteria andOutpatientIdIn(List<Long> values) {
+            addCriterion("outpatient_id in", values, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andOutpatientNotIn(List<Long> values) {
-            addCriterion("outpatient not in", values, "outpatient");
+        public Criteria andOutpatientIdNotIn(List<Long> values) {
+            addCriterion("outpatient_id not in", values, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andOutpatientBetween(Long value1, Long value2) {
-            addCriterion("outpatient between", value1, value2, "outpatient");
+        public Criteria andOutpatientIdBetween(Long value1, Long value2) {
+            addCriterion("outpatient_id between", value1, value2, "outpatientId");
             return (Criteria) this;
         }
 
-        public Criteria andOutpatientNotBetween(Long value1, Long value2) {
-            addCriterion("outpatient not between", value1, value2, "outpatient");
+        public Criteria andOutpatientIdNotBetween(Long value1, Long value2) {
+            addCriterion("outpatient_id not between", value1, value2, "outpatientId");
             return (Criteria) this;
         }
 

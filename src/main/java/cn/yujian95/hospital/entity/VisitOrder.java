@@ -30,6 +30,14 @@ public class VisitOrder implements Serializable {
     private Long cardId;
 
     /**
+     * 账号编号
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "账号编号")
+    private Long accountId;
+
+    /**
      * 预约状态 0：未开始，1：未按时就诊，2：取消预约挂号，3：已完成
      *
      * @mbg.generated
@@ -79,6 +87,14 @@ public class VisitOrder implements Serializable {
         this.cardId = cardId;
     }
 
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -112,6 +128,7 @@ public class VisitOrder implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", planId=").append(planId);
         sb.append(", cardId=").append(cardId);
+        sb.append(", accountId=").append(accountId);
         sb.append(", status=").append(status);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);

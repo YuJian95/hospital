@@ -37,7 +37,7 @@ public class VisitPlanParam {
      * @mbg.generated
      */
     @ApiModelProperty(value = "门诊编号")
-    private Long outpatient;
+    private Long outpatientId;
 
     /**
      * 诊室编号

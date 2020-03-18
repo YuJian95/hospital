@@ -48,6 +48,13 @@ public interface IHospitalDoctorService {
     Optional<HospitalDoctor> getOptional(Long id);
 
     /**
+     * 获取医生名称
+     * @param id 医生编号
+     * @return 医生名称，空则，返回未知
+     */
+    String getName(Long id);
+
+    /**
      * 获取转换后的对象信息
      *
      * @param id 医生编号
