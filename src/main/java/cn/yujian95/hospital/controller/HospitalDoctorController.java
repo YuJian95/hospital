@@ -48,11 +48,11 @@ public class HospitalDoctorController {
             return CommonResult.validateFailed("性别参数错误！");
         }
 
-        if (outpatientService.count(param.getOutpatientId())) {
+        if (!outpatientService.count(param.getOutpatientId())) {
             return CommonResult.validateFailed("不存在，该门诊编号！");
         }
 
-        if (specialService.count(param.getSpecialId())) {
+        if (!specialService.count(param.getSpecialId())) {
             return CommonResult.validateFailed("不存在，该专科编号！");
         }
 
@@ -77,11 +77,11 @@ public class HospitalDoctorController {
             return CommonResult.validateFailed("性别参数错误！");
         }
 
-        if (outpatientService.count(param.getOutpatientId())) {
+        if (!outpatientService.count(param.getOutpatientId())) {
             return CommonResult.validateFailed("不存在，该门诊编号！");
         }
 
-        if (specialService.count(param.getSpecialId())) {
+        if (!specialService.count(param.getSpecialId())) {
             return CommonResult.validateFailed("不存在，该专科编号！");
         }
 
