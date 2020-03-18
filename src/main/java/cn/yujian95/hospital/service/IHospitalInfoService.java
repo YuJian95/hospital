@@ -104,10 +104,11 @@ public interface IHospitalInfoService {
     /**
      * 删除从医院中移除专科
      *
-     * @param id 关系编号
+     * @param hospitalId 医院编号
+     * @param specialId  专科编号
      * @return 是否成功
      */
-    boolean deleteSpecialRelation(Long id);
+    boolean deleteSpecialRelation(Long hospitalId, Long specialId);
 
     /**
      * 判断关系是否存在

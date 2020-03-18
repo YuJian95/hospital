@@ -127,16 +127,26 @@ public class HospitalInfoController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation(value = "移除医院中的专科", notes = "传入 关系编号")
+    @ApiOperation(value = "移除医院中的专科", notes = "传入 医院编号、专科编号")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "hospitalId", value = "医院编号", paramType = "query", dataType = "Long"
+                    , required = true),
+            @ApiImplicitParam(name = "specialId", value = "专科编号", paramType = "query", dataType = "Long"
+                    , required = true)
+    })
     @ApiImplicitParam(name = "id", value = "关系编号", paramType = "path", dataType = "Long", required = true)
-    @RequestMapping(value = "/special/relation/{id}", method = RequestMethod.DELETE)
-    public CommonResult deleteSpecialRelation(@PathVariable Long id) {
+    @RequestMapping(value = "/special/relation", method = RequestMethod.DELETE)
+    public CommonResult deleteSpecialRelation(@RequestParam Long hospitalId, @RequestParam Long specialId) {
 
-        if (!infoService.countSpecialRelation(id)) {
-            return CommonResult.validateFailed("不存在，该关系编号！");
+        if (!infoService.count(hospitalId)) {
+            return CommonResult.validateFailed("不存在，该医院编号！");
         }
 
-        if (infoService.deleteSpecialRelation(id)) {
+        if (!specialService.count(specialId)) {
+            return CommonResult.validateFailed("不存在，该专科编号！");
+        }
+
+        if (infoService.deleteSpecialRelation(hospitalId, specialId)) {
             return CommonResult.success();
         }
 

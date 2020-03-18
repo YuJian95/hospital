@@ -172,6 +172,25 @@ HospitalInfoServiceImpl implements IHospitalInfoService {
     }
 
     /**
+     * 删除从医院中移除专科
+     *
+     * @param hospitalId 医院编号
+     * @param specialId  专科编号
+     * @return 是否成功
+     */
+    @Override
+    public boolean deleteSpecialRelation(Long hospitalId, Long specialId) {
+
+        HospitalSpecialRelationExample example = new HospitalSpecialRelationExample();
+
+        example.createCriteria()
+                .andHospitalIdEqualTo(hospitalId)
+                .andSpecialIdEqualTo(specialId);
+
+        return specialRelationMapper.deleteByExample(example) > 0;
+    }
+
+    /**
      * 删除从医院中移除门诊
      *
      * @param hospitalId   医院编号
@@ -207,17 +226,6 @@ HospitalInfoServiceImpl implements IHospitalInfoService {
         relation.setGmtModified(new Date());
 
         return outpatientRelationMapper.insertSelective(relation) > 0;
-    }
-
-    /**
-     * 删除从医院中移除专科
-     *
-     * @param id 关系编号
-     * @return 是否成功
-     */
-    @Override
-    public boolean deleteSpecialRelation(Long id) {
-        return specialRelationMapper.deleteByPrimaryKey(id) > 0;
     }
 
     /**
