@@ -2,12 +2,11 @@ package cn.yujian95.hospital.service.impl;
 
 import cn.yujian95.hospital.component.QiniuComponent;
 import cn.yujian95.hospital.dto.param.HospitalInfoParam;
+import cn.yujian95.hospital.dto.param.HospitalOutpatientRelationParam;
 import cn.yujian95.hospital.dto.param.HospitalSpecialRelationParam;
-import cn.yujian95.hospital.entity.HospitalInfo;
-import cn.yujian95.hospital.entity.HospitalInfoExample;
-import cn.yujian95.hospital.entity.HospitalSpecialRelation;
-import cn.yujian95.hospital.entity.HospitalSpecialRelationExample;
+import cn.yujian95.hospital.entity.*;
 import cn.yujian95.hospital.mapper.HospitalInfoMapper;
+import cn.yujian95.hospital.mapper.HospitalOutpatientRelationMapper;
 import cn.yujian95.hospital.mapper.HospitalSpecialRelationMapper;
 import cn.yujian95.hospital.service.IHospitalInfoService;
 import com.github.pagehelper.PageHelper;
@@ -34,6 +33,9 @@ HospitalInfoServiceImpl implements IHospitalInfoService {
 
     @Resource
     private HospitalSpecialRelationMapper specialRelationMapper;
+
+    @Resource
+    private HospitalOutpatientRelationMapper outpatientRelationMapper;
 
     /**
      * 添加医院信息
@@ -170,6 +172,36 @@ HospitalInfoServiceImpl implements IHospitalInfoService {
     }
 
     /**
+     * 插入门诊到医院中去
+     *
+     * @param param 医院门诊关系参数
+     * @return 是否成功
+     */
+    @Override
+    public boolean insertOutpatientRelation(HospitalOutpatientRelationParam param) {
+
+        HospitalOutpatientRelation relation = new HospitalOutpatientRelation();
+
+        BeanUtils.copyProperties(param, relation);
+
+        relation.setGmtCreate(new Date());
+        relation.setGmtModified(new Date());
+
+        return outpatientRelationMapper.insertSelective(relation) > 0;
+    }
+
+    /**
+     * 删除从医院中移除门诊
+     *
+     * @param id 关系编号
+     * @return 是否成功
+     */
+    @Override
+    public boolean deleteOutpatientRelation(Long id) {
+        return outpatientRelationMapper.deleteByPrimaryKey(id) > 0;
+    }
+
+    /**
      * 删除从医院中移除专科
      *
      * @param id 关系编号
@@ -197,6 +229,22 @@ HospitalInfoServiceImpl implements IHospitalInfoService {
     }
 
     /**
+     * 判断关系是否存在
+     *
+     * @param id 关系编号
+     * @return 是否存在
+     */
+    @Override
+    public boolean countOutpatientRelation(Long id) {
+        HospitalOutpatientRelationExample example = new HospitalOutpatientRelationExample();
+
+        example.createCriteria()
+                .andIdEqualTo(id);
+
+        return outpatientRelationMapper.countByExample(example) > 0;
+    }
+
+    /**
      * 判断医院是否存在该专科
      *
      * @param param 医院专科关系参数
@@ -211,5 +259,22 @@ HospitalInfoServiceImpl implements IHospitalInfoService {
                 .andSpecialIdEqualTo(param.getSpecialId());
 
         return specialRelationMapper.countByExample(example) > 0;
+    }
+
+    /**
+     * 判断医院是否存在该门诊
+     *
+     * @param param 医院门诊关系参数
+     * @return 是否存在
+     */
+    @Override
+    public boolean countOutpatientRelation(HospitalOutpatientRelationParam param) {
+        HospitalOutpatientRelationExample example = new HospitalOutpatientRelationExample();
+
+        example.createCriteria()
+                .andHospitalIdEqualTo(param.getHospitalId())
+                .andOutpatientIdEqualTo(param.getOutpatientId());
+
+        return outpatientRelationMapper.countByExample(example) > 0;
     }
 }

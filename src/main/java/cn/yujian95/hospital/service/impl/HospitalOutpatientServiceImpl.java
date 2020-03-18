@@ -1,9 +1,13 @@
 package cn.yujian95.hospital.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.yujian95.hospital.dto.param.HospitalOutpatientParam;
 import cn.yujian95.hospital.entity.HospitalOutpatient;
 import cn.yujian95.hospital.entity.HospitalOutpatientExample;
+import cn.yujian95.hospital.entity.HospitalOutpatientRelation;
+import cn.yujian95.hospital.entity.HospitalOutpatientRelationExample;
 import cn.yujian95.hospital.mapper.HospitalOutpatientMapper;
+import cn.yujian95.hospital.mapper.HospitalOutpatientRelationMapper;
 import cn.yujian95.hospital.service.IHospitalOutpatientService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +18,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author YuJian95  clj9509@163.com
@@ -24,6 +29,9 @@ public class HospitalOutpatientServiceImpl implements IHospitalOutpatientService
 
     @Resource
     private HospitalOutpatientMapper outpatientMapper;
+
+    @Resource
+    private HospitalOutpatientRelationMapper outpatientRelationMapper;
 
     /**
      * 添加门诊信息
@@ -124,11 +132,49 @@ public class HospitalOutpatientServiceImpl implements IHospitalOutpatientService
     }
 
     /**
-     * 查找门诊列表
+     * 通过医院编号，专科编号，查找门诊列表
      *
-     * @param specialId  门诊编号
+     * @param hospitalId 医院编号
+     * @param specialId  专科编号
      * @param pageNum    第几页
      * @param pageSize   页大小
+     * @return 门诊列表
+     */
+    @Override
+    public List<HospitalOutpatient> list(Long hospitalId, Long specialId, Integer pageNum, Integer pageSize) {
+
+        // 获取医院含有的门诊列表
+        HospitalOutpatientRelationExample outpatientRelationExample = new HospitalOutpatientRelationExample();
+
+        outpatientRelationExample.createCriteria()
+                .andHospitalIdEqualTo(hospitalId);
+
+        // 门诊编号列表
+        List<Long> outpatientIdList = getOutpatientIdList(outpatientRelationExample);
+
+        if (CollectionUtil.isEmpty(outpatientIdList)) {
+            return null;
+        }
+
+        // 设置分页
+        PageHelper.startPage(pageNum, pageSize);
+
+        // 筛选门诊中符合的专科
+        HospitalOutpatientExample example = new HospitalOutpatientExample();
+
+        example.createCriteria()
+                .andSpecialIdEqualTo(specialId)
+                .andIdIn(outpatientIdList);
+
+        return outpatientMapper.selectByExample(example);
+    }
+
+    /**
+     * 查找门诊列表
+     *
+     * @param specialId 门诊编号
+     * @param pageNum   第几页
+     * @param pageSize  页大小
      * @return 门诊列表
      */
     @Override
@@ -144,5 +190,56 @@ public class HospitalOutpatientServiceImpl implements IHospitalOutpatientService
         }
 
         return outpatientMapper.selectByExample(example);
+    }
+
+    /**
+     * 查找未添加到医院的门诊编号
+     *
+     * @param pageNum  第几页
+     * @param pageSize 页大小
+     * @return 门诊列表
+     */
+    @Override
+    public List<HospitalOutpatient> listAlone(Integer pageNum, Integer pageSize) {
+
+        // 获取医院含有的门诊列表
+        HospitalOutpatientRelationExample outpatientRelationExample = new HospitalOutpatientRelationExample();
+
+        outpatientRelationExample.createCriteria()
+                .andHospitalIdIsNotNull();
+
+        // 门诊编号列表
+        List<Long> outpatientIdList = getOutpatientIdList(outpatientRelationExample);
+
+        if (CollectionUtil.isEmpty(outpatientIdList)) {
+            return null;
+        }
+
+        // 设置分页
+        PageHelper.startPage(pageNum, pageSize);
+
+        // 筛选门诊中符合的专科
+        HospitalOutpatientExample example = new HospitalOutpatientExample();
+
+        example.createCriteria()
+                .andIdNotIn(outpatientIdList);
+
+        return outpatientMapper.selectByExample(example);
+    }
+
+    /**
+     * 输入筛选条件，获取门诊编号列表
+     *
+     * @param example 筛选条件
+     * @return 门诊编号列表
+     */
+    private List<Long> getOutpatientIdList(HospitalOutpatientRelationExample example) {
+
+        // 门诊编号列表
+        return outpatientRelationMapper.selectByExample(example).stream()
+                .map(HospitalOutpatientRelation::getOutpatientId)
+                // 去除重复项
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

@@ -73,4 +73,23 @@ public interface IHospitalOutpatientService {
      */
     List<HospitalOutpatient> list(Long specialId, Integer pageNum, Integer pageSize);
 
+    /**
+     * 通过医院编号，专科编号，查找门诊列表
+     *
+     * @param hospitalId 医院编号
+     * @param specialId  专科编号
+     * @param pageNum    第几页
+     * @param pageSize   页大小
+     * @return 门诊列表
+     */
+    List<HospitalOutpatient> list(Long hospitalId, Long specialId, Integer pageNum, Integer pageSize);
+
+    /**
+     * 查找未添加到医院的门诊编号
+     *
+     * @param pageNum  第几页
+     * @param pageSize 页大小
+     * @return 门诊列表
+     */
+    List<HospitalOutpatient> listAlone(Integer pageNum, Integer pageSize);
 }

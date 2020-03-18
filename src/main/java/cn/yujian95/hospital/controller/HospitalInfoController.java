@@ -4,9 +4,11 @@ import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.dto.HospitalSpecialOutpatientDTO;
 import cn.yujian95.hospital.dto.param.HospitalInfoParam;
+import cn.yujian95.hospital.dto.param.HospitalOutpatientRelationParam;
 import cn.yujian95.hospital.dto.param.HospitalSpecialRelationParam;
 import cn.yujian95.hospital.entity.HospitalInfo;
 import cn.yujian95.hospital.service.IHospitalInfoService;
+import cn.yujian95.hospital.service.IHospitalOutpatientService;
 import cn.yujian95.hospital.service.IHospitalSpecialService;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +32,9 @@ public class HospitalInfoController {
 
     @Resource
     private IHospitalSpecialService specialService;
+
+    @Resource
+    private IHospitalOutpatientService outpatientService;
 
     @ApiOperation(value = "添加医院信息", notes = "传入 医院信息参数（名称，图片、电话，地址，简介）")
     @RequestMapping(value = "/info", method = RequestMethod.POST)
@@ -126,7 +131,7 @@ public class HospitalInfoController {
     @RequestMapping(value = "/special/relation/{id}", method = RequestMethod.DELETE)
     public CommonResult deleteSpecialRelation(@PathVariable Long id) {
 
-        if (infoService.countSpecialRelation(id)) {
+        if (!infoService.countSpecialRelation(id)) {
             return CommonResult.validateFailed("不存在，该关系编号！");
         }
 
@@ -136,6 +141,47 @@ public class HospitalInfoController {
 
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
+
+    @ApiOperation(value = "添加门诊到医院中", notes = "传入 医院门诊关系参数（医院编号、门诊编号）")
+    @RequestMapping(value = "/outpatient/relation", method = RequestMethod.POST)
+    public CommonResult insertOutpatientRelation(@RequestBody HospitalOutpatientRelationParam param) {
+
+        if (!infoService.count(param.getHospitalId())) {
+            return CommonResult.validateFailed("不存在，该医院编号！");
+        }
+
+        if (!outpatientService.count(param.getOutpatientId())) {
+            return CommonResult.validateFailed("不存在，该门诊编号! ");
+        }
+
+        if (infoService.countOutpatientRelation(param)) {
+            return CommonResult.validateFailed("已存在，该门诊关系！");
+        }
+
+        if (infoService.insertOutpatientRelation(param)) {
+            return CommonResult.success();
+        }
+
+        return CommonResult.failed("服务器错误，请联系管理员！");
+
+    }
+
+    @ApiOperation(value = "移除医院中的门诊", notes = "传入 关系编号")
+    @ApiImplicitParam(name = "id", value = "关系编号", paramType = "path", dataType = "Long", required = true)
+    @RequestMapping(value = "/outpatient/relation/{id}", method = RequestMethod.DELETE)
+    public CommonResult deleteOutpatientRelation(@PathVariable Long id) {
+
+        if (!infoService.countOutpatientRelation(id)) {
+            return CommonResult.validateFailed("不存在，该关系编号！");
+        }
+
+        if (infoService.deleteOutpatientRelation(id)) {
+            return CommonResult.success();
+        }
+
+        return CommonResult.failed("服务器错误，请联系管理员！");
+    }
+
 
 //    @ApiOperation(value = "获取医院，所属专科列表", notes = "传入 专科名称")
 //    @ApiImplicitParam(name = "hospitalId", value = "医院编号", paramType = "path", dataType = "Long", required = true)
