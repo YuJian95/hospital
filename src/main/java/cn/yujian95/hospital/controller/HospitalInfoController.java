@@ -94,7 +94,7 @@ public class HospitalInfoController {
             @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "Integer",
                     required = true),
             @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer",
-                    required = true),
+                    required = true)
     })
     @RequestMapping(value = "/info/list", method = RequestMethod.GET)
     public CommonResult<CommonPage<HospitalInfo>> searchHospitalInfo(@RequestParam(required = false) String name,
@@ -193,8 +193,15 @@ public class HospitalInfoController {
     }
 
     @ApiOperation(value = "获取医院，所属专科列表", notes = "传入 专科名称")
-    @ApiImplicitParam(name = "hospitalId", value = "医院编号", paramType = "path", dataType = "Long",
-            required = true)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "hospitalId", value = "医院编号", paramType = "path", dataType = "Long",
+                    required = true),
+            @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "Integer",
+                    required = true),
+            @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer",
+                    required = true)
+    })
+
     @RequestMapping(value = "/special/list/{hospitalId}", method = RequestMethod.GET)
     public CommonResult<CommonPage<HospitalSpecial>> listSpecialByHospital(@PathVariable Long hospitalId,
                                                                            @RequestParam Integer pageNum,
