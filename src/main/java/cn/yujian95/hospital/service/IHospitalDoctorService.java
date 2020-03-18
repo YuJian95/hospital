@@ -72,4 +72,18 @@ public interface IHospitalDoctorService {
      * @return 医生信息列表
      */
     List<HospitalDoctorDTO> list(String name, Integer pageNum, Integer pageSize);
+
+    /**
+     * 查找医生信息列表
+     *
+     * @param name         医生名称
+     * @param specialId    专科编号
+     * @param outpatientId 门诊编号
+     * @param pageNum      第几页
+     * @param pageSize     页大小
+     * @return 医生信息列表
+     */
+    List<HospitalDoctorDTO> list(String name, Long specialId, Long outpatientId, Integer pageNum, Integer pageSize);
+
+
 }

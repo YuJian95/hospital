@@ -4,6 +4,7 @@ import cn.yujian95.hospital.dto.HospitalDoctorDTO;
 import cn.yujian95.hospital.dto.param.HospitalDoctorParam;
 import cn.yujian95.hospital.entity.HospitalDoctor;
 import cn.yujian95.hospital.entity.HospitalDoctorExample;
+import cn.yujian95.hospital.entity.HospitalSpecialExample;
 import cn.yujian95.hospital.mapper.HospitalDoctorMapper;
 import cn.yujian95.hospital.service.IHospitalDoctorService;
 import cn.yujian95.hospital.service.IHospitalOutpatientService;
@@ -139,6 +140,41 @@ public class HospitalDoctorInfoServiceImpl implements IHospitalDoctorService {
         if (!StringUtils.isEmpty(name)) {
             example.createCriteria()
                     .andNameLike("%" + name + "%");
+        }
+
+        return doctorInfoMapper.selectByExample(example).stream()
+                .map(this::convert)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 查找医生信息列表
+     *
+     * @param name         医生名称
+     * @param specialId    专科编号
+     * @param outpatientId 门诊编号
+     * @param pageNum      第几页
+     * @param pageSize     页大小
+     * @return 医生信息列表
+     */
+    @Override
+    public List<HospitalDoctorDTO> list(String name, Long specialId, Long outpatientId, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+
+        HospitalDoctorExample example = new HospitalDoctorExample();
+
+        HospitalDoctorExample.Criteria criteria = example.createCriteria();
+
+        if (!StringUtils.isEmpty(name)) {
+            criteria.andNameLike("%" + name + "%");
+        }
+
+        if (specialId != null) {
+            criteria.andSpecialIdEqualTo(specialId);
+        }
+
+        if (outpatientId != null) {
+            criteria.andOutpatientIdEqualTo(outpatientId);
         }
 
         return doctorInfoMapper.selectByExample(example).stream()

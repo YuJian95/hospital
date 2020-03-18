@@ -123,6 +123,48 @@ public class HospitalDoctorController {
         return CommonResult.success(CommonPage.restPage(doctorService.list(name, pageNum, pageSize)));
     }
 
+    @ApiOperation(value = "分页：搜索指定专科，门诊的医生信息", notes = "传入 专科编号、门诊编号")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "specialId", value = "专科编号", paramType = "query", dataType = "Long"),
+            @ApiImplicitParam(name = "outpatientId", value = "门诊编号", paramType = "query", dataType = "Long"),
+            @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "Integer",
+                    required = true),
+            @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer",
+                    required = true),
+    })
+    @RequestMapping(value = "/doctor/list/special/outpatient", method = RequestMethod.GET)
+    public CommonResult listDoctorBySpecialAndOutpatient(@RequestParam(required = false) Long specialId,
+                                                         @RequestParam(required = false) Long outpatientId,
+                                                         @RequestParam Integer pageNum,
+                                                         @RequestParam Integer pageSize) {
+
+        return CommonResult.success(CommonPage.restPage(doctorService.list(null, specialId, outpatientId, pageNum, pageSize)));
+
+    }
+
+    @ApiOperation(value = "分页：搜索医生信息，指定专科，门诊的医生信息", notes = "传入 医生姓名、专科编号、门诊编号")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "医生姓名", paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "specialId", value = "专科编号", paramType = "query", dataType = "Long"
+                    , required = true),
+            @ApiImplicitParam(name = "outpatientId", value = "门诊编号", paramType = "query", dataType = "Long"
+                    , required = true),
+            @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "Integer",
+                    required = true),
+            @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer",
+                    required = true),
+    })
+    @RequestMapping(value = "/doctor/list/name", method = RequestMethod.GET)
+    public CommonResult listDoctorBySpecialAndOutpatientAndName(@RequestParam(required = false) String name,
+                                                                @RequestParam Long specialId,
+                                                                @RequestParam Long outpatientId,
+                                                                @RequestParam Integer pageNum,
+                                                                @RequestParam Integer pageSize) {
+
+        return CommonResult.success(CommonPage.restPage(doctorService.list(name, specialId, outpatientId, pageNum, pageSize)));
+
+    }
+
 
     @ApiOperation(value = "获取医生信息", notes = "传入 医生编号")
     @ApiImplicitParam(name = "id", value = "医生编号", paramType = "path", dataType = "Long", required = true)
