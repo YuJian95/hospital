@@ -41,7 +41,7 @@ public class HospitalDoctorController {
     private IHospitalDoctorService doctorService;
 
     @ApiOperation(value = "添加医生信息", notes = "传入 医生信息参数（姓名，性别，职称，专长，所属专科，所属门诊）")
-    @RequestMapping(value = "/doctor", method = RequestMethod.GET)
+    @RequestMapping(value = "/doctor", method = RequestMethod.POST)
     public CommonResult insertDoctor(@RequestBody HospitalDoctorParam param) {
 
         if (param.getGender() > GIRL || param.getGender() < BOY) {
