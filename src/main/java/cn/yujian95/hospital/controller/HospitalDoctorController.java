@@ -123,7 +123,7 @@ public class HospitalDoctorController {
         return CommonResult.success(CommonPage.restPage(doctorService.list(name, pageNum, pageSize)));
     }
 
-    @ApiOperation(value = "分页：通过姓名、专科，门诊，查找医生信息", notes = "传入 专科编号、门诊编号")
+    @ApiOperation(value = "分页：通过专科，门诊，查找医生信息", notes = "传入 专科编号、门诊编号")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "specialId", value = "专科编号", paramType = "query", dataType = "Long"),
             @ApiImplicitParam(name = "outpatientId", value = "门诊编号", paramType = "query", dataType = "Long"),
@@ -142,7 +142,7 @@ public class HospitalDoctorController {
 
     }
 
-    @ApiOperation(value = "分页：通过医生姓名、专科、门诊，搜索医生信息", notes = "传入 医生姓名、专科编号、门诊编号")
+    @ApiOperation(value = "分页：通过姓名、专科、门诊，搜索医生信息", notes = "传入 医生姓名、专科编号、门诊编号")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "医生姓名", paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "specialId", value = "专科编号", paramType = "query", dataType = "Long"
