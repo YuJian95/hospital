@@ -134,7 +134,6 @@ public class HospitalInfoController {
             @ApiImplicitParam(name = "specialId", value = "专科编号", paramType = "query", dataType = "Long"
                     , required = true)
     })
-    @ApiImplicitParam(name = "id", value = "关系编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/special/relation", method = RequestMethod.DELETE)
     public CommonResult deleteSpecialRelation(@RequestParam Long hospitalId, @RequestParam Long specialId) {
 
