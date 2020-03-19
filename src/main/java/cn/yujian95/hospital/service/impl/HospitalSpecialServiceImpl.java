@@ -2,10 +2,8 @@ package cn.yujian95.hospital.service.impl;
 
 import cn.yujian95.hospital.dto.HospitalSpecialOutpatientDTO;
 import cn.yujian95.hospital.dto.param.HospitalSpecialParam;
-import cn.yujian95.hospital.entity.HospitalSpecial;
-import cn.yujian95.hospital.entity.HospitalSpecialExample;
-import cn.yujian95.hospital.entity.HospitalSpecialRelation;
-import cn.yujian95.hospital.entity.HospitalSpecialRelationExample;
+import cn.yujian95.hospital.entity.*;
+import cn.yujian95.hospital.mapper.HospitalOutpatientMapper;
 import cn.yujian95.hospital.mapper.HospitalSpecialMapper;
 import cn.yujian95.hospital.mapper.HospitalSpecialRelationMapper;
 import cn.yujian95.hospital.service.IHospitalOutpatientService;
@@ -34,6 +32,9 @@ public class HospitalSpecialServiceImpl implements IHospitalSpecialService {
 
     @Resource
     private HospitalSpecialRelationMapper specialRelationMapper;
+
+    @Resource
+    private HospitalOutpatientMapper outpatientMapper;
 
     /**
      * 添加专科信息
@@ -142,6 +143,30 @@ public class HospitalSpecialServiceImpl implements IHospitalSpecialService {
                 .andNameEqualTo(name);
 
         return specialMapper.countByExample(example) > 0;
+    }
+
+    /**
+     * 通过专科编号，查找医院门诊列表
+     *
+     * @param specialId 专科编号
+     * @param pageNum   第几页
+     * @param pageSize  页大小
+     * @return 门诊列表
+     */
+    @Override
+    public List<HospitalOutpatient> listOutpatient(Long specialId, Integer pageNum, Integer pageSize) {
+
+        PageHelper.startPage(pageNum, pageSize);
+
+        HospitalOutpatientExample example = new HospitalOutpatientExample();
+
+
+        if (specialId != null) {
+            example.createCriteria()
+                    .andSpecialIdEqualTo(specialId);
+        }
+
+        return outpatientMapper.selectByExample(example);
     }
 
     /**

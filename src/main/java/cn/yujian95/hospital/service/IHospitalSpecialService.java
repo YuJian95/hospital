@@ -2,6 +2,7 @@ package cn.yujian95.hospital.service;
 
 import cn.yujian95.hospital.dto.HospitalSpecialOutpatientDTO;
 import cn.yujian95.hospital.dto.param.HospitalSpecialParam;
+import cn.yujian95.hospital.entity.HospitalOutpatient;
 import cn.yujian95.hospital.entity.HospitalSpecial;
 
 import java.util.List;
@@ -49,6 +50,7 @@ public interface IHospitalSpecialService {
 
     /**
      * 获取专科名称
+     *
      * @param id 专科编号
      * @return 专科名称
      */
@@ -78,6 +80,16 @@ public interface IHospitalSpecialService {
 //     */
 //    List<HospitalSpecialOutpatientDTO> list(Long hospitalId);
 
+
+    /**
+     * 通过专科编号，查找医院门诊列表
+     *
+     * @param specialId 专科编号
+     * @param pageNum   第几页
+     * @param pageSize  页大小
+     * @return 门诊列表
+     */
+    List<HospitalOutpatient> listOutpatient(Long specialId, Integer pageNum, Integer pageSize);
 
     /**
      * 查找专科信息

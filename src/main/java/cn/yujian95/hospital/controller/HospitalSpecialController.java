@@ -3,6 +3,7 @@ package cn.yujian95.hospital.controller;
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.dto.param.HospitalSpecialParam;
+import cn.yujian95.hospital.entity.HospitalOutpatient;
 import cn.yujian95.hospital.entity.HospitalSpecial;
 import cn.yujian95.hospital.service.IHospitalInfoService;
 import cn.yujian95.hospital.service.IHospitalSpecialService;
@@ -107,5 +108,21 @@ public class HospitalSpecialController {
                                                                    @RequestParam Integer pageSize) {
 
         return CommonResult.success(CommonPage.restPage(specialService.list(name, pageNum, pageSize)));
+    }
+
+    @ApiOperation(value = "分页：通过专科编号，获取所属门诊信息", notes = "传入 专科编号")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "specialId", value = "专科编号", paramType = "query", dataType = "Long"),
+            @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "Integer",
+                    required = true),
+            @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer",
+                    required = true),
+    })
+    @RequestMapping(value = "/special/list/outpatient", method = RequestMethod.GET)
+    public CommonResult<CommonPage<HospitalOutpatient>> searchOutpatientBySpecial(@RequestParam(required = false) Long specialId,
+                                                                                  @RequestParam Integer pageNum,
+                                                                                  @RequestParam Integer pageSize) {
+
+        return CommonResult.success(CommonPage.restPage(specialService.listOutpatient(specialId, pageNum, pageSize)));
     }
 }
