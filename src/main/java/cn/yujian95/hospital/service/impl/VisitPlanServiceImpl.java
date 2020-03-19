@@ -9,7 +9,7 @@ import cn.yujian95.hospital.entity.VisitPlanExample;
 import cn.yujian95.hospital.mapper.VisitPlanMapper;
 import cn.yujian95.hospital.service.IHospitalClinicService;
 import cn.yujian95.hospital.service.IHospitalDoctorService;
-import cn.yujian95.hospital.service.IVisitOrderService;
+import cn.yujian95.hospital.service.IVisitAppointmentService;
 import cn.yujian95.hospital.service.IVisitPlanService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
@@ -43,7 +43,7 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
     private IHospitalClinicService hospitalClinicService;
 
     @Resource
-    private IVisitOrderService orderService;
+    private IVisitAppointmentService orderService;
 
     /**
      * 创建出诊计划

@@ -2,6 +2,8 @@ package cn.yujian95.hospital.controller;
 
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
+import cn.yujian95.hospital.component.WxComponent;
+import cn.yujian95.hospital.dto.UserInfoDTO;
 import cn.yujian95.hospital.dto.param.PowerAccountPasswordParam;
 import cn.yujian95.hospital.dto.param.PowerAccountRegisterParam;
 import cn.yujian95.hospital.dto.param.UserBasicInfoParam;
@@ -19,6 +21,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 import java.util.Optional;
 
 /**
@@ -37,6 +40,9 @@ public class UserBasicInfoController {
 
     @Resource
     private IPowerAccountService powerAccountService;
+
+    @Resource
+    private WxComponent wxComponent;
 
     @ApiOperation(value = "发送注册短信", notes = "传入 手机号")
     @ApiImplicitParam(name = "phone", value = "手机号", paramType = "query", dataType = "String",
@@ -71,6 +77,19 @@ public class UserBasicInfoController {
         return CommonResult.success(basicInfoService.verifyCode(phone, code));
     }
 
+    @ApiOperation(value = "授权获取 openid", notes = "传入 session_code")
+    @ApiImplicitParam(name = "code", value = "微信生成的session-code", paramType = "query", dataType = "String",
+            required = true)
+    @RequestMapping(value = "/wx", method = RequestMethod.GET)
+    public CommonResult getWxOpenId(@RequestParam String code) {
+
+        if (StringUtils.isEmpty(code)) {
+            return CommonResult.validateFailed("code为空！");
+        }
+
+        return CommonResult.success(wxComponent.getOpenId(code));
+    }
+
     @ApiOperation(value = "用户账号注册", notes = "传入 注册对象参数（姓名、头像、手机号、密码）")
     @RequestMapping(value = "/basic/account/register", method = RequestMethod.POST)
     public CommonResult registerUserAccount(@RequestBody UserRegisterParam param) {
@@ -85,6 +104,38 @@ public class UserBasicInfoController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
+    @ApiOperation(value = "获取当前用户信息", notes = "无需参数，通过 jwt校验")
+    @RequestMapping(value = "/basic/info", method = RequestMethod.GET)
+    public CommonResult getCurrentUserInfo(Principal principal) {
+
+        if (principal == null) {
+            return CommonResult.validateFailed("principal 对象为空！");
+        }
+
+        String userName = principal.getName();
+
+        Optional<PowerAccount> optional = powerAccountService.getByName(userName);
+
+        if (optional.isPresent()) {
+
+            PowerAccount account = optional.get();
+            account.setPassword(null);
+
+            UserInfoDTO dto = new UserInfoDTO();
+
+            // 设置账号信息
+            dto.setAccount(account);
+
+            Optional<UserBasicInfo> infoOptional = basicInfoService.getOptionalByPhone(account.getName());
+
+            // 设置用户基础信息
+            infoOptional.ifPresent(dto::setBasicInfo);
+
+            return CommonResult.success(dto);
+        }
+
+        return CommonResult.failed("服务器错误，请联系管理员！");
+    }
 
     @ApiOperation(value = "更新用户基础信息", notes = "传入 用户编号、用户信息参数（姓名、性别、出生日期）")
     @ApiImplicitParam(name = "id", value = "用户编号", paramType = "path", dataType = "Long",

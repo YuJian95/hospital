@@ -3,6 +3,8 @@ package cn.yujian95.hospital.dto;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author YuJian95  clj9509@163.com
  * @date 2020/1/20
@@ -10,7 +12,7 @@ import lombok.Data;
 
 @ApiModel(value = "WebLogDTO", description = "请求日志对象")
 @Data
-public class WebLogDTO {
+public class WebLogDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

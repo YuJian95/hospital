@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class VisitOrder implements Serializable {
+public class VisitAppointment implements Serializable {
     /**
      * 预约编号
      *

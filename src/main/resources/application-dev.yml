@@ -126,3 +126,8 @@ secure:
       - /user/basic/code
       - /user/basic/message
       - /user/basic/account/register
+
+# 小程序配置，用于调用官方API
+wx:
+  appId:
+  appSecret:
