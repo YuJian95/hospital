@@ -171,7 +171,6 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
         <!-- 阿里云短信服务-->
         <dependency>
             <groupId>com.aliyun</groupId>
@@ -184,6 +183,11 @@
             <artifactId>qiniu-java-sdk</artifactId>
             <version>[7.2.0, 7.2.99]</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alipay.sdk</groupId>-->
+<!--            <artifactId>alipay-easysdk</artifactId>-->
+<!--            <version></version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

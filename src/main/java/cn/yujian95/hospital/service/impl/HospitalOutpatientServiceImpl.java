@@ -2,10 +2,7 @@ package cn.yujian95.hospital.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.yujian95.hospital.dto.param.HospitalOutpatientParam;
-import cn.yujian95.hospital.entity.HospitalOutpatient;
-import cn.yujian95.hospital.entity.HospitalOutpatientExample;
-import cn.yujian95.hospital.entity.HospitalOutpatientRelation;
-import cn.yujian95.hospital.entity.HospitalOutpatientRelationExample;
+import cn.yujian95.hospital.entity.*;
 import cn.yujian95.hospital.mapper.HospitalOutpatientMapper;
 import cn.yujian95.hospital.mapper.HospitalOutpatientRelationMapper;
 import cn.yujian95.hospital.service.IHospitalOutpatientService;
@@ -211,12 +208,13 @@ public class HospitalOutpatientServiceImpl implements IHospitalOutpatientService
     /**
      * 查找未添加到医院的门诊编号
      *
-     * @param pageNum  第几页
-     * @param pageSize 页大小
+     * @param specialId 专科编号
+     * @param pageNum   第几页
+     * @param pageSize  页大小
      * @return 门诊列表
      */
     @Override
-    public List<HospitalOutpatient> listAlone(Integer pageNum, Integer pageSize) {
+    public List<HospitalOutpatient> listAlone(Long specialId, Integer pageNum, Integer pageSize) {
 
         // 获取医院含有的门诊列表
         HospitalOutpatientRelationExample outpatientRelationExample = new HospitalOutpatientRelationExample();
@@ -233,10 +231,15 @@ public class HospitalOutpatientServiceImpl implements IHospitalOutpatientService
         // 筛选门诊中符合的专科
         HospitalOutpatientExample example = new HospitalOutpatientExample();
 
+        HospitalOutpatientExample.Criteria criteria = example.createCriteria();
+
         // 当存在已添加的记录时
         if (CollectionUtil.isNotEmpty(outpatientIdList)) {
-            example.createCriteria()
-                    .andIdNotIn(outpatientIdList);
+            criteria.andIdNotIn(outpatientIdList);
+        }
+
+        if (specialId != null) {
+            criteria.andSpecialIdEqualTo(specialId);
         }
 
         return outpatientMapper.selectByExample(example);

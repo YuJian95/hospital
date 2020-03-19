@@ -150,16 +150,17 @@ public class HospitalOutpatientController {
         return CommonResult.success(CommonPage.restPage(outpatientService.list(hospitalId, specialId, pageNum, pageSize)));
     }
 
-    @ApiOperation(value = "分页：获取未添加到医院的门诊列表", notes = "传入 第几页，页大小")
+    @ApiOperation(value = "分页：通过专科编号，获取未添加到医院的门诊列表", notes = "传入 专科编号，第几页，页大小")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "specialId", value = "专科编号", paramType = "query", dataType = "Long"),
             @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "Integer",
                     required = true),
             @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "Integer",
                     required = true)
     })
     @RequestMapping(value = "/outpatient/alone", method = RequestMethod.GET)
-    public CommonResult listAloneOutpatient(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return CommonResult.success(CommonPage.restPage(outpatientService.listAlone(pageNum, pageSize)));
+    public CommonResult listAloneOutpatient(@RequestParam(required = false) Long specialId, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return CommonResult.success(CommonPage.restPage(outpatientService.listAlone(specialId, pageNum, pageSize)));
     }
 
     @ApiOperation(value = "获取门诊所属诊室信息", notes = "传入 门诊编号")

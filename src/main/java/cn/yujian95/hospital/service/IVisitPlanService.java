@@ -1,5 +1,6 @@
 package cn.yujian95.hospital.service;
 
+import cn.yujian95.hospital.dto.VisitDoctorPlanDTO;
 import cn.yujian95.hospital.dto.VisitPlanDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
 
@@ -45,6 +46,15 @@ public interface IVisitPlanService {
      * @return 是否存在
      */
     boolean count(Long id);
+
+    /**
+     * 获取医生出诊信息
+     *
+     * @param doctorId 医生编号
+     * @param date     出诊日期
+     * @return 医生出诊信息
+     */
+    VisitDoctorPlanDTO getDoctorPlan(Long doctorId, Date date);
 
     /**
      * 查找出诊列表

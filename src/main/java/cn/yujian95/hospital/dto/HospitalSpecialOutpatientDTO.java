@@ -19,6 +19,8 @@ import java.util.List;
 @Data
 public class HospitalSpecialOutpatientDTO implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(value = "医院专科信息")
     private HospitalSpecial special;
 

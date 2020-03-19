@@ -18,6 +18,8 @@ import java.util.List;
 @Setter
 public class PowerMenuNode extends PowerMenu {
 
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty("子菜单列表")
     private List<PowerMenuNode> children;
 }

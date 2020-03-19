@@ -95,9 +95,10 @@ public interface IHospitalOutpatientService {
     /**
      * 查找未添加到医院的门诊编号
      *
-     * @param pageNum  第几页
-     * @param pageSize 页大小
+     * @param specialId 专科编号
+     * @param pageNum   第几页
+     * @param pageSize  页大小
      * @return 门诊列表
      */
-    List<HospitalOutpatient> listAlone(Integer pageNum, Integer pageSize);
+    List<HospitalOutpatient> listAlone(Long specialId, Integer pageNum, Integer pageSize);
 }

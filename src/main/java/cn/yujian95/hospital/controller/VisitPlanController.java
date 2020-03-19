@@ -2,6 +2,7 @@ package cn.yujian95.hospital.controller;
 
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
+import cn.yujian95.hospital.dto.VisitDoctorPlanDTO;
 import cn.yujian95.hospital.dto.VisitPlanDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
 import cn.yujian95.hospital.service.*;
@@ -145,5 +146,22 @@ public class VisitPlanController {
         }
 
         return CommonResult.failed("服务器错误，请联系管理员！");
+    }
+
+
+    @ApiOperation(value = "根据医生，获取出诊信息", notes = "传入 医生编号")
+    @RequestMapping(value = "/plan/doctor", method = RequestMethod.GET)
+    public CommonResult searchVisitPlanByDoctor(@RequestParam Long doctorId) {
+
+        if (!hospitalDoctorService.count(doctorId)) {
+            return CommonResult.validateFailed("不存在，该医生编号！");
+        }
+
+        // 搜索日期
+        Date now = new Date();
+
+        VisitDoctorPlanDTO doctorPlanDTO = new VisitDoctorPlanDTO();
+
+        return CommonResult.success(doctorPlanDTO);
     }
 }

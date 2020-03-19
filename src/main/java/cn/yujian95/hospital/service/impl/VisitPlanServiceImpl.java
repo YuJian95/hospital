@@ -1,6 +1,7 @@
 package cn.yujian95.hospital.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import cn.yujian95.hospital.dto.VisitDoctorPlanDTO;
 import cn.yujian95.hospital.dto.VisitPlanDTO;
 import cn.yujian95.hospital.dto.VisitPlanResiduesDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
@@ -113,6 +114,18 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
     }
 
     /**
+     * 获取医生出诊信息
+     *
+     * @param doctorId 医生编号
+     * @param date     出诊日期
+     * @return 医生出诊信息
+     */
+    @Override
+    public VisitDoctorPlanDTO getDoctorPlan(Long doctorId, Date date) {
+        return null;
+    }
+
+    /**
      * 查找出诊列表
      *
      * @param hospitalId   医院编号
@@ -181,7 +194,7 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
     /**
      * 转换为出诊计划挂号封装类
-     * 增加诊室地址、医生名称、剩余挂号
+     * 增加剩余挂号
      *
      * @param plan 出诊计划
      * @return 出诊计划封装类
@@ -191,12 +204,6 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
         VisitPlanResiduesDTO dto = new VisitPlanResiduesDTO();
 
         BeanUtils.copyProperties(plan, dto);
-
-        // 设置诊室地址
-        dto.setClinicName(hospitalClinicService.getAddress(plan.getClinicId()));
-
-        // 设置医生名称
-        dto.setDoctorName(hospitalDoctorService.getName(plan.getDoctorId()));
 
         // 设置剩余号数
         dto.setResidues(orderService.countByPlanId(MAX_NUMBER_OF_PATIENTS - plan.getId()));
