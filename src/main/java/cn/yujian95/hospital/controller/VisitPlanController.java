@@ -160,8 +160,6 @@ public class VisitPlanController {
         // 搜索日期
         Date now = new Date();
 
-        VisitDoctorPlanDTO doctorPlanDTO = new VisitDoctorPlanDTO();
-
-        return CommonResult.success(doctorPlanDTO);
+        return CommonResult.success(planService.getDoctorPlan(doctorId, now));
     }
 }

@@ -1,22 +1,22 @@
 package cn.yujian95.hospital.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.yujian95.hospital.dto.VisitDoctorPlanDTO;
 import cn.yujian95.hospital.dto.VisitPlanDTO;
+import cn.yujian95.hospital.dto.VisitPlanListDTO;
 import cn.yujian95.hospital.dto.VisitPlanResiduesDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
 import cn.yujian95.hospital.entity.VisitPlan;
 import cn.yujian95.hospital.entity.VisitPlanExample;
 import cn.yujian95.hospital.mapper.VisitPlanMapper;
-import cn.yujian95.hospital.service.IHospitalClinicService;
-import cn.yujian95.hospital.service.IHospitalDoctorService;
-import cn.yujian95.hospital.service.IVisitAppointmentService;
-import cn.yujian95.hospital.service.IVisitPlanService;
+import cn.yujian95.hospital.service.*;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +42,9 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
     @Resource
     private IHospitalClinicService hospitalClinicService;
+
+    @Resource
+    private IHospitalInfoService hospitalInfoService;
 
     @Resource
     private IVisitAppointmentService orderService;
@@ -122,7 +125,18 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
      */
     @Override
     public VisitDoctorPlanDTO getDoctorPlan(Long doctorId, Date date) {
-        return null;
+
+        VisitDoctorPlanDTO dto = new VisitDoctorPlanDTO();
+
+        // 设置医生信息
+        if (hospitalDoctorService.getConvert(doctorId).isPresent()) {
+            dto.setDoctorDTO(hospitalDoctorService.getConvert(doctorId).get());
+        }
+
+        // 设置医生出诊信息列表
+        dto.setPlanListDTOS(getVisitPlanDTO(doctorId, date));
+
+        return dto;
     }
 
     /**
@@ -209,6 +223,51 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
         dto.setResidues(orderService.countByPlanId(MAX_NUMBER_OF_PATIENTS - plan.getId()));
 
         return dto;
+    }
+
+    /**
+     * 获取医生，某段时间，以后出诊信息列表
+     *
+     * @param doctorId 医生编号
+     * @param date     获取该时间之后
+     * @return 出诊列表
+     */
+    private List<VisitPlanListDTO> getVisitPlanDTO(Long doctorId, Date date) {
+
+        // 查找医生出诊信息列表
+        List<VisitPlanListDTO> planDTOList = new ArrayList<>();
+
+        VisitPlanExample example = new VisitPlanExample();
+
+        example.createCriteria()
+                .andDoctorIdEqualTo(doctorId)
+                .andDayGreaterThan(date);
+
+        planMapper.selectByExample(example).stream()
+                // 按照不同医院，进行分组
+                .collect(Collectors.groupingBy(VisitPlan::getHospitalId, Collectors.toList()))
+                // 按照不同医院，进行遍历
+                .forEach((hospitalId, list) -> {
+                    // 转换为医生出诊列表
+                    VisitPlanListDTO dto = new VisitPlanListDTO();
+
+                    // 设置医院信息
+                    if (hospitalInfoService.getOptional(hospitalId).isPresent()) {
+                        dto.setInfo(hospitalInfoService.getOptional(hospitalId).get());
+                    }
+
+                    // 设置医生出诊列表
+                    if (CollUtil.isNotEmpty(list)) {
+                        dto.setPlanResiduesDTOList(list.stream()
+                                .map(this::covertToResidues)
+                                .collect(Collectors.toList()));
+                    }
+
+                    // 设置对应医院中，医生出诊计划信息
+                    planDTOList.add(dto);
+                });
+
+        return planDTOList;
     }
 
 }
