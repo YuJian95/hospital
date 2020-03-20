@@ -37,7 +37,7 @@ public class HospitalSpecialController {
     @RequestMapping(value = "/special", method = RequestMethod.POST)
     public CommonResult insertSpecial(@RequestBody HospitalSpecialParam param) {
 
-        if (infoService.count(param.getName())) {
+        if (specialService.count(param.getName())) {
             return CommonResult.validateFailed("已存在，该专科名称! ");
         }
 
