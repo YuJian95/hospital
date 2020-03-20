@@ -37,7 +37,7 @@ public class VisitAppointmentController {
 
     @ApiOperation(value = "验证就诊卡号是否黑名单", notes = "传入 就诊卡号")
     @RequestMapping(value = "/black/verify", method = RequestMethod.GET)
-    public CommonResult verifyBlackStatus(@RequestParam Long cardId) {
+    public CommonResult verifyBlack(@RequestParam Long cardId) {
         if (!userMedicalCardService.countCardId(cardId)) {
             return CommonResult.validateFailed("不存在，该就诊卡号！");
         }
@@ -58,21 +58,21 @@ public class VisitAppointmentController {
 
     @ApiOperation(value = "修改预约状态：取消", notes = "传入 预约编号")
     @RequestMapping(value = "/appointment/cancel/{id}", method = RequestMethod.PUT)
-    public CommonResult cancelAppointment(@RequestParam Long id) {
+    public CommonResult cancelAppointment(@PathVariable Long id) {
 
         return updateAppointmentStatus(id, CANCEL);
     }
 
     @ApiOperation(value = "修改预约状态：失信", notes = "传入 预约编号")
     @RequestMapping(value = "/appointment/miss/{id}", method = RequestMethod.PUT)
-    public CommonResult missAppointment(@RequestParam Long id) {
+    public CommonResult missAppointment(@PathVariable Long id) {
 
         return updateAppointmentStatus(id, MISS);
     }
 
     @ApiOperation(value = "修改预约状态：完成", notes = "传入 预约编号")
     @RequestMapping(value = "/appointment/finish/{id}", method = RequestMethod.PUT)
-    public CommonResult finishAppointment(@RequestParam Long id) {
+    public CommonResult finishAppointment(@PathVariable Long id) {
 
         return updateAppointmentStatus(id, FINISH);
     }

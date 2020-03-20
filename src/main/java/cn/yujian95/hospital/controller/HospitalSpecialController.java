@@ -30,9 +30,6 @@ public class HospitalSpecialController {
     @Resource
     private IHospitalSpecialService specialService;
 
-    @Resource
-    private IHospitalInfoService infoService;
-
     @ApiOperation(value = "添加专科信息", notes = "传入 专科信息参数（名称，描述）")
     @RequestMapping(value = "/special", method = RequestMethod.POST)
     public CommonResult insertSpecial(@RequestBody HospitalSpecialParam param) {
