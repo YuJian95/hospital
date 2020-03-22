@@ -90,7 +90,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                         + "<br/>" +
                         "<a href=\"https://github.com/YuJian95/base-service/blob/master/README.md\">See more at Readme.</a>"
                         + "<br/>" +
-                        "<a href=\"https://clj9509.gitee.io/\">Contact the develop.</a>")
+                        "<a href=\"https://yujian95.cn\">Contact the develop.</a>")
 
                 // 创建路径
                 .termsOfServiceUrl(SERVICE_URL)

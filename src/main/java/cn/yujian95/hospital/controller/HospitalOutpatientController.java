@@ -125,9 +125,9 @@ public class HospitalOutpatientController {
 
     @ApiOperation(value = "分页：查找指定医院、专科的门诊列表", notes = "传入 医院编号、专科编号")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "hospitalId", value = "医院编号", paramType = "path", dataType = "Long",
+            @ApiImplicitParam(name = "hospitalId", value = "医院编号", paramType = "query", dataType = "Long",
                     required = true),
-            @ApiImplicitParam(name = "specialId", value = "专科编号", paramType = "path", dataType = "Long",
+            @ApiImplicitParam(name = "specialId", value = "专科编号", paramType = "query", dataType = "Long",
                     required = true),
             @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "Integer",
                     required = true),
