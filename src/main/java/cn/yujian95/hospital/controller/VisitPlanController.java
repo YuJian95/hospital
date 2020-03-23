@@ -1,10 +1,11 @@
 package cn.yujian95.hospital.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
-import cn.yujian95.hospital.dto.VisitDoctorPlanDTO;
 import cn.yujian95.hospital.dto.VisitPlanDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
+import cn.yujian95.hospital.dto.param.VisitPlanUpdateParam;
 import cn.yujian95.hospital.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author YuJian95  clj9509@163.com
@@ -45,7 +47,7 @@ public class VisitPlanController {
     private IHospitalSpecialService hospitalSpecialService;
 
 
-    @ApiOperation(value = "添加出诊计划", notes = "传入 出诊计划参数（医院编号、专科编号、门诊编号、诊室编号、医生编号、出诊日期）")
+    @ApiOperation(value = "添加出诊计划", notes = "传入 出诊计划参数（医院编号、专科编号、门诊编号、诊室编号、医生编号、出诊时间段（1：上午，2：下午）、出诊日期）")
     @RequestMapping(value = "/plan", method = RequestMethod.POST)
     public CommonResult insertVisitPlan(@RequestBody VisitPlanParam param) {
 
@@ -69,7 +71,11 @@ public class VisitPlanController {
             return CommonResult.validateFailed("不存在，该诊室编号！");
         }
 
-        if (planService.insert(param)) {
+        if (param.getTime() > 2 || param.getTime() < 1) {
+            return CommonResult.validateFailed("不存在，该出诊时间段（1：上午，2：下午）！");
+        }
+
+        if (planService.insertAll(param)) {
             return CommonResult.success();
         }
 
@@ -79,7 +85,7 @@ public class VisitPlanController {
     @ApiOperation(value = "更新出诊计划", notes = "传入 出诊编号、出诊计划参数（医院编号、专科编号、门诊编号、诊室编号、医生编号、出诊日期）")
     @ApiImplicitParam(name = "id", value = "出诊编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/plan/{id}", method = RequestMethod.PUT)
-    public CommonResult updateVisitPlan(@PathVariable Long id, @RequestBody VisitPlanParam param) {
+    public CommonResult updateVisitPlan(@PathVariable Long id, @RequestBody VisitPlanUpdateParam param) {
 
         if (!hospitalDoctorService.count(param.getDoctorId())) {
             return CommonResult.validateFailed("不存在，该医生编号！");
@@ -148,6 +154,21 @@ public class VisitPlanController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
+    @ApiOperation(value = "批量删除出诊计划", notes = "传入 出诊编号列表")
+    @ApiImplicitParam(name = "id", value = "出诊编号列表", paramType = "query", dataType = "List<Long>", required = true)
+    @RequestMapping(value = "/plan/all", method = RequestMethod.DELETE)
+    public CommonResult deleteAllVisitPlan(@RequestParam List<Long> idList) {
+
+        if (CollUtil.isEmpty(idList)) {
+            return CommonResult.validateFailed("出诊编号列表为空！");
+        }
+
+        if (planService.deleteAll(idList)) {
+            return CommonResult.success();
+        }
+
+        return CommonResult.failed("服务器错误，请联系管理员！");
+    }
 
     @ApiOperation(value = "根据医生，获取出诊信息", notes = "传入 医生编号")
     @RequestMapping(value = "/plan/doctor", method = RequestMethod.GET)

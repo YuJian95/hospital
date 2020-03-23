@@ -8,13 +8,12 @@ import java.util.Date;
 
 /**
  * @author YuJian95  clj9509@163.com
- * @date 2020/3/1
+ * @date 2020/3/23
  */
 
-@ApiModel(value = "VisitPlanParam", description = "出诊计划参数")
+@ApiModel(value = "VisitPlanUpdateParam", description = "出诊计划参数")
 @Data
-public class VisitPlanParam {
-
+public class VisitPlanUpdateParam {
     /**
      * 医院编号
      *
@@ -56,12 +55,12 @@ public class VisitPlanParam {
     private Long doctorId;
 
     /**
-     * 出诊时间 1：上午，2：下午
+     * 时间段 1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，7：2点~2点半，8： 2点半~3点，9： 3点~3点半，10： 3点半~4点，11： 4点~4点半，12： 4点半~5点，13： 5点~5点半，14：5点半~6点
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "出诊时间 1：上午，2：下午")
-    private Integer time;
+    @ApiModelProperty(value = "时间段 1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，7：2点~2点半，8： 2点半~3点，9： 3点~3点半，10： 3点半~4点，11： 4点~4点半，12： 4点半~5点，13： 5点~5点半，14：5点半~6点")
+    private Integer timePeriod;
 
     /**
      * 出诊日期
@@ -70,5 +69,4 @@ public class VisitPlanParam {
      */
     @ApiModelProperty(value = "出诊日期")
     private Date day;
-
 }

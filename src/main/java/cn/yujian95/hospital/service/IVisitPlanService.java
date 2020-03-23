@@ -3,6 +3,8 @@ package cn.yujian95.hospital.service;
 import cn.yujian95.hospital.dto.VisitDoctorPlanDTO;
 import cn.yujian95.hospital.dto.VisitPlanDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
+import cn.yujian95.hospital.dto.param.VisitPlanUpdateParam;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -20,7 +22,8 @@ public interface IVisitPlanService {
      * @param param 出诊计划参数
      * @return 是否成功
      */
-    boolean insert(VisitPlanParam param);
+    @Transactional
+    boolean insertAll(VisitPlanParam param);
 
     /**
      * 更新出诊计划
@@ -29,7 +32,7 @@ public interface IVisitPlanService {
      * @param param 出诊计划参数
      * @return 是否成功
      */
-    boolean update(Long id, VisitPlanParam param);
+    boolean update(Long id, VisitPlanUpdateParam param);
 
     /**
      * 删除出诊计划
@@ -38,6 +41,14 @@ public interface IVisitPlanService {
      * @return 是否成功
      */
     boolean delete(Long id);
+
+    /**
+     * 删除出诊计划
+     *
+     * @param idList 计划编号
+     * @return 是否成功
+     */
+    boolean deleteAll(List<Long> idList);
 
     /**
      * 判断是否，存在该计划

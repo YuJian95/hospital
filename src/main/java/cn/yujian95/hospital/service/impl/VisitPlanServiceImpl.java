@@ -7,11 +7,14 @@ import cn.yujian95.hospital.dto.VisitPlanDTO;
 import cn.yujian95.hospital.dto.VisitPlanListDTO;
 import cn.yujian95.hospital.dto.VisitPlanResiduesDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
+import cn.yujian95.hospital.dto.param.VisitPlanUpdateParam;
 import cn.yujian95.hospital.entity.VisitPlan;
 import cn.yujian95.hospital.entity.VisitPlanExample;
 import cn.yujian95.hospital.mapper.VisitPlanMapper;
 import cn.yujian95.hospital.service.*;
 import com.github.pagehelper.PageHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,13 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
      * 每段时间内 最大就诊人数
      */
     private static final Integer MAX_NUMBER_OF_PATIENTS = 5;
+
+    /**
+     * 最大时间段
+     */
+    private static final Integer MAX_NUMBER_OF_VISIT_TIME_PERIOD = 14;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(VisitPlanServiceImpl.class);
 
     @Resource
     private VisitPlanMapper planMapper;
@@ -56,7 +66,7 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
      * @return 是否成功
      */
     @Override
-    public boolean insert(VisitPlanParam param) {
+    public boolean insertAll(VisitPlanParam param) {
 
         VisitPlan plan = new VisitPlan();
 
@@ -65,7 +75,25 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
         plan.setGmtCreate(new Date());
         plan.setGmtModified(new Date());
 
-        return planMapper.insertSelective(plan) > 0;
+        for (int i = 1; i <= MAX_NUMBER_OF_VISIT_TIME_PERIOD; i++) {
+
+            // 时间段
+            // 1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，
+            // 7：2点~2点半，8： 2点半~3点，9： 3点~3点半，10： 3点半~4点，11： 4点~4点半，12： 4点半~5点，
+            // 13： 5点~5点半，14：5点半~6点
+            plan.setTimePeriod(i);
+
+            // 插入特定时间段
+            boolean result = planMapper.insertSelective(plan) > 0;
+
+            // 记录插入错误
+            if (!result) {
+                LOGGER.error("insertAll error，hospital: {}, doctor: {}, time（1AM，2PM） ：{}, time period: {}",
+                        param.getHospitalId(), param.getDoctorId(), param.getTime(), i);
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -76,7 +104,7 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
      * @return 是否成功
      */
     @Override
-    public boolean update(Long id, VisitPlanParam param) {
+    public boolean update(Long id, VisitPlanUpdateParam param) {
 
         VisitPlan plan = new VisitPlan();
 
@@ -86,6 +114,22 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
         plan.setGmtModified(new Date());
 
         return planMapper.updateByPrimaryKeySelective(plan) > 0;
+    }
+
+    /**
+     * 删除出诊计划
+     *
+     * @param idList 计划编号
+     * @return 是否成功
+     */
+    @Override
+    public boolean deleteAll(List<Long> idList) {
+        VisitPlanExample example = new VisitPlanExample();
+
+        example.createCriteria()
+                .andIdIn(idList);
+
+        return planMapper.deleteByExample(example) > 0;
     }
 
     /**
