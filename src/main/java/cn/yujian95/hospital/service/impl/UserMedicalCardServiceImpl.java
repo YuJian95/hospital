@@ -211,6 +211,8 @@ public class UserMedicalCardServiceImpl implements IUserMedicalCardService {
 
         // 复制关系相关字段
         BeanUtils.copyProperties(relation, dto);
+        // 补充卡号
+        dto.setId(relation.getCardId());
         dto.setRelationId(relation.getId());
 
         return dto;
