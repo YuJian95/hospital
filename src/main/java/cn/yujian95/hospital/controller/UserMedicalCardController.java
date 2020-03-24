@@ -106,7 +106,7 @@ public class UserMedicalCardController {
     }
 
     @ApiOperation(value = "获取就诊卡", notes = "传入 就诊卡编号")
-    @ApiImplicitParam(name = "id", value = "就诊卡编号", paramType = "path", dataType = "Long", required = true)
+    @ApiImplicitParam(name = "cardId", value = "就诊卡编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/card/{cardId}", method = RequestMethod.GET)
     public CommonResult updateMedicalCard(@PathVariable Long cardId) {
         if (!medicalCardService.countCardId(cardId)) {
