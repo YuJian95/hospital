@@ -38,9 +38,13 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
     private static final Integer MAX_NUMBER_OF_PATIENTS = 5;
 
     /**
-     * 最大时间段
+     * 上午最大时间段
      */
-    private static final Integer MAX_NUMBER_OF_VISIT_TIME_PERIOD = 14;
+    private static final Integer MAX_NUMBER_OF_VISIT_TIME_PERIOD_OF_AM = 7;
+    /**
+     * 下午最大时间段
+     */
+    private static final Integer MAX_NUMBER_OF_VISIT_TIME_PERIOD_OF_PM = 14;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VisitPlanServiceImpl.class);
 
@@ -75,7 +79,17 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
         plan.setGmtCreate(new Date());
         plan.setGmtModified(new Date());
 
-        for (int i = 1; i <= MAX_NUMBER_OF_VISIT_TIME_PERIOD; i++) {
+        int start = 1;
+        int end = MAX_NUMBER_OF_VISIT_TIME_PERIOD_OF_AM;
+
+        if (param.getTime() == 2) {
+            // 开始标号
+            start = MAX_NUMBER_OF_VISIT_TIME_PERIOD_OF_AM + 1;
+            // 结束标号
+            end = MAX_NUMBER_OF_VISIT_TIME_PERIOD_OF_PM;
+        }
+
+        for (int i = start; i <= end; i++) {
 
             // 时间段
             // 1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，
