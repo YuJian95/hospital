@@ -95,11 +95,13 @@ public class UserMedicalCardServiceImpl implements IUserMedicalCardService {
             count = relationMapper.updateByPrimaryKeySelective(relation);
         }
 
+
         // 更新信息参数
         UserMedicalCard card = new UserMedicalCard();
 
         BeanUtils.copyProperties(param, card);
 
+        card.setId(relationMapper.selectByPrimaryKey(relationId).getCardId());
         card.setGmtModified(new Date());
 
         count += medicalCardMapper.updateByPrimaryKeySelective(card);
