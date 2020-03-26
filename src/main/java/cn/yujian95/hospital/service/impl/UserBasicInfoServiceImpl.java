@@ -103,6 +103,7 @@ public class UserBasicInfoServiceImpl implements IUserBasicInfoService {
 
         BeanUtils.copyProperties(param, basicInfo);
 
+        basicInfo.setId(id);
         basicInfo.setGmtModified(new Date());
 
         return basicInfoMapper.updateByPrimaryKeySelective(basicInfo) > 0;
