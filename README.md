@@ -8,12 +8,6 @@
 - [小程序端](https://gitee.com/yyyangyx/appointment-wxapp)
 - [web管理系统](https://gitee.com/yyyangyx/appointment-admin)
 
-### 软件界面
-
-- [小程序](https://github.com/YuJian95/Product-Prototype/tree/master/hospital-appointment#%E5%B0%8F%E7%A8%8B%E5%BA%8F)
-
-- [web管理系统](https://github.com/YuJian95/Product-Prototype/tree/master/hospital-appointment#web%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F)
-
 ### 主要技术
 
 - `Spring boot + Mybatis` ： 实现基于 RESTful 的前后端分离架构。
@@ -24,6 +18,25 @@
 - `七牛云文件存储服务`: 实现图片存储
 - `Lombok` ： 减少了冗余代码。
 - `Redis` ：实现二级缓存。
+
+### 软件界面
+
+#### 小程序
+
+![小程序主要界面1](http://yujian95.cn/post/min-program-hospital-appointment/wx-1.png)
+![小程序主要界面2](http://yujian95.cn/post/min-program-hospital-appointment/wx-2.png)
+![小程序主要界面3](http://yujian95.cn/post/min-program-hospital-appointment/wx-3.png)
+
+- [更多小程序运行图片](https://github.com/YuJian95/Product-Prototype/tree/master/hospital-appointment#%E5%B0%8F%E7%A8%8B%E5%BA%8F)
+
+#### 管理系统
+
+![管理系统主要界面1](http://yujian95.cn/post/min-program-hospital-appointment/admin-1.png)
+![管理系统主要界面2](http://yujian95.cn/post/min-program-hospital-appointment/admin-2.png)
+![管理系统主要界面3](http://yujian95.cn/post/min-program-hospital-appointment/admin-3.png)
+
+- [更多web管理系统图片](https://github.com/YuJian95/Product-Prototype/tree/master/hospital-appointment#web%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F)
+
 
 ### 部署步骤
 
