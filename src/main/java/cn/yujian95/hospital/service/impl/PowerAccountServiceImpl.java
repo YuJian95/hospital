@@ -231,6 +231,21 @@ public class PowerAccountServiceImpl implements IPowerAccountService {
     }
 
     /**
+     * 检查密码是否正确
+     *
+     * @param id       账号编号
+     * @param password 账号密码
+     * @return 是否正确
+     */
+    @Override
+    public boolean checkPassword(Long id, String password) {
+
+        PowerAccount account = accountMapper.selectByPrimaryKey(id);
+
+        return passwordEncoder.matches(password, account.getPassword());
+    }
+
+    /**
      * 删除账号
      *
      * @param name 账号名

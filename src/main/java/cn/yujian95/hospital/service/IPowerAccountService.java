@@ -103,6 +103,15 @@ public interface IPowerAccountService {
     boolean delete(String name);
 
     /**
+     * 检查密码是否正确
+     *
+     * @param id       账号编号
+     * @param password 账号密码
+     * @return 是否正确
+     */
+    boolean checkPassword(Long id, String password);
+
+    /**
      * 修改用户角色关系
      *
      * @param accountId  帐号id

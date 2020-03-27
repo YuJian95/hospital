@@ -3,6 +3,7 @@ package cn.yujian95.hospital.controller;
 import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.dto.param.PowerAccountRegisterParam;
 import cn.yujian95.hospital.dto.param.PowerAccountStatusParam;
+import cn.yujian95.hospital.dto.param.PowerAccountUpdatePasswordParam;
 import cn.yujian95.hospital.entity.PowerAccount;
 import cn.yujian95.hospital.service.IPowerAccountService;
 import cn.yujian95.hospital.service.IPowerRoleService;
@@ -127,6 +128,25 @@ public class PowerAccountController {
 
         // TODO 这里需要细化一下返回情况，可优化，jwt工具类
         return CommonResult.success(accountService.refreshToken(token));
+    }
+
+    @ApiOperation(value = "更新账号密码", notes = "传入 账号名称、旧密码、新密码")
+    @RequestMapping(value = "/password", method = RequestMethod.PUT)
+    public CommonResult updateAccountPassword(@RequestBody PowerAccountUpdatePasswordParam param) {
+
+        if (!accountService.count(param.getAccountId())) {
+            return CommonResult.validateFailed("不存在，该账号编号！");
+        }
+
+        if (!accountService.checkPassword(param.getAccountId(), param.getPassword())) {
+            return CommonResult.validateFailed("原密码不正确！");
+        }
+
+        if (accountService.updatePassword(param.getAccountId(), param.getNewPassword())) {
+            return CommonResult.success();
+        }
+
+        return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
     @ApiOperation(value = "更新账号状态", notes = "传入 账号编号、账号状态（1：开启，0：关闭）")
