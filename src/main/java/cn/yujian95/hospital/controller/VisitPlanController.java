@@ -1,6 +1,7 @@
 package cn.yujian95.hospital.controller;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.dto.VisitPlanDTO;
@@ -114,12 +115,12 @@ public class VisitPlanController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation(value = "搜索出诊计划", notes = "传入 医生编号、第几页、页大小")
+    @ApiOperation(value = "搜索出诊计划", notes = "传入 医院编号、专科编号、门诊编号、出诊日期、第几页、页大小")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "hospitalId", value = "医院编号", paramType = "query", dataType = "Long"),
             @ApiImplicitParam(name = "specialId", value = "专科编号", paramType = "query", dataType = "Long"),
             @ApiImplicitParam(name = "outpatientId", value = "门诊编号", paramType = "query", dataType = "Long"),
-            @ApiImplicitParam(name = "day", value = "出诊日期", paramType = "query", dataType = "Date",
+            @ApiImplicitParam(name = "day", value = "出诊日期", paramType = "query", dataType = "String",
                     required = true),
             @ApiImplicitParam(name = "pageNum", value = "第几页", paramType = "query", dataType = "Integer",
                     required = true),
@@ -130,12 +131,12 @@ public class VisitPlanController {
     public CommonResult<CommonPage<VisitPlanDTO>> searchVisitPlan(@RequestParam(required = false) Long hospitalId,
                                                                   @RequestParam(required = false) Long specialId,
                                                                   @RequestParam(required = false) Long outpatientId,
-                                                                  @RequestParam Date day,
+                                                                  @RequestParam String day,
                                                                   @RequestParam Integer pageNum,
                                                                   @RequestParam Integer pageSize) {
 
         return CommonResult.success(CommonPage.restPage(planService.list(hospitalId, specialId, outpatientId, null,
-                day, pageNum, pageSize)));
+                DateUtil.parse(day), pageNum, pageSize)));
     }
 
     @ApiOperation(value = "删除出诊计划", notes = "传入 出诊编号")
