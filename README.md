@@ -40,7 +40,7 @@
 
 ### 部署步骤
 
-1. 运行 scr/main/resource 文件夹下（mysql数据库脚本） `hospital.sql` 创建数据库 `base`
+1. 运行 /src/main/resource 文件夹下（mysql数据库脚本） `hospital.sql` 创建数据库 `base`
 
 2. 修改 `database.properties`中数据库相关配置
 
