@@ -3,6 +3,16 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for PDMAN_DB_VERSION
+-- ----------------------------
+DROP TABLE IF EXISTS `PDMAN_DB_VERSION`;
+CREATE TABLE `PDMAN_DB_VERSION`  (
+                                     `DB_VERSION` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                     `VERSION_DESC` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                     `CREATED_TIME` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for hospital_clinic
 -- ----------------------------
 DROP TABLE IF EXISTS `hospital_clinic`;
@@ -372,6 +382,7 @@ CREATE TABLE `visit_appointment`  (
                                       `plan_id` bigint(20) NOT NULL COMMENT '出诊编号',
                                       `card_id` bigint(20) NOT NULL COMMENT '就诊卡号',
                                       `account_id` bigint(20) NOT NULL COMMENT '账号编号',
+                                      `time_period` int(11) NOT NULL COMMENT '1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，7：2点~2点半，8： 2点半~3点，9： 3点~3点半，10： 3点半~4点，11： 4点~4点半，12： 4点半~5点，13： 5点~5点半，14：5点半~6点',
                                       `status` int(11) NOT NULL DEFAULT 0 COMMENT '预约状态 0：未开始，1：未按时就诊，2：取消预约挂号，3：已完成',
                                       `gmt_create` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
                                       `gmt_modified` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
@@ -410,7 +421,7 @@ CREATE TABLE `visit_plan`  (
                                `outpatient_id` bigint(20) NOT NULL COMMENT '门诊编号',
                                `clinic_id` bigint(20) NOT NULL COMMENT '诊室编号',
                                `doctor_id` bigint(20) NOT NULL COMMENT '医生编号',
-                               `time_period` int(11) NOT NULL DEFAULT 1 COMMENT '时间段 1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，7：2点~2点半，8： 2点半~3点，9： 3点~3点半，10： 3点半~4点，11： 4点~4点半，12： 4点半~5点，13： 5点~5点半，14：5点半~6点',
+                               `time` int(11) NOT NULL DEFAULT 1 COMMENT '时间段 1：上午，2：下午',
                                `day` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '出诊日期',
                                `gmt_create` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
                                `gmt_modified` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
