@@ -106,7 +106,9 @@ public class PowerAccountController {
             PowerAccount account = accountOptional.get();
             account.setPassword(null);
 
+            info.put("accountId", account.getId());
             info.put("userName", account.getName());
+            // TODO 这里需要返回用户相应的角色
             info.put("roles", new String[]{"TEST"});
             info.put("menus", roleService.listMenu(account.getId()));
 
