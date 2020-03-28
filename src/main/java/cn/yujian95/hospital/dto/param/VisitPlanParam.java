@@ -56,11 +56,11 @@ public class VisitPlanParam {
     private Long doctorId;
 
     /**
-     * 出诊时间 1：上午，2：下午
+     * 时间段 1：上午，2：下午
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "出诊时间 1：上午，2：下午")
+    @ApiModelProperty(value = "时间段 1：上午，2：下午")
     private Integer time;
 
     /**

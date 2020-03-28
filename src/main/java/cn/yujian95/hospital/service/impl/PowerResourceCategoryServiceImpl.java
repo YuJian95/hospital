@@ -6,7 +6,6 @@ import cn.yujian95.hospital.entity.PowerResourceCategoryExample;
 import cn.yujian95.hospital.mapper.PowerResourceCategoryMapper;
 import cn.yujian95.hospital.service.IPowerResourceCategoryService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

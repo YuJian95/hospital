@@ -345,6 +345,66 @@ public class VisitAppointmentExample {
             return (Criteria) this;
         }
 
+        public Criteria andTimePeriodIsNull() {
+            addCriterion("time_period is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimePeriodIsNotNull() {
+            addCriterion("time_period is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimePeriodEqualTo(Integer value) {
+            addCriterion("time_period =", value, "timePeriod");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimePeriodNotEqualTo(Integer value) {
+            addCriterion("time_period <>", value, "timePeriod");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimePeriodGreaterThan(Integer value) {
+            addCriterion("time_period >", value, "timePeriod");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimePeriodGreaterThanOrEqualTo(Integer value) {
+            addCriterion("time_period >=", value, "timePeriod");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimePeriodLessThan(Integer value) {
+            addCriterion("time_period <", value, "timePeriod");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimePeriodLessThanOrEqualTo(Integer value) {
+            addCriterion("time_period <=", value, "timePeriod");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimePeriodIn(List<Integer> values) {
+            addCriterion("time_period in", values, "timePeriod");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimePeriodNotIn(List<Integer> values) {
+            addCriterion("time_period not in", values, "timePeriod");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimePeriodBetween(Integer value1, Integer value2) {
+            addCriterion("time_period between", value1, value2, "timePeriod");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimePeriodNotBetween(Integer value1, Integer value2) {
+            addCriterion("time_period not between", value1, value2, "timePeriod");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("status is null");
             return (Criteria) this;

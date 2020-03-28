@@ -29,8 +29,9 @@ import java.util.stream.Collectors;
 @Service
 public class UserMedicalCardServiceImpl implements IUserMedicalCardService {
 
-    public static final int BOY = 1;
-    public static final int GIRL = 2;
+    private static final int BOY = 1;
+
+    private static final int GIRL = 2;
 
     @Resource
     private UserMedicalCardMapper medicalCardMapper;

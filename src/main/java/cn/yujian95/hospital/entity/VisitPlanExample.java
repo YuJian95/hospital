@@ -465,63 +465,63 @@ public class VisitPlanExample {
             return (Criteria) this;
         }
 
-        public Criteria andTimePeriodIsNull() {
-            addCriterion("time_period is null");
+        public Criteria andTimeIsNull() {
+            addCriterion("time is null");
             return (Criteria) this;
         }
 
-        public Criteria andTimePeriodIsNotNull() {
-            addCriterion("time_period is not null");
+        public Criteria andTimeIsNotNull() {
+            addCriterion("time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTimePeriodEqualTo(Integer value) {
-            addCriterion("time_period =", value, "timePeriod");
+        public Criteria andTimeEqualTo(Integer value) {
+            addCriterion("time =", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andTimePeriodNotEqualTo(Integer value) {
-            addCriterion("time_period <>", value, "timePeriod");
+        public Criteria andTimeNotEqualTo(Integer value) {
+            addCriterion("time <>", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andTimePeriodGreaterThan(Integer value) {
-            addCriterion("time_period >", value, "timePeriod");
+        public Criteria andTimeGreaterThan(Integer value) {
+            addCriterion("time >", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andTimePeriodGreaterThanOrEqualTo(Integer value) {
-            addCriterion("time_period >=", value, "timePeriod");
+        public Criteria andTimeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("time >=", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andTimePeriodLessThan(Integer value) {
-            addCriterion("time_period <", value, "timePeriod");
+        public Criteria andTimeLessThan(Integer value) {
+            addCriterion("time <", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andTimePeriodLessThanOrEqualTo(Integer value) {
-            addCriterion("time_period <=", value, "timePeriod");
+        public Criteria andTimeLessThanOrEqualTo(Integer value) {
+            addCriterion("time <=", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andTimePeriodIn(List<Integer> values) {
-            addCriterion("time_period in", values, "timePeriod");
+        public Criteria andTimeIn(List<Integer> values) {
+            addCriterion("time in", values, "time");
             return (Criteria) this;
         }
 
-        public Criteria andTimePeriodNotIn(List<Integer> values) {
-            addCriterion("time_period not in", values, "timePeriod");
+        public Criteria andTimeNotIn(List<Integer> values) {
+            addCriterion("time not in", values, "time");
             return (Criteria) this;
         }
 
-        public Criteria andTimePeriodBetween(Integer value1, Integer value2) {
-            addCriterion("time_period between", value1, value2, "timePeriod");
+        public Criteria andTimeBetween(Integer value1, Integer value2) {
+            addCriterion("time between", value1, value2, "time");
             return (Criteria) this;
         }
 
-        public Criteria andTimePeriodNotBetween(Integer value1, Integer value2) {
-            addCriterion("time_period not between", value1, value2, "timePeriod");
+        public Criteria andTimeNotBetween(Integer value1, Integer value2) {
+            addCriterion("time not between", value1, value2, "time");
             return (Criteria) this;
         }
 

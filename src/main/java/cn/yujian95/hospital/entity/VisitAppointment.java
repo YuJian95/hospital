@@ -38,6 +38,14 @@ public class VisitAppointment implements Serializable {
     private Long accountId;
 
     /**
+     * 1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，7：2点~2点半，8： 2点半~3点，9： 3点~3点半，10： 3点半~4点，11： 4点~4点半，12： 4点半~5点，13： 5点~5点半，14：5点半~6点
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，7：2点~2点半，8： 2点半~3点，9： 3点~3点半，10： 3点半~4点，11： 4点~4点半，12： 4点半~5点，13： 5点~5点半，14：5点半~6点")
+    private Integer timePeriod;
+
+    /**
      * 预约状态 0：未开始，1：未按时就诊，2：取消预约挂号，3：已完成
      *
      * @mbg.generated
@@ -95,6 +103,14 @@ public class VisitAppointment implements Serializable {
         this.accountId = accountId;
     }
 
+    public Integer getTimePeriod() {
+        return timePeriod;
+    }
+
+    public void setTimePeriod(Integer timePeriod) {
+        this.timePeriod = timePeriod;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -129,6 +145,7 @@ public class VisitAppointment implements Serializable {
         sb.append(", planId=").append(planId);
         sb.append(", cardId=").append(cardId);
         sb.append(", accountId=").append(accountId);
+        sb.append(", timePeriod=").append(timePeriod);
         sb.append(", status=").append(status);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);

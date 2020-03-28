@@ -37,15 +37,6 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
      */
     private static final Integer MAX_NUMBER_OF_PATIENTS = 5;
 
-    /**
-     * 上午最大时间段
-     */
-    private static final Integer MAX_NUMBER_OF_VISIT_TIME_PERIOD_OF_AM = 7;
-    /**
-     * 下午最大时间段
-     */
-    private static final Integer MAX_NUMBER_OF_VISIT_TIME_PERIOD_OF_PM = 14;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(VisitPlanServiceImpl.class);
 
     @Resource
@@ -61,7 +52,7 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
     private IHospitalInfoService hospitalInfoService;
 
     @Resource
-    private IVisitAppointmentService orderService;
+    private IVisitAppointmentService appointmentService;
 
     /**
      * 创建出诊计划
@@ -79,35 +70,7 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
         plan.setGmtCreate(new Date());
         plan.setGmtModified(new Date());
 
-        int start = 1;
-        int end = MAX_NUMBER_OF_VISIT_TIME_PERIOD_OF_AM;
-
-        if (param.getTime() == 2) {
-            // 开始标号
-            start = MAX_NUMBER_OF_VISIT_TIME_PERIOD_OF_AM + 1;
-            // 结束标号
-            end = MAX_NUMBER_OF_VISIT_TIME_PERIOD_OF_PM;
-        }
-
-        for (int i = start; i <= end; i++) {
-
-            // 时间段
-            // 1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，
-            // 7：2点~2点半，8： 2点半~3点，9： 3点~3点半，10： 3点半~4点，11： 4点~4点半，12： 4点半~5点，
-            // 13： 5点~5点半，14：5点半~6点
-            plan.setTimePeriod(i);
-
-            // 插入特定时间段
-            boolean result = planMapper.insertSelective(plan) > 0;
-
-            // 记录插入错误
-            if (!result) {
-                LOGGER.error("insertAll error，hospital: {}, doctor: {}, time（1AM，2PM） ：{}, time period: {}",
-                        param.getHospitalId(), param.getDoctorId(), param.getTime(), i);
-            }
-        }
-
-        return true;
+        return planMapper.insertSelective(plan) > 0;
     }
 
     /**
@@ -277,8 +240,11 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
         BeanUtils.copyProperties(plan, dto);
 
+        // TODO 这里需要重新计算
+        int residue = MAX_NUMBER_OF_PATIENTS - appointmentService.countByPlanId(plan.getId(), plan.getTime());
+
         // 设置剩余号数
-        dto.setResidues(orderService.countByPlanId(MAX_NUMBER_OF_PATIENTS - plan.getId()));
+        dto.setResidues(residue);
 
         return dto;
     }

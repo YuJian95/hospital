@@ -3,6 +3,7 @@ package cn.yujian95.hospital.service;
 import cn.yujian95.hospital.dto.param.VisitAppointmentParam;
 import cn.yujian95.hospital.entity.VisitAppointment;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,10 +62,11 @@ public interface IVisitAppointmentService {
     /**
      * 获取已取号的数目
      *
-     * @param planId 出诊编号
+     * @param planId     出诊编号
+     * @param timePeriod 时间段
      * @return 已取号数目
      */
-    int countByPlanId(Long planId);
+    int countByPlanId(Long planId, Integer timePeriod);
 
     /**
      * 判断是否，已预约

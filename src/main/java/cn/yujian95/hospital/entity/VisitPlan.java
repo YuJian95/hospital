@@ -54,12 +54,12 @@ public class VisitPlan implements Serializable {
     private Long doctorId;
 
     /**
-     * 时间段 1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，7：2点~2点半，8： 2点半~3点，9： 3点~3点半，10： 3点半~4点，11： 4点~4点半，12： 4点半~5点，13： 5点~5点半，14：5点半~6点
+     * 时间段 1：上午，2：下午
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "时间段 1： 8点半~9点，2： 9点~9点半，3： 9点半~10点，4： 10点~10点半，5： 11点~11点半，6： 11点半~12点，7：2点~2点半，8： 2点半~3点，9： 3点~3点半，10： 3点半~4点，11： 4点~4点半，12： 4点半~5点，13： 5点~5点半，14：5点半~6点")
-    private Integer timePeriod;
+    @ApiModelProperty(value = "时间段 1：上午，2：下午")
+    private Integer time;
 
     /**
      * 出诊日期
@@ -135,12 +135,12 @@ public class VisitPlan implements Serializable {
         this.doctorId = doctorId;
     }
 
-    public Integer getTimePeriod() {
-        return timePeriod;
+    public Integer getTime() {
+        return time;
     }
 
-    public void setTimePeriod(Integer timePeriod) {
-        this.timePeriod = timePeriod;
+    public void setTime(Integer time) {
+        this.time = time;
     }
 
     public Date getDay() {
@@ -179,7 +179,7 @@ public class VisitPlan implements Serializable {
         sb.append(", outpatientId=").append(outpatientId);
         sb.append(", clinicId=").append(clinicId);
         sb.append(", doctorId=").append(doctorId);
-        sb.append(", timePeriod=").append(timePeriod);
+        sb.append(", time=").append(time);
         sb.append(", day=").append(day);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);

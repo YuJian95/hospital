@@ -23,7 +23,8 @@ import java.util.stream.Collectors;
 @Service
 public class PowerMenuServiceImpl implements IPowerMenuService {
 
-    public static final long ROOT_MENU = 0L;
+    private static final long ROOT_MENU = 0L;
+
     @Resource
     private PowerMenuMapper menuMapper;
 

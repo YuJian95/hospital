@@ -8,7 +8,7 @@
     <result column="outpatient_id" jdbcType="BIGINT" property="outpatientId" />
     <result column="clinic_id" jdbcType="BIGINT" property="clinicId" />
     <result column="doctor_id" jdbcType="BIGINT" property="doctorId" />
-    <result column="time_period" jdbcType="INTEGER" property="timePeriod" />
+    <result column="time" jdbcType="INTEGER" property="time" />
     <result column="day" jdbcType="TIMESTAMP" property="day" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
@@ -72,8 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, hospital_id, special_id, outpatient_id, clinic_id, doctor_id, time_period, day, 
-    gmt_create, gmt_modified
+    id, hospital_id, special_id, outpatient_id, clinic_id, doctor_id, time, day, gmt_create, 
+    gmt_modified
   </sql>
   <select id="selectByExample" parameterType="cn.yujian95.hospital.entity.VisitPlanExample" resultMap="BaseResultMap">
     select
@@ -108,11 +108,11 @@
   <insert id="insert" parameterType="cn.yujian95.hospital.entity.VisitPlan">
     insert into visit_plan (id, hospital_id, special_id, 
       outpatient_id, clinic_id, doctor_id, 
-      time_period, day, gmt_create, 
+      time, day, gmt_create, 
       gmt_modified)
     values (#{id,jdbcType=BIGINT}, #{hospitalId,jdbcType=BIGINT}, #{specialId,jdbcType=BIGINT}, 
       #{outpatientId,jdbcType=BIGINT}, #{clinicId,jdbcType=BIGINT}, #{doctorId,jdbcType=BIGINT}, 
-      #{timePeriod,jdbcType=INTEGER}, #{day,jdbcType=TIMESTAMP}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{time,jdbcType=INTEGER}, #{day,jdbcType=TIMESTAMP}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.yujian95.hospital.entity.VisitPlan">
@@ -136,8 +136,8 @@
       <if test="doctorId != null">
         doctor_id,
       </if>
-      <if test="timePeriod != null">
-        time_period,
+      <if test="time != null">
+        time,
       </if>
       <if test="day != null">
         day,
@@ -168,8 +168,8 @@
       <if test="doctorId != null">
         #{doctorId,jdbcType=BIGINT},
       </if>
-      <if test="timePeriod != null">
-        #{timePeriod,jdbcType=INTEGER},
+      <if test="time != null">
+        #{time,jdbcType=INTEGER},
       </if>
       <if test="day != null">
         #{day,jdbcType=TIMESTAMP},
@@ -209,8 +209,8 @@
       <if test="record.doctorId != null">
         doctor_id = #{record.doctorId,jdbcType=BIGINT},
       </if>
-      <if test="record.timePeriod != null">
-        time_period = #{record.timePeriod,jdbcType=INTEGER},
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=INTEGER},
       </if>
       <if test="record.day != null">
         day = #{record.day,jdbcType=TIMESTAMP},
@@ -234,7 +234,7 @@
       outpatient_id = #{record.outpatientId,jdbcType=BIGINT},
       clinic_id = #{record.clinicId,jdbcType=BIGINT},
       doctor_id = #{record.doctorId,jdbcType=BIGINT},
-      time_period = #{record.timePeriod,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=INTEGER},
       day = #{record.day,jdbcType=TIMESTAMP},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
@@ -260,8 +260,8 @@
       <if test="doctorId != null">
         doctor_id = #{doctorId,jdbcType=BIGINT},
       </if>
-      <if test="timePeriod != null">
-        time_period = #{timePeriod,jdbcType=INTEGER},
+      <if test="time != null">
+        time = #{time,jdbcType=INTEGER},
       </if>
       <if test="day != null">
         day = #{day,jdbcType=TIMESTAMP},
@@ -282,7 +282,7 @@
       outpatient_id = #{outpatientId,jdbcType=BIGINT},
       clinic_id = #{clinicId,jdbcType=BIGINT},
       doctor_id = #{doctorId,jdbcType=BIGINT},
-      time_period = #{timePeriod,jdbcType=INTEGER},
+      time = #{time,jdbcType=INTEGER},
       day = #{day,jdbcType=TIMESTAMP},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}

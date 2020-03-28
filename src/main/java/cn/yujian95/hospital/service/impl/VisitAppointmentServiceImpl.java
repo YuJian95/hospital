@@ -1,13 +1,17 @@
 package cn.yujian95.hospital.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import cn.yujian95.hospital.dto.param.VisitAppointmentParam;
 import cn.yujian95.hospital.entity.VisitAppointment;
 import cn.yujian95.hospital.entity.VisitAppointmentExample;
 import cn.yujian95.hospital.mapper.VisitAppointmentMapper;
 import cn.yujian95.hospital.service.IVisitAppointmentService;
+import com.github.pagehelper.PageHelper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,15 +36,17 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
     /**
      * 获取已取号的数目
      *
-     * @param planId 出诊编号
+     * @param planId     出诊编号
+     * @param timePeriod 时间段
      * @return 已取号数目
      */
     @Override
-    public int countByPlanId(Long planId) {
+    public int countByPlanId(Long planId, Integer timePeriod) {
         VisitAppointmentExample example = new VisitAppointmentExample();
 
         example.createCriteria()
                 .andPlanIdEqualTo(planId)
+                .andTimePeriodEqualTo(timePeriod)
                 // 除了取消预约外
                 .andStatusNotEqualTo(CANCEL);
 
@@ -55,7 +61,14 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      */
     @Override
     public boolean insert(VisitAppointmentParam param) {
-        return false;
+        VisitAppointment appointment = new VisitAppointment();
+
+        BeanUtils.copyProperties(param, appointment);
+
+        appointment.setGmtCreate(new Date());
+        appointment.setGmtModified(new Date());
+
+        return appointmentMapper.insertSelective(appointment) > 0;
     }
 
     /**
@@ -67,7 +80,13 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      */
     @Override
     public boolean update(Long id, Integer status) {
-        return false;
+        VisitAppointment appointment = new VisitAppointment();
+
+        appointment.setId(id);
+        appointment.setStatus(status);
+        appointment.setGmtModified(new Date());
+
+        return appointmentMapper.updateByPrimaryKeySelective(appointment) > 0;
     }
 
     /**
@@ -78,7 +97,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      */
     @Override
     public Optional<VisitAppointment> getOptional(Long id) {
-        return Optional.empty();
+        return Optional.ofNullable(appointmentMapper.selectByPrimaryKey(id));
     }
 
     /**
@@ -92,7 +111,22 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      */
     @Override
     public List<VisitAppointment> list(Long cardId, Integer status, Integer pageNum, Integer pageSize) {
-        return null;
+
+        PageHelper.startPage(pageNum, pageSize);
+
+        VisitAppointmentExample example = new VisitAppointmentExample();
+
+        VisitAppointmentExample.Criteria criteria = example.createCriteria();
+
+        if (cardId != null) {
+            criteria.andCardIdEqualTo(cardId);
+        }
+
+        if (status != null) {
+            criteria.andStatusEqualTo(status);
+        }
+
+        return appointmentMapper.selectByExample(example);
     }
 
     /**
@@ -103,7 +137,12 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      */
     @Override
     public boolean count(Long id) {
-        return false;
+        VisitAppointmentExample example = new VisitAppointmentExample();
+
+        example.createCriteria()
+                .andIdEqualTo(id);
+
+        return appointmentMapper.countByExample(example) > 0;
     }
 
     /**
@@ -115,6 +154,14 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      */
     @Override
     public boolean count(Long cardId, Long planId) {
-        return false;
+        VisitAppointmentExample example = new VisitAppointmentExample();
+
+        example.createCriteria()
+                .andCardIdEqualTo(cardId)
+                // 同一出诊中，除取消预约外
+                .andStatusNotEqualTo(CANCEL)
+                .andPlanIdEqualTo(planId);
+
+        return appointmentMapper.countByExample(example) > 0;
     }
 }

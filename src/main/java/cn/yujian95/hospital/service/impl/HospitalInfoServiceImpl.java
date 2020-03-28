@@ -1,6 +1,5 @@
 package cn.yujian95.hospital.service.impl;
 
-import cn.yujian95.hospital.component.QiniuComponent;
 import cn.yujian95.hospital.dto.param.HospitalInfoParam;
 import cn.yujian95.hospital.dto.param.HospitalOutpatientRelationParam;
 import cn.yujian95.hospital.dto.param.HospitalSpecialRelationParam;

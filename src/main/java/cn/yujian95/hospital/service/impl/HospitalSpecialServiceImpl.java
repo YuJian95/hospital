@@ -1,12 +1,10 @@
 package cn.yujian95.hospital.service.impl;
 
-import cn.yujian95.hospital.dto.HospitalSpecialOutpatientDTO;
 import cn.yujian95.hospital.dto.param.HospitalSpecialParam;
 import cn.yujian95.hospital.entity.*;
 import cn.yujian95.hospital.mapper.HospitalOutpatientMapper;
 import cn.yujian95.hospital.mapper.HospitalSpecialMapper;
 import cn.yujian95.hospital.mapper.HospitalSpecialRelationMapper;
-import cn.yujian95.hospital.service.IHospitalOutpatientService;
 import cn.yujian95.hospital.service.IHospitalSpecialService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;

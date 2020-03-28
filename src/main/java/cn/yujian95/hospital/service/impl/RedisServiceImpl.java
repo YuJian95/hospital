@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class RedisServiceImpl implements IRedisService {
 
     @Resource
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 存储数据

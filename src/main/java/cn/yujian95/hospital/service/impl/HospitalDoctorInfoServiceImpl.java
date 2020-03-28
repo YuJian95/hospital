@@ -4,7 +4,6 @@ import cn.yujian95.hospital.dto.HospitalDoctorDTO;
 import cn.yujian95.hospital.dto.param.HospitalDoctorParam;
 import cn.yujian95.hospital.entity.HospitalDoctor;
 import cn.yujian95.hospital.entity.HospitalDoctorExample;
-import cn.yujian95.hospital.entity.HospitalSpecialExample;
 import cn.yujian95.hospital.mapper.HospitalDoctorMapper;
 import cn.yujian95.hospital.service.IHospitalDoctorService;
 import cn.yujian95.hospital.service.IHospitalOutpatientService;
