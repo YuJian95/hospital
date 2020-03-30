@@ -44,6 +44,7 @@ public class WxComponent {
     private String getSessionKeyOrOpenId(String code) {
         String params = "appid=" + appId + "&secret=" + appSecret + "&js_code=" + code
                 + "&grant_type=" + GRANT_TYPE;
+
         // 发送post请求读取调用微信 https://api.weixin.qq.com/sns/jscode2session 接口获取openid用户唯一标识
 
         return HttpUtil.get(REQUEST_URL + params);

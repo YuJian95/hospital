@@ -126,6 +126,15 @@ secure:
       - /user/basic/code
       - /user/basic/message
       - /user/basic/account/register
+      - /hospital/info/list
+      - /hospital/special/list/**
+      - /hospital/special/list
+      - /hospital/special/list/outpatient
+      - /hospital/doctor/list/special/outpatient
+      - /hospital/outpatient/list
+      - /visit/plan/doctor
+      - /visit/plan/list
+      - /hospital/doctor/**
 
 # 小程序配置，用于调用官方API
 wx:

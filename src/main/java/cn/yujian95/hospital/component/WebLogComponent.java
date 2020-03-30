@@ -118,7 +118,7 @@ public class WebLogComponent {
         webLog.setUri(request.getRequestURI());
         webLog.setUrl(request.getRequestURL().toString());
 
-        // 记录炒作记录
+        // 记录操作记录
         logOperationService.insert(webLog);
 
         LOGGER.info("{}", JSONUtil.parse(webLog));
@@ -137,12 +137,14 @@ public class WebLogComponent {
         List<Object> argList = new ArrayList<>();
         Parameter[] parameters = method.getParameters();
         for (int i = 0; i < parameters.length; i++) {
-            //将RequestBody注解修饰的参数作为请求参数
+
+            // 将RequestBody注解修饰的参数作为请求参数
             RequestBody requestBody = parameters[i].getAnnotation(RequestBody.class);
             if (requestBody != null) {
                 argList.add(args[i]);
             }
-            //将RequestParam注解修饰的参数作为请求参数
+
+            // 将RequestParam注解修饰的参数作为请求参数
             RequestParam requestParam = parameters[i].getAnnotation(RequestParam.class);
             if (requestParam != null) {
                 Map<String, Object> map = new HashMap<>();
@@ -154,6 +156,7 @@ public class WebLogComponent {
                 argList.add(map);
             }
         }
+
         if (argList.size() == 0) {
             return null;
         } else if (argList.size() == 1) {
