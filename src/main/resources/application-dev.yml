@@ -129,7 +129,6 @@ secure:
       - /hospital/info/list
       - /hospital/special/list/**
       - /hospital/special/list
-      - /hospital/special/list/outpatient
       - /hospital/doctor/list/special/outpatient
       - /hospital/outpatient/list
       - /visit/plan/doctor

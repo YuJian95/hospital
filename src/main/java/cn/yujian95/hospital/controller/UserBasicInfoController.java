@@ -65,6 +65,27 @@ public class UserBasicInfoController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
+    @ApiOperation(value = "发送验证短信", notes = "传入 手机号")
+    @ApiImplicitParam(name = "phone", value = "手机号", paramType = "query", dataType = "String",
+            required = true)
+    @RequestMapping(value = "/basic/password/message", method = RequestMethod.GET)
+    public CommonResult sendUpdateMessage(@RequestParam String phone) {
+
+        if (StringUtils.isEmpty(phone)) {
+            return CommonResult.validateFailed("手机号码不能未空！");
+        }
+
+        if (!powerAccountService.count(phone)) {
+            return CommonResult.validateFailed("该手机号，还未注册！");
+        }
+
+        if (basicInfoService.sendMessage(phone)) {
+            return CommonResult.success();
+        }
+
+        return CommonResult.failed("服务器错误，请联系管理员！");
+    }
+
     @ApiOperation(value = "校验短信验证码", notes = "传入 手机号、短信验证码")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "phone", value = "手机号", paramType = "query", dataType = "String",
