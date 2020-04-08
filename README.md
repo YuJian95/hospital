@@ -2,6 +2,8 @@
 
 > 一个简单的医院预约挂号管理系统。包括 小程序、web管理系统、服务端。
 
+本项目基于[轻量级脚手架](https://github.com/YuJian95/base-service)，学习本项目前, 可先查看原项目相关文档。
+
 如对你有所帮助，麻烦请 **star**、 **watch**、 **fork**，一键三连支持一下！
 
 - [服务端](https://github.com/YuJian95/hospital-service)
