@@ -2,6 +2,7 @@ package cn.yujian95.hospital.service;
 
 import cn.yujian95.hospital.dto.VisitDoctorPlanDTO;
 import cn.yujian95.hospital.dto.VisitPlanDTO;
+import cn.yujian95.hospital.dto.VisitPlanResiduesDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
 import cn.yujian95.hospital.dto.param.VisitPlanUpdateParam;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,4 +83,13 @@ public interface IVisitPlanService {
      */
     List<VisitPlanDTO> list(Long hospitalId, Long specialId, Long clinicId, Long doctorId, Date day,
                             Integer pageNum, Integer pageSize);
+
+    /**
+     * 获取医生出诊信息
+     * @param hospitalId 医院编号
+     * @param doctorId 医生编号
+     * @param date     日期
+     * @return 医生出诊信息
+     */
+    List<VisitPlanResiduesDTO> getDoctorPlanByDate(Long hospitalId, Long doctorId, Date date);
 }

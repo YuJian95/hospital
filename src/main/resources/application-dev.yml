@@ -132,6 +132,7 @@ secure:
       - /hospital/doctor/list/special/outpatient
       - /hospital/outpatient/list
       - /visit/plan/doctor
+      - /visit/plan/doctor/date
       - /visit/plan/list
       - /hospital/doctor/**
 

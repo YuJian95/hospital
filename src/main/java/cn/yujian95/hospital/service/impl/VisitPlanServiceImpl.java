@@ -13,8 +13,6 @@ import cn.yujian95.hospital.entity.VisitPlanExample;
 import cn.yujian95.hospital.mapper.VisitPlanMapper;
 import cn.yujian95.hospital.service.*;
 import com.github.pagehelper.PageHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +35,7 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
      */
     private static final Integer MAX_OF_PATIENTS = 5;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(VisitPlanServiceImpl.class);
+    private static final int PM = 2;
 
     @Resource
     private VisitPlanMapper planMapper;
@@ -162,6 +160,40 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
     }
 
     /**
+     * 获取医生出诊信息
+     *
+     * @param hospitalId 医院编号
+     * @param doctorId   医生编号
+     * @param date       日期
+     * @return 医生出诊信息
+     */
+    @Override
+    public List<VisitPlanResiduesDTO> getDoctorPlanByDate(Long hospitalId, Long doctorId, Date date) {
+
+        // 获取当天出诊计划
+        VisitPlanExample example = new VisitPlanExample();
+
+        example.createCriteria()
+                .andDoctorIdEqualTo(doctorId)
+                .andHospitalIdEqualTo(hospitalId)
+                .andDayBetween(DateUtil.beginOfDay(date), DateUtil.endOfDay(date));
+
+        List<VisitPlan> list = planMapper.selectByExample(example);
+
+        for (VisitPlan plan : list) {
+            System.out.println(plan.getDay().getTime());
+        }
+
+        if (CollUtil.isEmpty(list)) {
+            return null;
+        }
+
+        return list.stream()
+                .map(this::covertToResidues)
+                .collect(Collectors.toList());
+    }
+
+    /**
      * 查找出诊列表
      *
      * @param hospitalId   医院编号
@@ -246,7 +278,7 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
         int start = 1, end = 6;
 
         // 就诊计划为下午时
-        if (plan.getTime() == 2) {
+        if (plan.getTime() == PM) {
             start = 7;
             end = 14;
         }

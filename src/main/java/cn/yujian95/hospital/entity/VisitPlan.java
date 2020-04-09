@@ -1,6 +1,5 @@
 package cn.yujian95.hospital.entity;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;

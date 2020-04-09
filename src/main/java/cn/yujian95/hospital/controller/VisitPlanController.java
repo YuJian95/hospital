@@ -6,6 +6,7 @@ import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.dto.VisitDoctorPlanDTO;
 import cn.yujian95.hospital.dto.VisitPlanDTO;
+import cn.yujian95.hospital.dto.VisitPlanResiduesDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
 import cn.yujian95.hospital.dto.param.VisitPlanUpdateParam;
 import cn.yujian95.hospital.service.*;
@@ -190,5 +191,24 @@ public class VisitPlanController {
         }
 
         return CommonResult.success(planService.getDoctorPlan(doctorId, start, end));
+    }
+
+    @ApiOperation(value = "根据医生编号、日期，获取出诊信息", notes = "传入 医生编号、日期")
+    @RequestMapping(value = "/plan/doctor/date", method = RequestMethod.GET)
+    public CommonResult<List<VisitPlanResiduesDTO>> searchVisitPlanByDoctorAndDate(@RequestParam Long hospitalId,
+                                                                                   @RequestParam Long doctorId,
+                                                                                   @RequestParam String date) {
+
+        if (!hospitalInfoService.count(hospitalId)) {
+            return CommonResult.validateFailed("不存在，该医院编号！");
+        }
+
+        if (!hospitalDoctorService.count(doctorId)) {
+            return CommonResult.validateFailed("不存在，该医生编号！");
+        }
+
+        Date time = DateUtil.parseDate(date);
+
+        return CommonResult.success(planService.getDoctorPlanByDate(hospitalId, doctorId, time));
     }
 }
