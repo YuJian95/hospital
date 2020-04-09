@@ -3,7 +3,6 @@ package cn.yujian95.hospital.service;
 import cn.yujian95.hospital.dto.param.VisitAppointmentParam;
 import cn.yujian95.hospital.entity.VisitAppointment;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +12,6 @@ import java.util.Optional;
  */
 
 public interface IVisitAppointmentService {
-
 
     /**
      * 插入预约记录

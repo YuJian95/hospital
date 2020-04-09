@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
+import cn.yujian95.hospital.dto.VisitDoctorPlanDTO;
 import cn.yujian95.hospital.dto.VisitPlanDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
 import cn.yujian95.hospital.dto.param.VisitPlanUpdateParam;
@@ -171,17 +172,23 @@ public class VisitPlanController {
         return CommonResult.failed("服务器错误，请联系管理员！");
     }
 
-    @ApiOperation(value = "根据医生，获取出诊信息", notes = "传入 医生编号")
+    @ApiOperation(value = "根据医生，获取出诊信息", notes = "传入 医生编号、开始日期、结束日期")
     @RequestMapping(value = "/plan/doctor", method = RequestMethod.GET)
-    public CommonResult searchVisitPlanByDoctor(@RequestParam Long doctorId) {
+    public CommonResult<VisitDoctorPlanDTO> searchVisitPlanByDoctor(@RequestParam Long doctorId,
+                                                                    @RequestParam String startDate,
+                                                                    @RequestParam String endDate) {
 
         if (!hospitalDoctorService.count(doctorId)) {
             return CommonResult.validateFailed("不存在，该医生编号！");
         }
 
-        // 搜索日期
-        Date now = new Date();
+        Date start = DateUtil.parseDate(startDate);
+        Date end = DateUtil.parseDate(endDate);
 
-        return CommonResult.success(planService.getDoctorPlan(doctorId, now));
+        if (start.getTime() > end.getTime()) {
+            return CommonResult.validateFailed("不存在，该日期时间段");
+        }
+
+        return CommonResult.success(planService.getDoctorPlan(doctorId, start, end));
     }
 }

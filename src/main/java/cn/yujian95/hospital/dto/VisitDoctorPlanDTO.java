@@ -22,5 +22,5 @@ public class VisitDoctorPlanDTO implements Serializable {
     private HospitalDoctorDTO doctorDTO;
 
     @ApiModelProperty("医生出诊信息列表")
-    private List<VisitPlanListDTO> planListDTOS;
+    private List<VisitPlanListDTO> planListDTOList;
 }

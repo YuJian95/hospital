@@ -62,10 +62,11 @@ public interface IVisitPlanService {
      * 获取医生出诊信息
      *
      * @param doctorId 医生编号
-     * @param date     出诊日期
+     * @param start    开始日期
+     * @param end      结束日期
      * @return 医生出诊信息
      */
-    VisitDoctorPlanDTO getDoctorPlan(Long doctorId, Date date);
+    VisitDoctorPlanDTO getDoctorPlan(Long doctorId, Date start, Date end);
 
     /**
      * 查找出诊列表

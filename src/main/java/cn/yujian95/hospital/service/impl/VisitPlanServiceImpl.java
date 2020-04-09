@@ -141,11 +141,12 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
      * 获取医生出诊信息
      *
      * @param doctorId 医生编号
-     * @param date     出诊日期
+     * @param start    开始日期
+     * @param end      结束日期
      * @return 医生出诊信息
      */
     @Override
-    public VisitDoctorPlanDTO getDoctorPlan(Long doctorId, Date date) {
+    public VisitDoctorPlanDTO getDoctorPlan(Long doctorId, Date start, Date end) {
 
         VisitDoctorPlanDTO dto = new VisitDoctorPlanDTO();
 
@@ -155,7 +156,7 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
         }
 
         // 设置医生出诊信息列表
-        dto.setPlanListDTOS(getVisitPlanDTO(doctorId, date));
+        dto.setPlanListDTOList(getVisitPlanDTO(doctorId, start, end));
 
         return dto;
     }
@@ -253,10 +254,10 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
      * 获取医生，某段时间，以后出诊信息列表
      *
      * @param doctorId 医生编号
-     * @param date     获取该时间之后
+     * @param start    获取该时间之后
      * @return 出诊列表
      */
-    private List<VisitPlanListDTO> getVisitPlanDTO(Long doctorId, Date date) {
+    private List<VisitPlanListDTO> getVisitPlanDTO(Long doctorId, Date start, Date end) {
 
         // 查找医生出诊信息列表
         List<VisitPlanListDTO> planDTOList = new ArrayList<>();
@@ -265,13 +266,15 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
         example.createCriteria()
                 .andDoctorIdEqualTo(doctorId)
-                .andDayGreaterThan(date);
+                .andDayBetween(DateUtil.beginOfDay(start), DateUtil.endOfDay(end));
 
         planMapper.selectByExample(example).stream()
                 // 按照不同医院，进行分组
                 .collect(Collectors.groupingBy(VisitPlan::getHospitalId, Collectors.toList()))
+
                 // 按照不同医院，进行遍历
                 .forEach((hospitalId, list) -> {
+
                     // 转换为医生出诊列表
                     VisitPlanListDTO dto = new VisitPlanListDTO();
 
@@ -289,6 +292,7 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
                     // 设置对应医院中，医生出诊计划信息
                     planDTOList.add(dto);
+
                 });
 
         return planDTOList;

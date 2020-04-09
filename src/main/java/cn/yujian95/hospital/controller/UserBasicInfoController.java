@@ -5,7 +5,6 @@ import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.component.WxComponent;
 import cn.yujian95.hospital.dto.UserInfoDTO;
 import cn.yujian95.hospital.dto.param.PowerAccountPasswordParam;
-import cn.yujian95.hospital.dto.param.PowerAccountRegisterParam;
 import cn.yujian95.hospital.dto.param.UserBasicInfoParam;
 import cn.yujian95.hospital.dto.param.UserRegisterParam;
 import cn.yujian95.hospital.entity.PowerAccount;
@@ -16,7 +15,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
