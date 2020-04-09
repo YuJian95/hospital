@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author YuJian95  clj9509@163.com
@@ -21,7 +22,7 @@ public class VisitPlanResiduesDTO extends VisitPlan implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("剩余号数")
-    private Integer residues;
+    @ApiModelProperty("对应时间段，剩余号数")
+    private List<Integer> residues;
 
 }

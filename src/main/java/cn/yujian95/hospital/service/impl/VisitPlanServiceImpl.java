@@ -35,7 +35,7 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
     /**
      * 每段时间内 最大就诊人数
      */
-    private static final Integer MAX_NUMBER_OF_PATIENTS = 5;
+    private static final Integer MAX_OF_PATIENTS = 5;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VisitPlanServiceImpl.class);
 
@@ -241,11 +241,24 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
         BeanUtils.copyProperties(plan, dto);
 
-        // TODO 这里需要重新计算
-        int residue = MAX_NUMBER_OF_PATIENTS - appointmentService.countByPlanId(plan.getId(), plan.getTime());
+        List<Integer> residueList = new ArrayList<>();
+
+        int start = 1, end = 6;
+
+        // 就诊计划为下午时
+        if (plan.getTime() == 2) {
+            start = 7;
+            end = 14;
+        }
+
+        for (int i = start; i <= end; i++) {
+
+            // 设置剩余号数
+            residueList.add(MAX_OF_PATIENTS - appointmentService.countByPlanId(plan.getId(), plan.getTime()));
+        }
 
         // 设置剩余号数
-        dto.setResidues(residue);
+        dto.setResidues(residueList);
 
         return dto;
     }
