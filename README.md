@@ -42,13 +42,13 @@
 
 ### 部署步骤
 
-1. 运行 /src/main/resource 文件夹下（mysql数据库脚本） `hospital.sql` 创建数据库 `base`
+1. 运行 /src/main/resource 文件夹下（mysql数据库脚本） `hospital.sql` 创建数据库 `hospital`
 
 2. 修改 `database.properties`中数据库相关配置
 
 ```properties
 jdbc.driver=com.mysql.cj.jdbc.Driver
-jdbc.url=jdbc:mysql://数据库url:端口/数据库名
+jdbc.url=jdbc:mysql://数据库url:端口/hospital
 jdbc.username=数据库用户名
 jdbc.password=数据库用户密码
 ```
@@ -58,7 +58,7 @@ jdbc.password=数据库用户密码
 ```yaml
 spring:
   datasource:
-    url: jdbc:mysql://数据库url:端口/数据库名?characterEncoding=UTF-8&useSSL=false&useUnicode=true&serverTimezone=UTC
+    url: jdbc:mysql://数据库url:端口/hospital?characterEncoding=UTF-8&useSSL=false&useUnicode=true&serverTimezone=UTC
     username: 数据库用户名
     password: 用户密码
 ```
