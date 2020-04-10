@@ -55,6 +55,8 @@ jdbc.password=数据库用户密码
 
 3. 修改 `application-dev.yml`中数据库相关配置
 
+> 注意，有部分同学反馈，会出现url错误，可将`application-dev.yml`重命名`application.yml`。
+
 ```yaml
 spring:
   datasource:
@@ -130,3 +132,7 @@ swagger:
     # 用户密码
     password: hospital
 ```
+
+### 反馈
+
+如有问题欢迎提交Issue，遇到问题可以通过[我的博客](https://yujian95.cn/post/about.html)联系我。
