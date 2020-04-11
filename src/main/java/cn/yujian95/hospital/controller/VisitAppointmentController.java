@@ -153,7 +153,7 @@ public class VisitAppointmentController {
     @RequestMapping(value = "/details", method = RequestMethod.GET)
     public CommonResult<VisitAppointmentWithCaseDTO> getAppointmentDetails(@RequestParam Long appointmentId) {
 
-        if(!accountService.count(appointmentId)){
+        if(!appointmentService.count(appointmentId)){
             return CommonResult.validateFailed("不存在，该预约编号！");
         }
 
