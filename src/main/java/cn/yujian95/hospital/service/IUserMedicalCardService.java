@@ -49,6 +49,14 @@ public interface IUserMedicalCardService {
     Optional<UserMedicalCard> getOptional(Long id);
 
     /**
+     * 获取患者名称
+     *
+     * @param id 就诊卡编号
+     * @return 患者名称，或未知
+     */
+    String getName(Long id);
+
+    /**
      * 查找就诊卡信息
      *
      * @param name     姓名

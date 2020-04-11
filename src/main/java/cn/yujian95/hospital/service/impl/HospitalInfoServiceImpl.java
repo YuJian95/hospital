@@ -74,6 +74,17 @@ HospitalInfoServiceImpl implements IHospitalInfoService {
     }
 
     /**
+     * 获取医院名称
+     *
+     * @param id 医院编号
+     * @return 医院名称，否则返回未知
+     */
+    @Override
+    public String getName(Long id) {
+        return getOptional(id).map(HospitalInfo::getName).orElse("未知");
+    }
+
+    /**
      * 获取医院信息
      *
      * @param id 医院编号

@@ -27,7 +27,7 @@ public class UserCase implements Serializable {
      * @mbg.generated
      */
     @ApiModelProperty(value = "预约编号")
-    private Long orderId;
+    private Long appointmentId;
 
     /**
      * 医生编号
@@ -79,12 +79,12 @@ public class UserCase implements Serializable {
         this.accountId = accountId;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getAppointmentId() {
+        return appointmentId;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setAppointmentId(Long appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
     public Long getDoctorId() {
@@ -127,7 +127,7 @@ public class UserCase implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", accountId=").append(accountId);
-        sb.append(", orderId=").append(orderId);
+        sb.append(", appointmentId=").append(appointmentId);
         sb.append(", doctorId=").append(doctorId);
         sb.append(", content=").append(content);
         sb.append(", gmtCreate=").append(gmtCreate);

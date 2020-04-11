@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -48,6 +49,12 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
     @Resource
     private IHospitalInfoService hospitalInfoService;
+
+    @Resource
+    private IHospitalOutpatientService hospitalOutpatientService;
+
+    @Resource
+    private IHospitalSpecialService hospitalSpecialService;
 
     @Resource
     private IVisitAppointmentService appointmentService;
@@ -89,6 +96,17 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
         plan.setGmtModified(new Date());
 
         return planMapper.updateByPrimaryKeySelective(plan) > 0;
+    }
+
+    /**
+     * 获取出诊计划
+     *
+     * @param id 计划编号
+     * @return 出诊计划
+     */
+    @Override
+    public Optional<VisitPlanDTO> getOptional(Long id) {
+        return Optional.ofNullable(covert(planMapper.selectByPrimaryKey(id)));
     }
 
     /**
@@ -180,10 +198,6 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
         List<VisitPlan> list = planMapper.selectByExample(example);
 
-        for (VisitPlan plan : list) {
-            System.out.println(plan.getDay().getTime());
-        }
-
         if (CollUtil.isEmpty(list)) {
             return null;
         }
@@ -256,6 +270,15 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
         // 设置医生名称
         dto.setDoctorName(hospitalDoctorService.getName(plan.getDoctorId()));
+
+        // 设置门诊名称
+        dto.setOutpatientName(hospitalOutpatientService.getName(plan.getOutpatientId()));
+
+        // 设置专科名称
+        dto.setSpecialName(hospitalSpecialService.getName(plan.getSpecialId()));
+
+        // 设置医院名称
+        dto.setHospitalName(hospitalInfoService.getName(plan.getHospitalId()));
 
         return dto;
     }

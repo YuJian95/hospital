@@ -43,6 +43,14 @@ public interface IHospitalInfoService {
     Optional<HospitalInfo> getOptional(Long id);
 
     /**
+     * 获取医院名称
+     *
+     * @param id 医院编号
+     * @return 医院名称，否则返回未知
+     */
+    String getName(Long id);
+
+    /**
      * 删除医院信息
      *
      * @param id 医院编号

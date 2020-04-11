@@ -57,7 +57,7 @@ public class UserCaseController {
     }
 
     @ApiOperation(value = "更新用户病例", notes = "传入 病例编号、用户病例更新参数（病例详情）")
-    @ApiImplicitParam(name = "accountId", value = "账号编号", paramType = "query", dataType = "Long", required = true)
+    @ApiImplicitParam(name = "accountId", value = "账号编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/case/{id}", method = RequestMethod.PUT)
     public CommonResult updateUserCase(@PathVariable Long id, @RequestBody UserCaseUpdateParam param) {
         if (!caseService.count(id)) {
@@ -72,7 +72,7 @@ public class UserCaseController {
     }
 
     @ApiOperation(value = "删除用户病例", notes = "传入 病例编号")
-    @ApiImplicitParam(name = "accountId", value = "账号编号", paramType = "query", dataType = "Long", required = true)
+    @ApiImplicitParam(name = "accountId", value = "账号编号", paramType = "path", dataType = "Long", required = true)
     @RequestMapping(value = "/case/{id}", method = RequestMethod.DELETE)
     public CommonResult deleteUserCase(@PathVariable Long id) {
 

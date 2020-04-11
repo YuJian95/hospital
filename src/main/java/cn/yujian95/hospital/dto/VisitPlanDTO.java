@@ -19,7 +19,15 @@ public class VisitPlanDTO extends VisitPlan {
     @ApiModelProperty(value = "医生名称")
     private String doctorName;
 
-
     @ApiModelProperty(value = "诊室名称")
     private String clinicName;
+
+    @ApiModelProperty(value = "专科名称")
+    private String specialName;
+
+    @ApiModelProperty(value = "门诊名称")
+    private String outpatientName;
+
+    @ApiModelProperty(value = "医院名称")
+    private String hospitalName;
 }

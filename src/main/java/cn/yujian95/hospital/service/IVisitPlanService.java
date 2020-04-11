@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author YuJian95  clj9509@163.com
@@ -52,6 +53,14 @@ public interface IVisitPlanService {
     boolean deleteAll(List<Long> idList);
 
     /**
+     * 获取出诊计划
+     *
+     * @param id 计划编号
+     * @return 出诊计划
+     */
+    Optional<VisitPlanDTO> getOptional(Long id);
+
+    /**
      * 判断是否，存在该计划
      *
      * @param id 计划编号
@@ -86,9 +95,10 @@ public interface IVisitPlanService {
 
     /**
      * 获取医生出诊信息
+     *
      * @param hospitalId 医院编号
-     * @param doctorId 医生编号
-     * @param date     日期
+     * @param doctorId   医生编号
+     * @param date       日期
      * @return 医生出诊信息
      */
     List<VisitPlanResiduesDTO> getDoctorPlanByDate(Long hospitalId, Long doctorId, Date date);

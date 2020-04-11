@@ -1,5 +1,8 @@
 package cn.yujian95.hospital.service;
 
+import cn.yujian95.hospital.dto.UserCreditDTO;
+import cn.yujian95.hospital.dto.VisitAppointmentDTO;
+import cn.yujian95.hospital.dto.VisitAppointmentWithCaseDTO;
 import cn.yujian95.hospital.dto.param.VisitAppointmentParam;
 import cn.yujian95.hospital.entity.VisitAppointment;
 
@@ -74,4 +77,40 @@ public interface IVisitAppointmentService {
      * @return 是否存在
      */
     boolean count(Long cardId, Long planId);
+
+    /**
+     * 获取当月信用情况
+     *
+     * @param accountId 账号编号
+     * @param cardId    就诊卡编号
+     * @return 当月信用情况
+     */
+    UserCreditDTO getCurrentCredit(Long accountId, Long cardId);
+
+    /**
+     * 获取全部信用情况
+     *
+     * @param accountId 账号编号
+     * @param cardId    就诊卡
+     * @return 用户全部信用信息
+     */
+    UserCreditDTO getAllCredit(Long accountId, Long cardId);
+
+    /**
+     * 获取就诊记录列表
+     *
+     * @param cardId   就诊卡号
+     * @param pageNum  第一页
+     * @param pageSize 页大小
+     * @return 就诊记录列表
+     */
+    List<VisitAppointmentDTO> listFinishAppointment(Long cardId, Integer pageNum, Integer pageSize);
+
+    /**
+     * 获取就诊记录详情
+     *
+     * @param id 预约编号
+     * @return 就诊记录详情
+     */
+    VisitAppointmentWithCaseDTO getVisitAppointmentWithCaseDTO(Long id);
 }

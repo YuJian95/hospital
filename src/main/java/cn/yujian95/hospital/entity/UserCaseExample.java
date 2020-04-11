@@ -225,63 +225,63 @@ public class UserCaseExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdIsNull() {
-            addCriterion("order_id is null");
+        public Criteria andAppointmentIdIsNull() {
+            addCriterion("appointment_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdIsNotNull() {
-            addCriterion("order_id is not null");
+        public Criteria andAppointmentIdIsNotNull() {
+            addCriterion("appointment_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdEqualTo(Long value) {
-            addCriterion("order_id =", value, "orderId");
+        public Criteria andAppointmentIdEqualTo(Long value) {
+            addCriterion("appointment_id =", value, "appointmentId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotEqualTo(Long value) {
-            addCriterion("order_id <>", value, "orderId");
+        public Criteria andAppointmentIdNotEqualTo(Long value) {
+            addCriterion("appointment_id <>", value, "appointmentId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdGreaterThan(Long value) {
-            addCriterion("order_id >", value, "orderId");
+        public Criteria andAppointmentIdGreaterThan(Long value) {
+            addCriterion("appointment_id >", value, "appointmentId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("order_id >=", value, "orderId");
+        public Criteria andAppointmentIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("appointment_id >=", value, "appointmentId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdLessThan(Long value) {
-            addCriterion("order_id <", value, "orderId");
+        public Criteria andAppointmentIdLessThan(Long value) {
+            addCriterion("appointment_id <", value, "appointmentId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdLessThanOrEqualTo(Long value) {
-            addCriterion("order_id <=", value, "orderId");
+        public Criteria andAppointmentIdLessThanOrEqualTo(Long value) {
+            addCriterion("appointment_id <=", value, "appointmentId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdIn(List<Long> values) {
-            addCriterion("order_id in", values, "orderId");
+        public Criteria andAppointmentIdIn(List<Long> values) {
+            addCriterion("appointment_id in", values, "appointmentId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotIn(List<Long> values) {
-            addCriterion("order_id not in", values, "orderId");
+        public Criteria andAppointmentIdNotIn(List<Long> values) {
+            addCriterion("appointment_id not in", values, "appointmentId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdBetween(Long value1, Long value2) {
-            addCriterion("order_id between", value1, value2, "orderId");
+        public Criteria andAppointmentIdBetween(Long value1, Long value2) {
+            addCriterion("appointment_id between", value1, value2, "appointmentId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotBetween(Long value1, Long value2) {
-            addCriterion("order_id not between", value1, value2, "orderId");
+        public Criteria andAppointmentIdNotBetween(Long value1, Long value2) {
+            addCriterion("appointment_id not between", value1, value2, "appointmentId");
             return (Criteria) this;
         }
 

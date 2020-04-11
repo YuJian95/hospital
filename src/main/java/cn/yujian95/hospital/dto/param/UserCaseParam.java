@@ -29,7 +29,7 @@ public class UserCaseParam implements Serializable {
      * @mbg.generated
      */
     @ApiModelProperty(value = "预约编号")
-    private Long orderId;
+    private Long appointmentId;
 
     /**
      * 医生编号

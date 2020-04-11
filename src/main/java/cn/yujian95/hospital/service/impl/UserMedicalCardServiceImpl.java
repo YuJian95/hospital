@@ -111,6 +111,17 @@ public class UserMedicalCardServiceImpl implements IUserMedicalCardService {
     }
 
     /**
+     * 获取患者名称
+     *
+     * @param id 就诊卡编号
+     * @return 患者名称，或未知
+     */
+    @Override
+    public String getName(Long id) {
+        return getOptional(id).map(UserMedicalCard::getName).orElse("未知");
+    }
+
+    /**
      * 获取就诊卡信息
      *
      * @param id 就诊卡编号

@@ -92,19 +92,37 @@ public class UserCaseServiceImpl implements IUserCaseService {
     }
 
     /**
+     * 获取预约记录相关病例
+     *
+     * @param appointmentId 预约记录编号
+     * @return 病例列表
+     */
+    @Override
+    public List<UserCase> listByAppointment(Long appointmentId) {
+        UserCaseExample example = new UserCaseExample();
+
+        example.setOrderByClause("gmt_create desc");
+
+        example.createCriteria()
+                .andAppointmentIdEqualTo(appointmentId);
+
+        return caseMapper.selectByExample(example);
+    }
+
+    /**
      * 获取病例信息
      *
-     * @param accountId 账号编号
-     * @param orderId   预约记录
+     * @param accountId     账号编号
+     * @param appointmentId 预约记录
      * @return 是否存在
      */
     @Override
-    public Optional<UserCase> getOptional(Long accountId, Long orderId) {
+    public Optional<UserCase> getOptional(Long accountId, Long appointmentId) {
         UserCaseExample example = new UserCaseExample();
 
         example.createCriteria()
                 .andAccountIdEqualTo(accountId)
-                .andOrderIdEqualTo(orderId);
+                .andAppointmentIdEqualTo(appointmentId);
 
 
         return Optional.ofNullable(caseMapper.selectByExample(example).get(0));

@@ -1,19 +1,30 @@
 package cn.yujian95.hospital.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
+import cn.yujian95.hospital.dto.UserCreditDTO;
+import cn.yujian95.hospital.dto.VisitAppointmentDTO;
+import cn.yujian95.hospital.dto.VisitAppointmentWithCaseDTO;
+import cn.yujian95.hospital.dto.VisitPlanDTO;
 import cn.yujian95.hospital.dto.param.VisitAppointmentParam;
+import cn.yujian95.hospital.entity.UserCase;
 import cn.yujian95.hospital.entity.VisitAppointment;
 import cn.yujian95.hospital.entity.VisitAppointmentExample;
 import cn.yujian95.hospital.mapper.VisitAppointmentMapper;
+import cn.yujian95.hospital.service.IUserCaseService;
+import cn.yujian95.hospital.service.IUserMedicalCardService;
 import cn.yujian95.hospital.service.IVisitAppointmentService;
+import cn.yujian95.hospital.service.IVisitPlanService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static cn.yujian95.hospital.dto.AppointmentEnum.*;
+
 
 /**
  * @author YuJian95  clj9509@163.com
@@ -22,16 +33,17 @@ import java.util.Optional;
 @Service
 public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
-    /**
-     * 预约状态 0：未开始，1：未按时就诊，2：取消预约挂号，3：已完成
-     */
-    private static final Integer WATTING = 0;
-    private static final Integer MISS = 1;
-    private static final Integer CANCEL = 2;
-    private static final Integer FINISH = 3;
-
     @Resource
     private VisitAppointmentMapper appointmentMapper;
+
+    @Resource
+    private IVisitPlanService visitPlanService;
+
+    @Resource
+    private IUserMedicalCardService userMedicalCardService;
+
+    @Resource
+    private IUserCaseService userCaseService;
 
     /**
      * 获取已取号的数目
@@ -48,7 +60,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
                 .andPlanIdEqualTo(planId)
                 .andTimePeriodEqualTo(timePeriod)
                 // 除了取消预约外
-                .andStatusNotEqualTo(CANCEL);
+                .andStatusNotEqualTo(CANCEL.getStatus());
 
         return (int) appointmentMapper.countByExample(example);
     }
@@ -116,6 +128,9 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
         VisitAppointmentExample example = new VisitAppointmentExample();
 
+        // 倒序从近到远
+        example.setOrderByClause("gmt_create desc");
+
         VisitAppointmentExample.Criteria criteria = example.createCriteria();
 
         if (cardId != null) {
@@ -159,9 +174,177 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
         example.createCriteria()
                 .andCardIdEqualTo(cardId)
                 // 同一出诊中，除取消预约外
-                .andStatusNotEqualTo(CANCEL)
+                .andStatusNotEqualTo(CANCEL.getStatus())
                 .andPlanIdEqualTo(planId);
 
         return appointmentMapper.countByExample(example) > 0;
     }
+
+    /**
+     * 获取当月信用情况
+     *
+     * @param accountId 账号编号
+     * @param cardId    就诊卡编号
+     * @return 当月信用情况
+     */
+    @Override
+    public UserCreditDTO getCurrentCredit(Long accountId, Long cardId) {
+
+        VisitAppointmentExample example = new VisitAppointmentExample();
+
+        example.setDistinct(true);
+
+        Date date = new Date();
+
+        example.createCriteria()
+                .andGmtCreateBetween(DateUtil.beginOfMonth(date), DateUtil.endOfMonth(date))
+                .andAccountIdEqualTo(accountId);
+
+        example.or().andCardIdEqualTo(cardId);
+
+        List<VisitAppointment> list = appointmentMapper.selectByExample(example);
+
+        if (CollUtil.isEmpty(list)) {
+            return null;
+        }
+
+        return getCredit(list);
+    }
+
+    /**
+     * 获取全部信用情况
+     *
+     * @param accountId 账号编号
+     * @param cardId    就诊卡
+     * @return 用户全部信用信息
+     */
+    @Override
+    public UserCreditDTO getAllCredit(Long accountId, Long cardId) {
+
+        VisitAppointmentExample example = new VisitAppointmentExample();
+
+        example.setDistinct(true);
+
+        Date date = new Date();
+
+        example.createCriteria()
+                .andGmtCreateLessThanOrEqualTo(date)
+                .andAccountIdEqualTo(accountId);
+
+        example.or().andCardIdEqualTo(cardId);
+
+        List<VisitAppointment> list = appointmentMapper.selectByExample(example);
+
+        if (CollUtil.isEmpty(list)) {
+            return null;
+        }
+
+        return getCredit(list);
+
+    }
+
+    /**
+     * 获取就诊记录详情
+     *
+     * @param id 预约编号
+     * @return 就诊记录详情
+     */
+    @Override
+    public VisitAppointmentWithCaseDTO getVisitAppointmentWithCaseDTO(Long id) {
+        VisitAppointmentWithCaseDTO dto = new VisitAppointmentWithCaseDTO();
+
+        BeanUtils.copyProperties(convert(appointmentMapper.selectByPrimaryKey(id)), dto);
+
+
+        List<UserCase> list = userCaseService.listByAppointment(id);
+
+        if (CollUtil.isEmpty(list)) {
+            dto.setUserCase(null);
+            return dto;
+        }
+
+        dto.setUserCase(list.get(0));
+
+        return dto;
+    }
+
+    /**
+     * 获取就诊记录列表
+     *
+     * @param cardId   就诊卡号
+     * @param pageNum  第一页
+     * @param pageSize 页大小
+     * @return 就诊记录列表
+     */
+    @Override
+    public List<VisitAppointmentDTO> listFinishAppointment(Long cardId, Integer pageNum, Integer pageSize) {
+
+        // 获取已完成记录情况
+        List<VisitAppointment> list = list(cardId, FINISH.getStatus(), pageNum, pageSize);
+
+        if (CollUtil.isEmpty(list)) {
+            return null;
+        }
+
+        return list.stream()
+                .map(this::convert)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 转换获取对应中文名称
+     *
+     * @param appointment 预约记录
+     * @return 预约记录以及就诊用户
+     */
+    private VisitAppointmentDTO convert(VisitAppointment appointment) {
+
+        VisitAppointmentDTO dto = new VisitAppointmentDTO();
+
+        dto.setAppointmentId(appointment.getId());
+
+        Optional<VisitPlanDTO> optional = visitPlanService.getOptional(appointment.getPlanId());
+
+        // 获取出诊计划信息
+        optional.ifPresent(visitPlanDTO -> BeanUtils.copyProperties(visitPlanDTO, dto));
+
+        dto.setName(userMedicalCardService.getName(appointment.getCardId()));
+
+        return dto;
+    }
+
+    /**
+     * 统计信用情况
+     *
+     * @param list 就诊记录列表
+     * @return 信用情况
+     */
+    private UserCreditDTO getCredit(List<VisitAppointment> list) {
+        UserCreditDTO dto = new UserCreditDTO();
+
+        int miss = 0, cancel = 0, finish = 0;
+
+        Map<Integer, Long> map = list.stream()
+                .collect(Collectors.groupingBy(VisitAppointment::getStatus, Collectors.counting()));
+
+        if (map.containsKey(MISSING.getStatus())) {
+            miss = map.get(MISSING.getStatus()).intValue();
+        }
+
+        if (map.containsKey(CANCEL.getStatus())) {
+            cancel = map.get(CANCEL.getStatus()).intValue();
+        }
+
+        if (map.containsKey(FINISH.getStatus())) {
+            finish = map.get(FINISH.getStatus()).intValue();
+        }
+
+        dto.setFinish(finish);
+        dto.setCancel(cancel);
+        dto.setMiss(miss);
+
+        return dto;
+
+    }
+
 }

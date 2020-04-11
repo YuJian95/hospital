@@ -50,11 +50,20 @@ public interface IUserCaseService {
     /**
      * 获取病例信息
      *
-     * @param accountId 账号编号
-     * @param orderId   预约记录
+     * @param accountId     账号编号
+     * @param appointmentId 预约记录
      * @return 是否存在
      */
-    Optional<UserCase> getOptional(Long accountId, Long orderId);
+    Optional<UserCase> getOptional(Long accountId, Long appointmentId);
+
+
+    /**
+     * 获取预约记录相关病例
+     *
+     * @param appointmentId 预约记录编号
+     * @return 病例列表
+     */
+    List<UserCase> listByAppointment(Long appointmentId);
 
     /**
      * 获取病例列表
