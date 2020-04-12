@@ -2,10 +2,7 @@ package cn.yujian95.hospital.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
-import cn.yujian95.hospital.dto.VisitDoctorPlanDTO;
-import cn.yujian95.hospital.dto.VisitPlanDTO;
-import cn.yujian95.hospital.dto.VisitPlanListDTO;
-import cn.yujian95.hospital.dto.VisitPlanResiduesDTO;
+import cn.yujian95.hospital.dto.*;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
 import cn.yujian95.hospital.dto.param.VisitPlanUpdateParam;
 import cn.yujian95.hospital.entity.VisitPlan;
@@ -35,8 +32,6 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
      * 每段时间内 最大就诊人数
      */
     private static final Integer MAX_OF_PATIENTS = 5;
-
-    private static final int PM = 2;
 
     @Resource
     private VisitPlanMapper planMapper;
@@ -298,15 +293,10 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
         List<Integer> residueList = new ArrayList<>();
 
-        int start = 1, end = 6;
 
-        // 就诊计划为下午时
-        if (plan.getTime() == PM) {
-            start = 7;
-            end = 14;
-        }
+        TimePeriodEnum timePeriod = (plan.getTime().equals(TimePeriodEnum.AM.getTime())) ? TimePeriodEnum.AM : TimePeriodEnum.PM;
 
-        for (int i = start; i <= end; i++) {
+        for (int i = timePeriod.getStart(); i <= timePeriod.getEnd(); i++) {
 
             // 设置剩余号数
             residueList.add(MAX_OF_PATIENTS - appointmentService.countByPlanId(plan.getId(), plan.getTime()));
