@@ -53,9 +53,7 @@ jdbc.username=数据库用户名
 jdbc.password=数据库用户密码
 ```
 
-3. 修改 `application-dev.yml`中数据库相关配置
-
-> 注意，有部分同学反馈，会出现url错误，可将`application-dev.yml`重命名`application.yml`。
+3. 修改 `application.yml`中数据库相关配置
 
 ```yaml
 spring:
@@ -110,12 +108,12 @@ qiniu:
   secretKey: 
   bucket: 存储空间名称
   # 访问域名前缀  
-  url: http://q59ifzu6u.bkt.clouddn.com/
+  url: http://xxx.bkt.clouddn.com/
 ```
 
 6. 运行 `HospitalApplication.java`, 启动项目
 
-7. 访问 API文档，运行后，范围 http://localhost:8080/hospital/doc.html ,输入`application-dev.yml`配置的账号密码即可
+7. 访问 API文档，运行后，范围 http://localhost:8080/hospital/doc.html ,输入`application.yml`配置的账号密码即可
 
 默认账号、密码为`hospital`
 
@@ -133,6 +131,20 @@ swagger:
     password: hospital
 ```
 
+8. 系统账号，这里提供俩个账号。
+
+```
+// 后台管理系统账号
+账号：admin
+密码：admin
+
+// API接口测试账号
+账号：test
+密码：test
+```
+
 ### 反馈
 
 如有问题欢迎提交Issue，遇到问题可以通过[我的博客](https://yujian95.cn/post/about.html)联系我。
+
+因大家询问**是否有可以讨论的地方**。 我建了个群，如果有需要可**加Q群：866724245**。
