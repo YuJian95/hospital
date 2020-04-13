@@ -3,16 +3,6 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for PDMAN_DB_VERSION
--- ----------------------------
-DROP TABLE IF EXISTS `PDMAN_DB_VERSION`;
-CREATE TABLE `PDMAN_DB_VERSION`  (
-                                     `DB_VERSION` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                                     `VERSION_DESC` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                                     `CREATED_TIME` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
 -- Table structure for hospital_clinic
 -- ----------------------------
 DROP TABLE IF EXISTS `hospital_clinic`;
@@ -439,3 +429,54 @@ CREATE TABLE `visit_plan`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 10042 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '出诊信息表 ' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+INSERT INTO `hospital`.`power_account`(`id`, `name`, `password`, `status`, `login_time`, `gmt_create`, `gmt_modified`) VALUES (10000006, 'test', '$2a$10$im44.HgXDahyBbY2Wx2FA.ZSEmhDoycqYjMSzr.V8SuQkJlQR6XRS', 1, '2020-04-11 14:31:26', '2020-04-11 14:31:14', '2020-04-11 14:31:14');
+INSERT INTO `hospital`.`power_account`(`id`, `name`, `password`, `status`, `login_time`, `gmt_create`, `gmt_modified`) VALUES (10000005, 'admin', '$2a$10$l0dSGURNp2Q9z2m3jea37.CV9.OH76qprHxIDklyJPK2EzEIg4m2W', 1, '2020-04-11 14:30:26', '2020-01-25 08:04:14', '2020-03-29 02:57:48');
+
+INSERT INTO `hospital`.`hospital_info`(`id`, `name`, `phone`, `address`, `description`, `picture`, `gmt_create`, `gmt_modified`) VALUES (1000, '广东省中医院', '020-123452', '广州大学城', '广东省中医院', 'http://image.yujian95.cn/FmxdyLFebwrEhId3tyb7AXo5Xryc', '2020-02-05 13:06:55', '2020-03-16 09:57:16');
+INSERT INTO `hospital`.`hospital_info`(`id`, `name`, `phone`, `address`, `description`, `picture`, `gmt_create`, `gmt_modified`) VALUES (1001, '顺德分院', '020-1234567', '广东省佛山市顺德区', '位于广东省佛山市顺德区', 'http://image.yujian95.cn/FmHCxgk544aFLNg5WLu9ES4gWOo1', '2020-03-16 08:00:03', '2020-03-16 08:00:03');
+INSERT INTO `hospital`.`hospital_info`(`id`, `name`, `phone`, `address`, `description`, `picture`, `gmt_create`, `gmt_modified`) VALUES (1002, '白云分院', '020-1234568', '广东省广州市白云区', '位于广东省广州市白云区', 'http://image.yujian95.cn/Fq-bSZSpZHGC0FlvAAgOP8XDYzBE', '2020-03-16 08:03:30', '2020-03-16 08:03:30');
+INSERT INTO `hospital`.`hospital_info`(`id`, `name`, `phone`, `address`, `description`, `picture`, `gmt_create`, `gmt_modified`) VALUES (1007, '越秀分院', '020-1234563', '广东省越秀区', '位于广东省越秀区', 'http://image.yujian95.cn/FmxdyLFebwrEhId3tyb7AXo5Xryc', '2020-03-22 04:53:40', '2020-03-22 04:53:40');
+
+INSERT INTO `hospital`.`hospital_special`(`id`, `name`, `description`, `gmt_create`, `gmt_modified`) VALUES (10000, '妇科', '女性妇科相关智联', '2020-03-20 03:54:25', '2020-03-20 03:54:25');
+INSERT INTO `hospital`.`hospital_special`(`id`, `name`, `description`, `gmt_create`, `gmt_modified`) VALUES (10006, '皮肤科', '皮肤相关治疗', '2020-03-20 04:14:07', '2020-03-20 04:14:07');
+INSERT INTO `hospital`.`hospital_special`(`id`, `name`, `description`, `gmt_create`, `gmt_modified`) VALUES (10008, '儿科', '儿童相关治疗', '2020-03-20 04:17:00', '2020-03-20 04:17:00');
+INSERT INTO `hospital`.`hospital_special`(`id`, `name`, `description`, `gmt_create`, `gmt_modified`) VALUES (10009, '眼科', '眼部相关治疗', '2020-03-20 06:53:22', '2020-03-20 06:53:22');
+INSERT INTO `hospital`.`hospital_special`(`id`, `name`, `description`, `gmt_create`, `gmt_modified`) VALUES (10010, '内科', '甲状腺等内科治疗', '2020-03-20 06:55:01', '2020-03-20 06:55:01');
+
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10002, '儿童发热', 10008, '2020-03-20 07:02:52', '2020-03-20 07:02:52');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10003, '儿童牙科', 10008, '2020-03-20 07:03:03', '2020-03-20 07:03:03');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10004, '儿童外科擦伤', 10008, '2020-03-20 07:03:21', '2020-03-20 07:03:37');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10005, '普通门诊', 10000, '2020-03-20 07:04:14', '2020-03-20 07:04:14');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10006, '流产专科', 10000, '2020-03-20 07:07:32', '2020-03-20 07:07:32');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10007, '不孕症专科', 10000, '2020-03-20 07:07:54', '2020-03-20 07:07:54');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10008, '皮肤科', 10006, '2020-03-20 07:09:40', '2020-03-20 07:09:40');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10009, '脱发', 10006, '2020-03-20 07:09:44', '2020-03-20 07:09:44');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10010, '痤疮', 10006, '2020-03-20 07:09:50', '2020-03-20 07:09:50');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10011, '性病', 10006, '2020-03-20 07:09:59', '2020-03-20 07:09:59');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10012, '湿疹', 10006, '2020-03-20 07:10:06', '2020-03-20 07:10:06');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10013, '红斑狼疮', 10006, '2020-03-20 07:10:21', '2020-03-20 07:10:21');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10014, '妇科门诊', 10000, '2020-03-23 03:59:12', '2020-03-23 03:59:12');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10015, '普通眼科门诊', 10009, '2020-03-29 04:56:35', '2020-03-29 04:56:35');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10016, '近视眼', 10009, '2020-03-29 04:56:44', '2020-03-29 04:56:44');
+INSERT INTO `hospital`.`hospital_outpatient`(`id`, `name`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10017, '青光眼', 10009, '2020-03-29 04:56:53', '2020-03-29 04:56:53');
+
+INSERT INTO `hospital`.`hospital_special_relation`(`id`, `hospital_id`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (4, 1000, 10008, '2020-03-20 08:38:59', '2020-03-20 08:38:59');
+INSERT INTO `hospital`.`hospital_special_relation`(`id`, `hospital_id`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (5, 1000, 10000, '2020-03-20 09:01:10', '2020-03-20 09:01:10');
+INSERT INTO `hospital`.`hospital_special_relation`(`id`, `hospital_id`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (6, 1001, 10000, '2020-03-20 09:04:41', '2020-03-20 09:04:41');
+INSERT INTO `hospital`.`hospital_special_relation`(`id`, `hospital_id`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (8, 1000, 10006, '2020-03-29 04:42:18', '2020-03-29 04:42:18');
+INSERT INTO `hospital`.`hospital_special_relation`(`id`, `hospital_id`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (9, 1001, 10009, '2020-03-29 04:43:33', '2020-03-29 04:43:33');
+INSERT INTO `hospital`.`hospital_special_relation`(`id`, `hospital_id`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (10, 1001, 10010, '2020-03-29 04:43:36', '2020-03-29 04:43:36');
+INSERT INTO `hospital`.`hospital_special_relation`(`id`, `hospital_id`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (11, 1002, 10008, '2020-03-29 04:43:45', '2020-03-29 04:43:45');
+INSERT INTO `hospital`.`hospital_special_relation`(`id`, `hospital_id`, `special_id`, `gmt_create`, `gmt_modified`) VALUES (12, 1002, 10010, '2020-03-29 04:43:49', '2020-03-29 04:43:49');
+
+INSERT INTO `hospital`.`hospital_outpatient_relation`(`id`, `hospital_id`, `outpatient_id`, `gmt_create`, `gmt_modified`) VALUES (7, 1000, 10009, '2020-03-29 04:45:32', '2020-03-29 04:45:32');
+INSERT INTO `hospital`.`hospital_outpatient_relation`(`id`, `hospital_id`, `outpatient_id`, `gmt_create`, `gmt_modified`) VALUES (8, 1000, 10010, '2020-03-29 04:45:37', '2020-03-29 04:45:37');
+INSERT INTO `hospital`.`hospital_outpatient_relation`(`id`, `hospital_id`, `outpatient_id`, `gmt_create`, `gmt_modified`) VALUES (9, 1000, 10005, '2020-03-29 05:01:46', '2020-03-29 05:01:46');
+INSERT INTO `hospital`.`hospital_outpatient_relation`(`id`, `hospital_id`, `outpatient_id`, `gmt_create`, `gmt_modified`) VALUES (10, 1000, 10006, '2020-03-29 05:01:49', '2020-03-29 05:01:49');
+INSERT INTO `hospital`.`hospital_outpatient_relation`(`id`, `hospital_id`, `outpatient_id`, `gmt_create`, `gmt_modified`) VALUES (11, 1000, 10007, '2020-03-29 05:01:51', '2020-03-29 05:01:51');
+INSERT INTO `hospital`.`hospital_outpatient_relation`(`id`, `hospital_id`, `outpatient_id`, `gmt_create`, `gmt_modified`) VALUES (12, 1000, 10014, '2020-03-29 05:01:54', '2020-03-29 05:01:54');
+INSERT INTO `hospital`.`hospital_outpatient_relation`(`id`, `hospital_id`, `outpatient_id`, `gmt_create`, `gmt_modified`) VALUES (13, 1000, 10002, '2020-03-29 05:08:29', '2020-03-29 05:08:29');
+INSERT INTO `hospital`.`hospital_outpatient_relation`(`id`, `hospital_id`, `outpatient_id`, `gmt_create`, `gmt_modified`) VALUES (14, 1000, 10003, '2020-03-29 05:08:32', '2020-03-29 05:08:32');
+INSERT INTO `hospital`.`hospital_outpatient_relation`(`id`, `hospital_id`, `outpatient_id`, `gmt_create`, `gmt_modified`) VALUES (15, 1001, 10005, '2020-03-31 10:18:28', '2020-03-31 10:18:28');
+INSERT INTO `hospital`.`hospital_outpatient_relation`(`id`, `hospital_id`, `outpatient_id`, `gmt_create`, `gmt_modified`) VALUES (16, 1001, 10006, '2020-03-31 10:19:20', '2020-03-31 10:19:20');
