@@ -16,6 +16,8 @@ import lombok.EqualsAndHashCode;
 @Data
 public class VisitAppointmentWithCaseDTO extends VisitAppointmentDTO {
 
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty("病例详情")
     private UserCase userCase;
 }

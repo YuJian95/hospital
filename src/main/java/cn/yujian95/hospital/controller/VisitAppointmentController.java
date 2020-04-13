@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+import java.util.Date;
+
 import static cn.yujian95.hospital.dto.AppointmentEnum.*;
 
 /**
@@ -153,7 +155,7 @@ public class VisitAppointmentController {
     @RequestMapping(value = "/details", method = RequestMethod.GET)
     public CommonResult<VisitAppointmentWithCaseDTO> getAppointmentDetails(@RequestParam Long appointmentId) {
 
-        if(!appointmentService.count(appointmentId)){
+        if (!appointmentService.count(appointmentId)) {
             return CommonResult.validateFailed("不存在，该预约编号！");
         }
 
@@ -161,7 +163,20 @@ public class VisitAppointmentController {
     }
 
 
-    // TODO 查找排队信息（当天多个）
+    @ApiOperation(value = "查看当天排队信息", notes = "传入就诊卡编号、账号编号")
+    @RequestMapping(value = "/today", method = RequestMethod.GET)
+    public CommonResult getTodayAppointment(Long cardId, Long accountId) {
+
+        if (!userMedicalCardService.countCardId(cardId)) {
+            return CommonResult.validateFailed("不存在，该就诊卡编号！");
+        }
+
+        if (!accountService.count(accountId)) {
+            return CommonResult.validateFailed("不存在，该账号编号！");
+        }
+
+        return CommonResult.success(appointmentService.listToday(new Date(), cardId, accountId));
+    }
 
     /**
      * 更新预订状态

@@ -16,6 +16,8 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "VisitPlanDTO", description = "出诊计划封装对象")
 public class VisitPlanDTO extends VisitPlan {
 
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(value = "医生名称")
     private String doctorName;
 
