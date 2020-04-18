@@ -77,6 +77,14 @@ public interface IUserMedicalCardService {
     List<UserMedicalCardDTO> list(Long accountId);
 
     /**
+     * 根据就诊卡编号
+     *
+     * @param idList 就诊卡编号
+     * @return 用户就诊信息
+     */
+    List<UserMedicalCard> list(List<Long> idList);
+
+    /**
      * 判断关系编号是否存在
      *
      * @param relationId 关系编号

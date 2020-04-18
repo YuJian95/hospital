@@ -249,6 +249,27 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
 
     /**
+     * 获取某天出诊计划信息
+     *
+     * @param doctorId 医生编号
+     * @param time     时间段：1 上午，2 下午
+     * @param day      某天
+     * @return 出诊计划列表
+     */
+    @Override
+    public List<VisitPlan> getByTimeAndDate(Long doctorId, Integer time, Date day) {
+        VisitPlanExample example = new VisitPlanExample();
+
+        example.createCriteria()
+                .andDoctorIdEqualTo(doctorId)
+                .andTimeEqualTo(time)
+                .andDayGreaterThanOrEqualTo(DateUtil.beginOfDay(day))
+                .andDayLessThanOrEqualTo(DateUtil.endOfDay(day));
+
+        return planMapper.selectByExample(example);
+    }
+
+    /**
      * 转换为出诊计划封装类
      * 增加诊室地址、医生名称
      *

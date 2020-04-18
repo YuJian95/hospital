@@ -195,6 +195,23 @@ public class UserMedicalCardServiceImpl implements IUserMedicalCardService {
     }
 
     /**
+     * 根据就诊卡编号
+     *
+     * @param idList 就诊卡编号
+     * @return 用户就诊信息
+     */
+    @Override
+    public List<UserMedicalCard> list(List<Long> idList) {
+
+        UserMedicalCardExample example = new UserMedicalCardExample();
+
+        example.createCriteria()
+                .andIdIn(idList);
+
+        return medicalCardMapper.selectByExample(example);
+    }
+
+    /**
      * 通过账号编号，获取就诊卡信息
      *
      * @param accountId 账号编号

@@ -1,5 +1,6 @@
 package cn.yujian95.hospital.controller;
 
+import cn.hutool.core.date.DateUtil;
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.dto.UserCreditDTO;
@@ -7,10 +8,7 @@ import cn.yujian95.hospital.dto.VisitAppointmentDTO;
 import cn.yujian95.hospital.dto.VisitAppointmentWithCaseDTO;
 import cn.yujian95.hospital.dto.param.VisitAppointmentParam;
 import cn.yujian95.hospital.entity.VisitAppointment;
-import cn.yujian95.hospital.service.IPowerAccountService;
-import cn.yujian95.hospital.service.IUserMedicalCardService;
-import cn.yujian95.hospital.service.IVisitAppointmentService;
-import cn.yujian95.hospital.service.IVisitBlacklistService;
+import cn.yujian95.hospital.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +41,9 @@ public class VisitAppointmentController {
 
     @Resource
     private IUserMedicalCardService userMedicalCardService;
+
+    @Resource
+    private IHospitalDoctorService hospitalDoctorService;
 
     @ApiOperation(value = "验证就诊卡号是否黑名单", notes = "传入 就诊卡号")
     @RequestMapping(value = "/black/verify", method = RequestMethod.GET)
@@ -176,6 +177,35 @@ public class VisitAppointmentController {
         }
 
         return CommonResult.success(appointmentService.listToday(new Date(), cardId, accountId));
+    }
+
+    @ApiOperation(value = "查看用户预约情况", notes = "传入医生编号、日期、时间段（上午：1、下午：2）")
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public CommonResult listVisitUserInfo(@RequestParam Long doctorId, @RequestParam String date,
+                                          @RequestParam Integer time, @RequestParam Integer pageNum,
+                                          @RequestParam Integer pageSize) {
+
+        if (!hospitalDoctorService.count(doctorId)) {
+            return CommonResult.validateFailed("不存在，该医生编号");
+        }
+
+        Date day = DateUtil.parse(date);
+
+        return CommonResult.success(CommonPage.restPage(appointmentService.listVisitUserInfo(doctorId, time, day, pageNum, pageSize)));
+    }
+
+    @ApiOperation(value = "查看获取预约诊室名称", notes = "传入医生编号、日期、时间段（上午：1、下午：2）")
+    @RequestMapping(value = "/clinic", method = RequestMethod.GET)
+    public CommonResult getClinicName(@RequestParam Long doctorId, @RequestParam String date,
+                                      @RequestParam Integer time) {
+
+        if (!hospitalDoctorService.count(doctorId)) {
+            return CommonResult.validateFailed("不存在，该医生编号");
+        }
+
+        Date day = DateUtil.parse(date);
+
+        return CommonResult.success(appointmentService.getClinicName(doctorId, time, day));
     }
 
     /**

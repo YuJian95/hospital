@@ -5,7 +5,7 @@ import cn.yujian95.hospital.dto.VisitPlanDTO;
 import cn.yujian95.hospital.dto.VisitPlanResiduesDTO;
 import cn.yujian95.hospital.dto.param.VisitPlanParam;
 import cn.yujian95.hospital.dto.param.VisitPlanUpdateParam;
-import org.springframework.transaction.annotation.Transactional;
+import cn.yujian95.hospital.entity.VisitPlan;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +24,6 @@ public interface IVisitPlanService {
      * @param param 出诊计划参数
      * @return 是否成功
      */
-    @Transactional
     boolean insertAll(VisitPlanParam param);
 
     /**
@@ -102,4 +101,14 @@ public interface IVisitPlanService {
      * @return 医生出诊信息
      */
     List<VisitPlanResiduesDTO> getDoctorPlanByDate(Long hospitalId, Long doctorId, Date date);
+
+    /**
+     * 获取某天出诊计划信息
+     *
+     * @param doctorId 医生编号
+     * @param time     时间段：1 上午，2 下午
+     * @param day      某天
+     * @return 出诊计划列表
+     */
+    List<VisitPlan> getByTimeAndDate(Long doctorId, Integer time, Date day);
 }

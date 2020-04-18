@@ -1,9 +1,6 @@
 package cn.yujian95.hospital.service;
 
-import cn.yujian95.hospital.dto.UserCreditDTO;
-import cn.yujian95.hospital.dto.VisitAppointmentDTO;
-import cn.yujian95.hospital.dto.VisitAppointmentQueueDTO;
-import cn.yujian95.hospital.dto.VisitAppointmentWithCaseDTO;
+import cn.yujian95.hospital.dto.*;
 import cn.yujian95.hospital.dto.param.VisitAppointmentParam;
 import cn.yujian95.hospital.entity.VisitAppointment;
 
@@ -143,4 +140,27 @@ public interface IVisitAppointmentService {
      * @return 等待人数
      */
     int getWaitPeopleNum(Long planId, Long cardId);
+
+    /**
+     * 获取预约用户信息列表
+     *
+     * @param doctorId 医生编号
+     * @param time     时间段：1 上午，2 下午
+     * @param day      日期
+     * @param pageNum  第几页
+     * @param pageSize 页大小
+     * @return 用户信息列表
+     */
+    List<VisitUserInfoDTO> listVisitUserInfo(Long doctorId, Integer time, Date day, Integer pageNum, Integer pageSize);
+
+    /**
+     * 获取诊室地址
+     *
+     * @param doctorId 医生编号
+     * @param time     时间段：1 上午，2 下午
+     * @param day      日期
+     * @return 诊室地址
+     */
+    String getClinicName(Long doctorId, Integer time, Date day);
+
 }

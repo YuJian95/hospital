@@ -38,6 +38,7 @@ public interface IRedisService {
      * 删除数据
      *
      * @param key 键值
+     * @return 是否成功
      */
     boolean remove(String key);
 

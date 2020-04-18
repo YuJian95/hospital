@@ -4,14 +4,9 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.yujian95.hospital.dto.*;
 import cn.yujian95.hospital.dto.param.VisitAppointmentParam;
-import cn.yujian95.hospital.entity.UserCase;
-import cn.yujian95.hospital.entity.VisitAppointment;
-import cn.yujian95.hospital.entity.VisitAppointmentExample;
+import cn.yujian95.hospital.entity.*;
 import cn.yujian95.hospital.mapper.VisitAppointmentMapper;
-import cn.yujian95.hospital.service.IUserCaseService;
-import cn.yujian95.hospital.service.IUserMedicalCardService;
-import cn.yujian95.hospital.service.IVisitAppointmentService;
-import cn.yujian95.hospital.service.IVisitPlanService;
+import cn.yujian95.hospital.service.*;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -21,6 +16,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static cn.yujian95.hospital.dto.AppointmentEnum.*;
+import static cn.yujian95.hospital.dto.TimePeriodEnum.*;
 
 
 /**
@@ -30,13 +26,17 @@ import static cn.yujian95.hospital.dto.AppointmentEnum.*;
 @Service
 public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
-    public static final int TIME_OF_ONE_TIME_PERIOD = 30;
-    public static final int MAX_PEOPLE = 5;
+    private static final int TIME_OF_ONE_TIME_PERIOD = 30;
+    private static final int MAX_PEOPLE = 5;
+
     @Resource
     private VisitAppointmentMapper appointmentMapper;
 
     @Resource
     private IVisitPlanService visitPlanService;
+
+    @Resource
+    private IHospitalClinicService hospitalClinicService;
 
     @Resource
     private IUserMedicalCardService userMedicalCardService;
@@ -370,6 +370,103 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
         return list.stream()
                 .map(this::convert)
                 .collect(Collectors.toList());
+    }
+
+
+    /**
+     * 获取诊室地址
+     *
+     * @param doctorId 医生编号
+     * @param time     时间段：1 上午，2 下午
+     * @param day      日期
+     * @return 诊室地址
+     */
+    @Override
+    public String getClinicName(Long doctorId, Integer time, Date day) {
+        // 获取出诊计划
+        List<VisitPlan> plans = visitPlanService.getByTimeAndDate(doctorId, time, day);
+
+        if (CollUtil.isEmpty(plans)) {
+            return null;
+        }
+
+        VisitPlan plan = plans.get(0);
+
+        return hospitalClinicService.getAddress(plan.getClinicId());
+    }
+
+    /**
+     * 获取预约用户信息列表
+     *
+     * @param doctorId 医生编号
+     * @param time     时间段：1 上午，2 下午
+     * @param day      日期
+     * @param pageNum  第几页
+     * @param pageSize 页大小
+     * @return 用户信息列表
+     */
+    @Override
+    public List<VisitUserInfoDTO> listVisitUserInfo(Long doctorId, Integer time, Date day, Integer pageNum, Integer pageSize) {
+
+        // 获取出诊计划
+        List<VisitPlan> plans = visitPlanService.getByTimeAndDate(doctorId, time, day);
+
+        if (CollUtil.isEmpty(plans)) {
+            return null;
+        }
+
+        PageHelper.startPage(pageNum, pageSize);
+
+        // 获取预约卡号
+        VisitAppointmentExample example = new VisitAppointmentExample();
+
+        // 根据预约时间段排序
+        example.setOrderByClause("time_period asc");
+
+        VisitAppointmentExample.Criteria criteria = example.createCriteria();
+        criteria.andPlanIdEqualTo(plans.get(0).getId());
+
+        // TODO 是否需要筛选掉已取消预约记录
+
+        // 筛选时间段
+        if (AM.getTime().equals(time)) {
+            criteria.andTimePeriodBetween(AM.getStart(), AM.getEnd());
+        } else {
+            criteria.andTimePeriodBetween(PM.getStart(), PM.getEnd());
+        }
+
+        return appointmentMapper.selectByExample(example).stream()
+                .map(this::convertToUserInfo)
+                .collect(Collectors.toList());
+
+    }
+
+    /**
+     * 转换未用户预约信息
+     *
+     * @param appointment 预约信息
+     * @return 预约信息
+     */
+    private VisitUserInfoDTO convertToUserInfo(VisitAppointment appointment) {
+
+        VisitUserInfoDTO dto = new VisitUserInfoDTO();
+
+        // 设置就诊卡信息
+        Long cardId = appointment.getCardId();
+
+        Optional<UserMedicalCard> optional = userMedicalCardService.getOptional(cardId);
+
+        if (optional.isPresent()) {
+            UserMedicalCard card = optional.get();
+            BeanUtils.copyProperties(card, dto);
+        }
+
+        // 预约信息
+        dto.setAppointmentId(appointment.getId());
+        dto.setTimePeriod(appointment.getTimePeriod());
+        dto.setStatus(appointment.getStatus());
+
+        return dto;
     }
 
     /**
