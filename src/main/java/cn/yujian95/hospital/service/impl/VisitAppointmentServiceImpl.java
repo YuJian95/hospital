@@ -244,9 +244,9 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
     public int getQueueNum(Long planId, Long cardId) {
         VisitAppointmentExample example = new VisitAppointmentExample();
 
+        // TODO 不需要去取消状态
         example.createCriteria()
-                .andPlanIdEqualTo(planId)
-                .andStatusNotEqualTo(CANCEL.getStatus());
+                .andPlanIdEqualTo(planId);
 
         List<VisitAppointment> list = appointmentMapper.selectByExample(example);
 
@@ -437,8 +437,8 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
         return appointmentMapper.selectByExample(example).stream()
                 .map(this::convertToUserInfo)
+                .filter(userInfo -> !CANCEL.getStatus().equals(userInfo.getStatus()))
                 .collect(Collectors.toList());
-
     }
 
     /**
@@ -462,6 +462,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
         }
 
         // 预约信息
+        dto.setCardId(cardId);
         dto.setAppointmentId(appointment.getId());
         dto.setTimePeriod(appointment.getTimePeriod());
         dto.setStatus(appointment.getStatus());

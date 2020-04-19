@@ -6,6 +6,7 @@ import cn.yujian95.hospital.common.api.CommonResult;
 import cn.yujian95.hospital.dto.UserCreditDTO;
 import cn.yujian95.hospital.dto.VisitAppointmentDTO;
 import cn.yujian95.hospital.dto.VisitAppointmentWithCaseDTO;
+import cn.yujian95.hospital.dto.VisitUserInfoDTO;
 import cn.yujian95.hospital.dto.param.VisitAppointmentParam;
 import cn.yujian95.hospital.entity.VisitAppointment;
 import cn.yujian95.hospital.service.*;
@@ -181,9 +182,9 @@ public class VisitAppointmentController {
 
     @ApiOperation(value = "查看用户预约情况", notes = "传入医生编号、日期、时间段（上午：1、下午：2）")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public CommonResult listVisitUserInfo(@RequestParam Long doctorId, @RequestParam String date,
-                                          @RequestParam Integer time, @RequestParam Integer pageNum,
-                                          @RequestParam Integer pageSize) {
+    public CommonResult<CommonPage<VisitUserInfoDTO>> listVisitUserInfo(@RequestParam Long doctorId, @RequestParam String date,
+                                                                        @RequestParam Integer time, @RequestParam Integer pageNum,
+                                                                        @RequestParam Integer pageSize) {
 
         if (!hospitalDoctorService.count(doctorId)) {
             return CommonResult.validateFailed("不存在，该医生编号");
