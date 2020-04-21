@@ -1,5 +1,6 @@
 package cn.yujian95.hospital.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.yujian95.hospital.dto.param.UserCaseParam;
 import cn.yujian95.hospital.dto.param.UserCaseUpdateParam;
 import cn.yujian95.hospital.entity.UserCase;
@@ -112,40 +113,46 @@ public class UserCaseServiceImpl implements IUserCaseService {
     /**
      * 获取病例信息
      *
-     * @param accountId     账号编号
+     * @param cardId        就诊卡编号
      * @param appointmentId 预约记录
      * @return 是否存在
      */
     @Override
-    public Optional<UserCase> getOptional(Long accountId, Long appointmentId) {
+    public UserCase get(Long cardId, Long appointmentId) {
         UserCaseExample example = new UserCaseExample();
 
+        example.setOrderByClause("gmt_create desc");
+
         example.createCriteria()
-                .andAccountIdEqualTo(accountId)
+                .andCardIdEqualTo(cardId)
                 .andAppointmentIdEqualTo(appointmentId);
 
+        List<UserCase> list = caseMapper.selectByExample(example);
 
-        return Optional.ofNullable(caseMapper.selectByExample(example).get(0));
+        if (CollUtil.isEmpty(list)) {
+            return null;
+        }
+
+        return list.get(0);
     }
 
     /**
      * 获取病例列表
      *
-     * @param accountId 账号编号
-     * @param pageNum   第几页
-     * @param pageSize  页大小
+     * @param cardId   就诊卡编号
+     * @param pageNum  第几页
+     * @param pageSize 页大小
      * @return 病例列表
      */
     @Override
-    public List<UserCase> list(Long accountId, Integer pageNum, Integer pageSize) {
+    public List<UserCase> list(Long cardId, Integer pageNum, Integer pageSize) {
 
         PageHelper.startPage(pageNum, pageSize);
 
         UserCaseExample example = new UserCaseExample();
 
         example.createCriteria()
-                .andAccountIdEqualTo(accountId);
-
+                .andCardIdEqualTo(cardId);
 
         return caseMapper.selectByExample(example);
     }

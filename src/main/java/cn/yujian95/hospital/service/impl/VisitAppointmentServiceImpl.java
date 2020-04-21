@@ -27,7 +27,7 @@ import static cn.yujian95.hospital.dto.TimePeriodEnum.*;
 public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
     private static final int TIME_OF_ONE_TIME_PERIOD = 30;
-    private static final int MAX_PEOPLE = 5;
+    private static final int MAX_PEOPLE_OF_TIME_PERIOD = 5;
 
     @Resource
     private VisitAppointmentMapper appointmentMapper;
@@ -236,21 +236,29 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
     /**
      * 获取就诊排队序号
      *
-     * @param planId 出诊编号
-     * @param cardId 就诊卡编号
+     * @param appointment 预约记录
      * @return 排队号
      */
     @Override
-    public int getQueueNum(Long planId, Long cardId) {
+    public int getQueueNum(VisitAppointment appointment) {
         VisitAppointmentExample example = new VisitAppointmentExample();
 
         // TODO 不需要去取消状态
         example.createCriteria()
-                .andPlanIdEqualTo(planId);
+                // 预约时间小于等于当前记录
+                .andGmtCreateLessThanOrEqualTo(appointment.getGmtCreate())
+                // 同一预约时间段
+                .andTimePeriodEqualTo(appointment.getTimePeriod())
+                // 同一预约出诊
+                .andPlanIdEqualTo(appointment.getPlanId());
 
         List<VisitAppointment> list = appointmentMapper.selectByExample(example);
 
-        return getCountNum(cardId, list);
+        // 同一时间段排前面的人数
+        int peopleBeforeTimePeriod = list.size();
+
+        // 当前时间段对应的排队号
+        return MAX_PEOPLE_OF_TIME_PERIOD * (appointment.getTimePeriod() - 1) + peopleBeforeTimePeriod;
     }
 
     /**
@@ -282,17 +290,19 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      * @return 当天候诊队列
      */
     @Override
-    public List<VisitAppointmentQueueDTO> listToday(Date date, Long cardId, Long accountId) {
+    public List<VisitAppointmentQueueDTO> listTodayQueue(Date date, Long cardId, Long accountId) {
 
+        // TODO 获取当天出诊计划
         List<VisitAppointment> list = listAppointmentByDate(cardId, accountId,
-                date, DateUtil.endOfDay(date));
+                DateUtil.beginOfDay(date), DateUtil.endOfDay(date));
 
         if (CollUtil.isEmpty(list)) {
             return null;
         }
 
         // 统计
-        return list.stream().map(this::convertQueue)
+        return list.stream().distinct()
+                .map(this::convertQueue)
                 .collect(Collectors.toList());
 
     }
@@ -310,14 +320,14 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
         Long cardId = appointment.getCardId();
         Long planId = appointment.getPlanId();
 
-        int queueNum = getQueueNum(planId, cardId);
+        int queueNum = getQueueNum(appointment);
         int waitPeopleNum = getWaitPeopleNum(planId, cardId);
 
         dto.setQueueNum(queueNum);
         dto.setWaitPeopleNum(waitPeopleNum);
 
         // 假设一个时间段 30 分钟内 5 个人
-        dto.setWaitTime(waitPeopleNum * (TIME_OF_ONE_TIME_PERIOD / MAX_PEOPLE));
+        dto.setWaitTime(waitPeopleNum * (TIME_OF_ONE_TIME_PERIOD / MAX_PEOPLE_OF_TIME_PERIOD));
         dto.setTimePeriod(appointment.getTimePeriod());
         dto.setId(appointment.getId());
 
@@ -478,6 +488,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      * @return 统计数目
      */
     private int getCountNum(Long cardId, List<VisitAppointment> list) {
+
         if (CollUtil.isEmpty(list)) {
             return 0;
         }
@@ -566,10 +577,12 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
         example.setDistinct(true);
 
         example.createCriteria()
-                .andGmtCreateBetween(start, end)
-                .andAccountIdEqualTo(accountId);
+                .andGmtCreateBetween(start, end);
 
+        // 或就诊卡编号一致
         example.or().andCardIdEqualTo(cardId);
+        // 或账号编号一致
+        example.or().andAccountIdEqualTo(accountId);
 
         return appointmentMapper.selectByExample(example);
     }

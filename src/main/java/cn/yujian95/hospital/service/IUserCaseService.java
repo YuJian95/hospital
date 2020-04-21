@@ -50,11 +50,11 @@ public interface IUserCaseService {
     /**
      * 获取病例信息
      *
-     * @param accountId     账号编号
+     * @param cardId        就诊卡编号
      * @param appointmentId 预约记录
      * @return 是否存在
      */
-    Optional<UserCase> getOptional(Long accountId, Long appointmentId);
+    UserCase get(Long cardId, Long appointmentId);
 
 
     /**
@@ -68,10 +68,10 @@ public interface IUserCaseService {
     /**
      * 获取病例列表
      *
-     * @param accountId 账号编号
-     * @param pageNum   第几页
-     * @param pageSize  页大小
+     * @param cardId   就诊卡编号
+     * @param pageNum  第几页
+     * @param pageSize 页大小
      * @return 病例列表
      */
-    List<UserCase> list(Long accountId, Integer pageNum, Integer pageSize);
+    List<UserCase> list(Long cardId, Integer pageNum, Integer pageSize);
 }

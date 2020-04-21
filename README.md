@@ -1,4 +1,4 @@
-### 简介
+## 简介
 
 > 一个简单的医院预约挂号管理系统。包括 小程序、web管理系统、服务端。
 
@@ -13,13 +13,13 @@
 ### 主要技术
 
 - `Spring boot + Mybatis` ： 实现基于 RESTful 的前后端分离架构。
-- `Spring security + JWT` ： 实现基于角色的动态权限管理。
-- `Mybatis generator` ： 逆向生成相关实体类与配置文件。并且添加了相关 Swagger 注释。
+- `Spring Security + JWT` ： 实现基于角色的动态权限管理。
+- `Mybatis generator` ： 逆向生成相关实体类与配置文件，并且添加了相关 Swagger 注释。
 - `Knife4j` ： 基于 Swagger + bootstrap 的 API 文档工具。 
-- `阿里云短信服务` : 实现短信发送验证码功能
-- `七牛云文件存储服务`: 实现图片存储
-- `Lombok` ： 减少了冗余代码。
-- `Redis` ：实现二级缓存。
+- `阿里云短信服务` : 实现短信发送功能。
+- `七牛云文件存储服务`: 取代自建的FTP图片服务器，实现图片存储便宜稳定。
+- `Lombok` ： 减少了冗余的 Getter / Setter 代码。
+- `Redis` ：实现二级缓存，提高响应速度。
 
 ### 软件界面
 
@@ -38,7 +38,6 @@
 ![管理系统主要界面3](http://yujian95.cn/post/min-program-hospital-appointment/admin-3.png)
 
 - [更多web管理系统图片](https://github.com/YuJian95/Product-Prototype/tree/master/hospital-appointment#web%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F)
-
 
 ### 部署步骤
 
@@ -79,7 +78,7 @@ redis:
     password: password
 ```
 
-**阿里云短信服务**
+5. 阿里云短信服务
 
 修改 accessKeyId，accessSecret，signNam，loginTemplate
 
@@ -99,7 +98,7 @@ aliSms:
   version: "2017-05-25"
 ```
 
-5. 配置七牛云文件存储
+6. 配置七牛云文件存储
 
 ```yaml
 # 七牛云文件存储
@@ -111,9 +110,9 @@ qiniu:
   url: http://xxx.bkt.clouddn.com/
 ```
 
-6. 运行 `HospitalApplication.java`, 启动项目
+7. 运行 `HospitalApplication.java`, 启动项目
 
-7. 访问 API文档，运行后，范围 http://localhost:8080/hospital/doc.html ,输入`application.yml`配置的账号密码即可
+8. 访问 API文档，运行后，范围 http://localhost:8080/hospital/doc.html ,输入`application.yml`配置的账号密码即可
 
 默认账号、密码为`hospital`
 
@@ -131,20 +130,26 @@ swagger:
     password: hospital
 ```
 
-8. 系统账号，这里提供俩个账号。
+9. 系统账号，这里提供 3 种角色账号。
 
 ```
-// 后台管理系统账号
+// 管理系统 - 管理员
 账号：admin
 密码：admin
 
-// API接口测试账号
+// 管理系统 - 医生
+账号：doctor
+密码：123456
+
+// API 接口测试账号
 账号：test
 密码：test
 ```
 
 ### 反馈
 
-如有问题欢迎提交Issue，遇到问题可以通过[我的博客](https://yujian95.cn/post/about.html)联系我。
+如有问题欢迎提交 Issue ，遇到问题可以通过[我的博客](https://yujian95.cn/post/about.html)联系我。
 
-因大家询问**是否有可以讨论的地方**。 我建了个群，如果有需要可**加Q群：866724245**。
+因大家询问**是否有可以讨论与交流的地方**，我建了个 Q 群：**866724245**。
+
+入群门票：**star、fork、watch**本项目，并备注 `GitHub` 账号名称。

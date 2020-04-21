@@ -16,12 +16,12 @@ import java.io.Serializable;
 public class UserCaseParam implements Serializable {
 
     /**
-     * 账号编号
+     * 就诊卡编号
      *
      * @mbg.generated
      */
-    @ApiModelProperty(value = "账号编号")
-    private Long accountId;
+    @ApiModelProperty(value = "就诊卡编号")
+    private Long cardId;
 
     /**
      * 预约编号

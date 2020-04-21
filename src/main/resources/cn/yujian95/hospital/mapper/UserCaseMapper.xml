@@ -3,7 +3,7 @@
 <mapper namespace="cn.yujian95.hospital.mapper.UserCaseMapper">
   <resultMap id="BaseResultMap" type="cn.yujian95.hospital.entity.UserCase">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="account_id" jdbcType="BIGINT" property="accountId" />
+    <result column="card_id" jdbcType="BIGINT" property="cardId" />
     <result column="appointment_id" jdbcType="BIGINT" property="appointmentId" />
     <result column="doctor_id" jdbcType="BIGINT" property="doctorId" />
     <result column="content" jdbcType="VARCHAR" property="content" />
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, account_id, appointment_id, doctor_id, content, gmt_create, gmt_modified
+    id, card_id, appointment_id, doctor_id, content, gmt_create, gmt_modified
   </sql>
   <select id="selectByExample" parameterType="cn.yujian95.hospital.entity.UserCaseExample" resultMap="BaseResultMap">
     select
@@ -102,10 +102,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.yujian95.hospital.entity.UserCase">
-    insert into user_case (id, account_id, appointment_id, 
+    insert into user_case (id, card_id, appointment_id, 
       doctor_id, content, gmt_create, 
       gmt_modified)
-    values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=BIGINT}, #{appointmentId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{cardId,jdbcType=BIGINT}, #{appointmentId,jdbcType=BIGINT}, 
       #{doctorId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
@@ -115,8 +115,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="accountId != null">
-        account_id,
+      <if test="cardId != null">
+        card_id,
       </if>
       <if test="appointmentId != null">
         appointment_id,
@@ -138,8 +138,8 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="accountId != null">
-        #{accountId,jdbcType=BIGINT},
+      <if test="cardId != null">
+        #{cardId,jdbcType=BIGINT},
       </if>
       <if test="appointmentId != null">
         #{appointmentId,jdbcType=BIGINT},
@@ -170,8 +170,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.accountId != null">
-        account_id = #{record.accountId,jdbcType=BIGINT},
+      <if test="record.cardId != null">
+        card_id = #{record.cardId,jdbcType=BIGINT},
       </if>
       <if test="record.appointmentId != null">
         appointment_id = #{record.appointmentId,jdbcType=BIGINT},
@@ -196,7 +196,7 @@
   <update id="updateByExample" parameterType="map">
     update user_case
     set id = #{record.id,jdbcType=BIGINT},
-      account_id = #{record.accountId,jdbcType=BIGINT},
+      card_id = #{record.cardId,jdbcType=BIGINT},
       appointment_id = #{record.appointmentId,jdbcType=BIGINT},
       doctor_id = #{record.doctorId,jdbcType=BIGINT},
       content = #{record.content,jdbcType=VARCHAR},
@@ -209,8 +209,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.yujian95.hospital.entity.UserCase">
     update user_case
     <set>
-      <if test="accountId != null">
-        account_id = #{accountId,jdbcType=BIGINT},
+      <if test="cardId != null">
+        card_id = #{cardId,jdbcType=BIGINT},
       </if>
       <if test="appointmentId != null">
         appointment_id = #{appointmentId,jdbcType=BIGINT},
@@ -232,7 +232,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.yujian95.hospital.entity.UserCase">
     update user_case
-    set account_id = #{accountId,jdbcType=BIGINT},
+    set card_id = #{cardId,jdbcType=BIGINT},
       appointment_id = #{appointmentId,jdbcType=BIGINT},
       doctor_id = #{doctorId,jdbcType=BIGINT},
       content = #{content,jdbcType=VARCHAR},

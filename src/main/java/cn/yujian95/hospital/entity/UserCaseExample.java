@@ -165,63 +165,63 @@ public class UserCaseExample {
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdIsNull() {
-            addCriterion("account_id is null");
+        public Criteria andCardIdIsNull() {
+            addCriterion("card_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdIsNotNull() {
-            addCriterion("account_id is not null");
+        public Criteria andCardIdIsNotNull() {
+            addCriterion("card_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdEqualTo(Long value) {
-            addCriterion("account_id =", value, "accountId");
+        public Criteria andCardIdEqualTo(Long value) {
+            addCriterion("card_id =", value, "cardId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdNotEqualTo(Long value) {
-            addCriterion("account_id <>", value, "accountId");
+        public Criteria andCardIdNotEqualTo(Long value) {
+            addCriterion("card_id <>", value, "cardId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdGreaterThan(Long value) {
-            addCriterion("account_id >", value, "accountId");
+        public Criteria andCardIdGreaterThan(Long value) {
+            addCriterion("card_id >", value, "cardId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("account_id >=", value, "accountId");
+        public Criteria andCardIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("card_id >=", value, "cardId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdLessThan(Long value) {
-            addCriterion("account_id <", value, "accountId");
+        public Criteria andCardIdLessThan(Long value) {
+            addCriterion("card_id <", value, "cardId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdLessThanOrEqualTo(Long value) {
-            addCriterion("account_id <=", value, "accountId");
+        public Criteria andCardIdLessThanOrEqualTo(Long value) {
+            addCriterion("card_id <=", value, "cardId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdIn(List<Long> values) {
-            addCriterion("account_id in", values, "accountId");
+        public Criteria andCardIdIn(List<Long> values) {
+            addCriterion("card_id in", values, "cardId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdNotIn(List<Long> values) {
-            addCriterion("account_id not in", values, "accountId");
+        public Criteria andCardIdNotIn(List<Long> values) {
+            addCriterion("card_id not in", values, "cardId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdBetween(Long value1, Long value2) {
-            addCriterion("account_id between", value1, value2, "accountId");
+        public Criteria andCardIdBetween(Long value1, Long value2) {
+            addCriterion("card_id between", value1, value2, "cardId");
             return (Criteria) this;
         }
 
-        public Criteria andAccountIdNotBetween(Long value1, Long value2) {
-            addCriterion("account_id not between", value1, value2, "accountId");
+        public Criteria andCardIdNotBetween(Long value1, Long value2) {
+            addCriterion("card_id not between", value1, value2, "cardId");
             return (Criteria) this;
         }
 

@@ -121,16 +121,15 @@ public interface IVisitAppointmentService {
      * @param accountId 账号编号
      * @return 当天候诊队列
      */
-    List<VisitAppointmentQueueDTO> listToday(Date date, Long cardId, Long accountId);
+    List<VisitAppointmentQueueDTO> listTodayQueue(Date date, Long cardId, Long accountId);
 
     /**
      * 获取就诊排队序号
      *
-     * @param planId 出诊编号
-     * @param cardId 就诊卡编号
+     * @param appointment 预约记录
      * @return 排队号
      */
-    int getQueueNum(Long planId, Long cardId);
+    int getQueueNum(VisitAppointment appointment);
 
     /**
      * 获取前面等待人数
