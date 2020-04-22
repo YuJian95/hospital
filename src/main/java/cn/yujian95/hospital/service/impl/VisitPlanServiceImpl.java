@@ -249,6 +249,25 @@ public class VisitPlanServiceImpl implements IVisitPlanService {
 
 
     /**
+     * 获取某段时间出诊计划
+     *
+     * @param start 开始时间
+     * @param end   结束时间
+     * @return 出诊计划编号
+     */
+    @Override
+    public List<Long> list(Date start, Date end) {
+        VisitPlanExample example = new VisitPlanExample();
+
+        example.createCriteria()
+                .andDayGreaterThanOrEqualTo(start)
+                .andDayLessThanOrEqualTo(end);
+
+        return planMapper.selectByExample(example).stream()
+                .map(VisitPlan::getId).collect(Collectors.toList());
+    }
+
+    /**
      * 获取某天出诊计划信息
      *
      * @param doctorId 医生编号

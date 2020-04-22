@@ -3,8 +3,8 @@ package cn.yujian95.hospital.controller;
 import cn.hutool.core.date.DateUtil;
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
-import cn.yujian95.hospital.dto.UserCreditDTO;
 import cn.yujian95.hospital.dto.VisitAppointmentDTO;
+import cn.yujian95.hospital.dto.VisitAppointmentQueueDTO;
 import cn.yujian95.hospital.dto.VisitAppointmentWithCaseDTO;
 import cn.yujian95.hospital.dto.VisitUserInfoDTO;
 import cn.yujian95.hospital.dto.param.VisitAppointmentParam;
@@ -111,8 +111,9 @@ public class VisitAppointmentController {
 
     @ApiOperation(value = "查看当天排队信息", notes = "传入就诊卡编号、账号编号")
     @RequestMapping(value = "/appointment/today", method = RequestMethod.GET)
-    public CommonResult getTodayAppointment(@RequestParam Long cardId, @RequestParam Long accountId,
-                                            @RequestParam String date) {
+    public CommonResult<CommonPage<VisitAppointmentQueueDTO>> getTodayAppointment(@RequestParam Long cardId,
+                                                                                  @RequestParam Long accountId,
+                                                                                  @RequestParam String date) {
 
         if (!userMedicalCardService.countCardId(cardId)) {
             return CommonResult.validateFailed("不存在，该就诊卡编号！");
@@ -122,7 +123,7 @@ public class VisitAppointmentController {
             return CommonResult.validateFailed("不存在，该账号编号！");
         }
 
-        return CommonResult.success(appointmentService.listTodayQueue(DateUtil.parseDate(date), cardId, accountId));
+        return CommonResult.success(CommonPage.restPage(appointmentService.listTodayQueue(DateUtil.parseDate(date), cardId, accountId)));
     }
 
     @ApiOperation(value = "查看用户预约情况", notes = "传入医生编号、日期、时间段（上午：1、下午：2）")

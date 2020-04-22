@@ -111,4 +111,13 @@ public interface IVisitPlanService {
      * @return 出诊计划列表
      */
     List<VisitPlan> getByTimeAndDate(Long doctorId, Integer time, Date day);
+
+    /**
+     * 获取某段时间出诊计划
+     *
+     * @param start 开始时间
+     * @param end   结束时间
+     * @return 出诊计划编号
+     */
+    List<Long> list(Date start, Date end);
 }

@@ -292,7 +292,8 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
     @Override
     public List<VisitAppointmentQueueDTO> listTodayQueue(Date date, Long cardId, Long accountId) {
 
-        // TODO 获取当天出诊计划
+        // TODO 获取当天预约计划
+        // TODO 这里应该通过当天出诊计划筛选对应的预约记录
         List<VisitAppointment> list = listAppointmentByDate(cardId, accountId,
                 DateUtil.beginOfDay(date), DateUtil.endOfDay(date));
 
@@ -563,7 +564,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
     }
 
     /**
-     * 获取某段日期预约记录
+     * 获取出诊预约情况
      *
      * @param cardId    就诊卡号
      * @param accountId 账号编号
@@ -572,17 +573,24 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      * @return 预约记录列表
      */
     private List<VisitAppointment> listAppointmentByDate(Long cardId, Long accountId, Date start, Date end) {
+
+        List<Long> planList = visitPlanService.list(start, end);
+
+        if (CollUtil.isEmpty(planList)) {
+            return null;
+        }
+
         VisitAppointmentExample example = new VisitAppointmentExample();
 
         example.setDistinct(true);
 
         example.createCriteria()
-                .andGmtCreateBetween(start, end);
+                .andPlanIdIn(planList)
+                .andCardIdEqualTo(cardId);
 
-        // 或就诊卡编号一致
-        example.or().andCardIdEqualTo(cardId);
         // 或账号编号一致
-        example.or().andAccountIdEqualTo(accountId);
+        example.or().andPlanIdIn(planList)
+                .andAccountIdEqualTo(accountId);
 
         return appointmentMapper.selectByExample(example);
     }
