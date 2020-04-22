@@ -3,10 +3,7 @@ package cn.yujian95.hospital.controller;
 import cn.hutool.core.date.DateUtil;
 import cn.yujian95.hospital.common.api.CommonPage;
 import cn.yujian95.hospital.common.api.CommonResult;
-import cn.yujian95.hospital.dto.VisitAppointmentDTO;
-import cn.yujian95.hospital.dto.VisitAppointmentQueueDTO;
-import cn.yujian95.hospital.dto.VisitAppointmentWithCaseDTO;
-import cn.yujian95.hospital.dto.VisitUserInfoDTO;
+import cn.yujian95.hospital.dto.*;
 import cn.yujian95.hospital.dto.param.VisitAppointmentParam;
 import cn.yujian95.hospital.entity.VisitAppointment;
 import cn.yujian95.hospital.service.*;
@@ -83,10 +80,27 @@ public class VisitAppointmentController {
                                                                         @RequestParam Integer pageSize) {
 
         return CommonResult.success(CommonPage.restPage(appointmentService.list(cardId, status, pageNum, pageSize)));
-
     }
 
-    @ApiOperation(value = "查找就诊信息列表", notes = "传入就诊卡编号")
+    @ApiOperation(value = "获取所有挂号记录", notes = "传入就诊卡编号、账号编号")
+    @RequestMapping(value = "/appointment/all", method = RequestMethod.GET)
+    public CommonResult<CommonPage<VisitAppointmentWithQueueDTO>> listAllAppointment(@RequestParam Long cardId,
+                                                                                     @RequestParam Long accountId,
+                                                                                     @RequestParam Integer pageNum,
+                                                                                     @RequestParam Integer pageSize) {
+
+        if (!userMedicalCardService.countCardId(cardId)) {
+            return CommonResult.validateFailed("不存在，该就诊卡编号！");
+        }
+
+        if (!accountService.count(accountId)) {
+            return CommonResult.validateFailed("不存在，该账号编号！");
+        }
+
+        return CommonResult.success(CommonPage.restPage(appointmentService.listAllAppointment(cardId, accountId, pageNum, pageSize)));
+    }
+
+    @ApiOperation(value = "获取就诊记录列表", notes = "传入就诊卡编号")
     @RequestMapping(value = "/appointment/list", method = RequestMethod.GET)
     public CommonResult<CommonPage<VisitAppointmentDTO>> listAppointment(@RequestParam Long cardId, @RequestParam Integer pageNum,
                                                                          @RequestParam Integer pageSize) {

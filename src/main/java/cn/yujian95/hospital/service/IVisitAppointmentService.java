@@ -106,6 +106,17 @@ public interface IVisitAppointmentService {
     List<VisitAppointmentDTO> listFinishAppointment(Long cardId, Integer pageNum, Integer pageSize);
 
     /**
+     * 获取预约记录列表
+     *
+     * @param cardId    就诊卡编号
+     * @param accountId 账号编号
+     * @param pageNum   第几页
+     * @param pageSize  页大小
+     * @return 预约记录
+     */
+    List<VisitAppointmentWithQueueDTO> listAllAppointment(Long cardId, Long accountId, Integer pageNum, Integer pageSize);
+
+    /**
      * 获取就诊记录详情
      *
      * @param id 预约编号

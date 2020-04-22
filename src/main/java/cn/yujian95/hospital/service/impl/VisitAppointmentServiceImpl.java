@@ -292,8 +292,6 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
     @Override
     public List<VisitAppointmentQueueDTO> listTodayQueue(Date date, Long cardId, Long accountId) {
 
-        // TODO 获取当天预约计划
-        // TODO 这里应该通过当天出诊计划筛选对应的预约记录
         List<VisitAppointment> list = listAppointmentByDate(cardId, accountId,
                 DateUtil.beginOfDay(date), DateUtil.endOfDay(date));
 
@@ -358,6 +356,41 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
         dto.setUserCase(list.get(0));
 
         return dto;
+    }
+
+    /**
+     * 获取预约记录列表
+     *
+     * @param cardId    就诊卡编号
+     * @param accountId 账号编号
+     * @param pageNum   第几页
+     * @param pageSize  页大小
+     * @return 预约记录
+     */
+    @Override
+    public List<VisitAppointmentWithQueueDTO> listAllAppointment(Long cardId, Long accountId, Integer pageNum, Integer pageSize) {
+
+        PageHelper.startPage(pageNum, pageSize);
+
+        VisitAppointmentExample example = new VisitAppointmentExample();
+
+        example.setDistinct(true);
+
+        example.createCriteria()
+                .andCardIdEqualTo(cardId);
+
+        // 或账号编号一致
+        example.or().andAccountIdEqualTo(accountId);
+
+        List<VisitAppointment> list = appointmentMapper.selectByExample(example);
+
+        if (CollUtil.isEmpty(list)) {
+            return null;
+        }
+
+        return list.stream()
+                .map(this::convertTo)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -525,6 +558,23 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
         optional.ifPresent(visitPlanDTO -> BeanUtils.copyProperties(visitPlanDTO, dto));
 
         dto.setName(userMedicalCardService.getName(appointment.getCardId()));
+
+        return dto;
+    }
+
+    /**
+     * 转换获取对应中文名称
+     *
+     * @param appointment 预约记录
+     * @return 预约记录以及就诊用户
+     */
+    private VisitAppointmentWithQueueDTO convertTo(VisitAppointment appointment) {
+
+        VisitAppointmentWithQueueDTO dto = new VisitAppointmentWithQueueDTO();
+
+        BeanUtils.copyProperties(convert(appointment), dto);
+
+        dto.setQueueNum(getQueueNum(appointment));
 
         return dto;
     }
