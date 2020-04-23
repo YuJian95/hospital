@@ -46,4 +46,7 @@ public class VisitAppointmentDTO implements Serializable {
 
     @ApiModelProperty(value = "出诊日期")
     private Date day;
+
+    @ApiModelProperty(value = "预约状态 0：未开始，1：未按时就诊，2：取消预约挂号，3：已完成")
+    private Integer status;
 }

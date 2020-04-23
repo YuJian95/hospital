@@ -470,8 +470,6 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
         VisitAppointmentExample.Criteria criteria = example.createCriteria();
         criteria.andPlanIdEqualTo(plans.get(0).getId());
 
-        // TODO 是否需要筛选掉已取消预约记录
-
         // 筛选时间段
         if (AM.getTime().equals(time)) {
             criteria.andTimePeriodBetween(AM.getStart(), AM.getEnd());
@@ -481,6 +479,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
         return appointmentMapper.selectByExample(example).stream()
                 .map(this::convertToUserInfo)
+                // 去除取消后的记录
                 .filter(userInfo -> !CANCEL.getStatus().equals(userInfo.getStatus()))
                 .collect(Collectors.toList());
     }

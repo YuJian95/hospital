@@ -21,4 +21,6 @@ public class VisitAppointmentWithQueueDTO extends VisitAppointmentDTO implements
 
     @ApiModelProperty("就诊号")
     private Integer queueNum;
+
+
 }
