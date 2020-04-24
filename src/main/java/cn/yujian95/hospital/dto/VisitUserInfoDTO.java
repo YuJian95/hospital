@@ -30,6 +30,9 @@ public class VisitUserInfoDTO implements Serializable {
     @ApiModelProperty(value = "就诊卡号")
     private Long cardId;
 
+    @ApiModelProperty("就诊号")
+    private Integer queueNum;
+
     /**
      * 姓名
      *

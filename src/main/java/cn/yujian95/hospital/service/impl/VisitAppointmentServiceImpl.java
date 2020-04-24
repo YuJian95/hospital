@@ -506,6 +506,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
         // 预约信息
         dto.setCardId(cardId);
+        dto.setQueueNum(getQueueNum(appointment));
         dto.setAppointmentId(appointment.getId());
         dto.setTimePeriod(appointment.getTimePeriod());
         dto.setStatus(appointment.getStatus());
