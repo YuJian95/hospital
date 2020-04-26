@@ -173,4 +173,11 @@ public interface IVisitAppointmentService {
      */
     String getClinicName(Long doctorId, Integer time, Date day);
 
+    /**
+     * 获取挂号详情
+     *
+     * @param id 预约编号
+     * @return 就诊详情
+     */
+    VisitAppointmentWithQueueDTO getAppointmentDetails(Long id);
 }

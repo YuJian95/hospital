@@ -418,6 +418,19 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
 
     /**
+     * 获取挂号详情
+     *
+     * @param id 预约编号
+     * @return 就诊详情
+     */
+    @Override
+    public VisitAppointmentWithQueueDTO getAppointmentDetails(Long id) {
+        Optional<VisitAppointment> optional = getOptional(id);
+
+        return optional.map(this::convertTo).orElse(null);
+    }
+
+    /**
      * 获取诊室地址
      *
      * @param doctorId 医生编号
@@ -506,6 +519,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
         // 预约信息
         dto.setCardId(cardId);
+        dto.setStatus(appointment.getStatus());
         dto.setQueueNum(getQueueNum(appointment));
         dto.setAppointmentId(appointment.getId());
         dto.setTimePeriod(appointment.getTimePeriod());
@@ -557,6 +571,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
         // 获取出诊计划信息
         optional.ifPresent(visitPlanDTO -> BeanUtils.copyProperties(visitPlanDTO, dto));
 
+        dto.setStatus(appointment.getStatus());
         dto.setName(userMedicalCardService.getName(appointment.getCardId()));
 
         return dto;
@@ -574,6 +589,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
         BeanUtils.copyProperties(convert(appointment), dto);
 
+        dto.setStatus(appointment.getStatus());
         dto.setQueueNum(getQueueNum(appointment));
 
         return dto;
