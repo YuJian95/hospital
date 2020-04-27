@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author YuJian95  clj9509@163.com
@@ -22,5 +23,6 @@ public class VisitAppointmentWithQueueDTO extends VisitAppointmentDTO implements
     @ApiModelProperty("就诊号")
     private Integer queueNum;
 
-
+    @ApiModelProperty(value = "创建时间")
+    private Date gmtCreate;
 }

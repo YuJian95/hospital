@@ -600,6 +600,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
         dto.setStatus(appointment.getStatus());
         dto.setQueueNum(getQueueNum(appointment));
+        dto.setGmtCreate(appointment.getGmtCreate());
 
         return dto;
     }
