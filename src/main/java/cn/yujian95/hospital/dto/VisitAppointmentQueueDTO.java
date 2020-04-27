@@ -3,6 +3,7 @@ package cn.yujian95.hospital.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,14 +13,12 @@ import java.util.Date;
  * @date 2020/4/13
  */
 
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "VisitAppointmentQueueDTO", description = "候诊队列")
 @Data
-public class VisitAppointmentQueueDTO implements Serializable {
+public class VisitAppointmentQueueDTO extends VisitAppointmentDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "预约编号")
-    private Long id;
 
     @ApiModelProperty("前方候诊人数")
     private Integer waitPeopleNum;

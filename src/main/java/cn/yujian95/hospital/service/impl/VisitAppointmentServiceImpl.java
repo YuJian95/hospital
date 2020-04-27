@@ -307,33 +307,6 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
     }
 
     /**
-     * 转换为候诊队列
-     *
-     * @param appointment 预约记录信息
-     * @return 候诊队列信息
-     */
-    private VisitAppointmentQueueDTO convertQueue(VisitAppointment appointment) {
-
-        VisitAppointmentQueueDTO dto = new VisitAppointmentQueueDTO();
-
-        Long cardId = appointment.getCardId();
-        Long planId = appointment.getPlanId();
-
-        int queueNum = getQueueNum(appointment);
-        int waitPeopleNum = getWaitPeopleNum(planId, cardId);
-
-        dto.setQueueNum(queueNum);
-        dto.setWaitPeopleNum(waitPeopleNum);
-
-        // 假设一个时间段 30 分钟内 5 个人
-        dto.setWaitTime(waitPeopleNum * (TIME_OF_ONE_TIME_PERIOD / MAX_PEOPLE_OF_TIME_PERIOD));
-        dto.setTimePeriod(appointment.getTimePeriod());
-        dto.setId(appointment.getId());
-
-        return dto;
-    }
-
-    /**
      * 获取就诊记录详情
      *
      * @param id 预约编号
@@ -495,6 +468,42 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
                 // 去除取消后的记录
                 .filter(userInfo -> !CANCEL.getStatus().equals(userInfo.getStatus()))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 转换为候诊队列
+     *
+     * @param appointment 预约记录信息
+     * @return 候诊队列信息
+     */
+    private VisitAppointmentQueueDTO convertQueue(VisitAppointment appointment) {
+
+        VisitAppointmentQueueDTO dto = new VisitAppointmentQueueDTO();
+
+        Long cardId = appointment.getCardId();
+        Long planId = appointment.getPlanId();
+
+        int queueNum = getQueueNum(appointment);
+        int waitPeopleNum = getWaitPeopleNum(planId, cardId);
+
+        dto.setAppointmentId(appointment.getId());
+
+        dto.setQueueNum(queueNum);
+        dto.setWaitPeopleNum(waitPeopleNum);
+
+        Optional<VisitPlanDTO> optional = visitPlanService.getOptional(appointment.getPlanId());
+
+        // 获取出诊计划信息
+        optional.ifPresent(visitPlanDTO -> BeanUtils.copyProperties(visitPlanDTO, dto));
+
+        dto.setStatus(appointment.getStatus());
+        dto.setName(userMedicalCardService.getName(appointment.getCardId()));
+
+        // 假设一个时间段 30 分钟内 5 个人
+        dto.setWaitTime(waitPeopleNum * (TIME_OF_ONE_TIME_PERIOD / MAX_PEOPLE_OF_TIME_PERIOD));
+        dto.setTimePeriod(appointment.getTimePeriod());
+
+        return dto;
     }
 
     /**
