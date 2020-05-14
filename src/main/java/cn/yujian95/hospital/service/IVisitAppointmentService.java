@@ -106,14 +106,14 @@ public interface IVisitAppointmentService {
     UserCreditDTO getAllCredit(Long accountId, Long cardId);
 
     /**
-     * 获取就诊记录列表
+     * 获取就诊记录列表（迟到+完成）
      *
      * @param cardId   就诊卡号
      * @param pageNum  第一页
      * @param pageSize 页大小
      * @return 就诊记录列表
      */
-    List<VisitAppointmentDTO> listFinishAppointment(Long cardId, Integer pageNum, Integer pageSize);
+    List<VisitAppointmentDTO> listNormalAppointment(Long cardId, Integer pageNum, Integer pageSize);
 
     /**
      * 获取预约记录列表

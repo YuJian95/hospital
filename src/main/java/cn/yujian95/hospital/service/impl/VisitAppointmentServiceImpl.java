@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static cn.yujian95.hospital.dto.AppointmentEnum.*;
 import static cn.yujian95.hospital.dto.TimePeriodEnum.AM;
@@ -402,7 +403,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
     }
 
     /**
-     * 获取就诊记录列表
+     * 获取就诊记录列表（迟到+完成）
      *
      * @param cardId   就诊卡号
      * @param pageNum  第一页
@@ -410,10 +411,28 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      * @return 就诊记录列表
      */
     @Override
-    public List<VisitAppointmentDTO> listFinishAppointment(Long cardId, Integer pageNum, Integer pageSize) {
+    public List<VisitAppointmentDTO> listNormalAppointment(Long cardId, Integer pageNum, Integer pageSize) {
+
+        PageHelper.startPage(pageNum, pageSize);
+
+        VisitAppointmentExample example = new VisitAppointmentExample();
+
+        // 倒序从近到远
+        example.setOrderByClause("gmt_create desc");
+
+        VisitAppointmentExample.Criteria criteria = example.createCriteria();
+
+        if (cardId != null) {
+            criteria.andCardIdEqualTo(cardId);
+        }
+
+        // 获取 迟到 和 完成
+        List<Integer> statusList = Stream.of(MISSING.getStatus(), FINISH.getStatus()).collect(Collectors.toList());
+
+        criteria.andStatusIn(statusList);
 
         // 获取已完成记录情况
-        List<VisitAppointment> list = list(cardId, FINISH.getStatus(), pageNum, pageSize);
+        List<VisitAppointment> list = appointmentMapper.selectByExample(example);
 
         if (CollUtil.isEmpty(list)) {
             return null;

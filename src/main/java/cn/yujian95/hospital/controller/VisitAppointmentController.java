@@ -149,7 +149,7 @@ public class VisitAppointmentController {
             return CommonResult.validateFailed("不存在，该就诊卡编号！");
         }
 
-        return CommonResult.success(CommonPage.restPage(appointmentService.listFinishAppointment(cardId, pageNum, pageSize)));
+        return CommonResult.success(CommonPage.restPage(appointmentService.listNormalAppointment(cardId, pageNum, pageSize)));
     }
 
     @ApiOperation(value = "查看就诊记录详情", notes = "传入就诊卡编号")
