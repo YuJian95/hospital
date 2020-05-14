@@ -388,6 +388,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
         VisitAppointmentExample example = new VisitAppointmentExample();
 
+        example.setOrderByClause("gmt_create desc");
         example.setDistinct(true);
 
         example.createCriteria()
