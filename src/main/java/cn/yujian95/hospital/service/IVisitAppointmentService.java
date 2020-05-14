@@ -52,6 +52,16 @@ public interface IVisitAppointmentService {
     List<VisitAppointment> list(Long cardId, Integer status, Integer pageNum, Integer pageSize);
 
     /**
+     * 获取失信记录（取消+迟到）
+     *
+     * @param cardId   预约编号
+     * @param pageNum  第几页
+     * @param pageSize 页大小
+     * @return 失信记录（取消+迟到）
+     */
+    List<VisitAppointment> listMiss(Long cardId, Integer pageNum, Integer pageSize);
+
+    /**
      * 判断预订是否存在
      *
      * @param id 预定编号

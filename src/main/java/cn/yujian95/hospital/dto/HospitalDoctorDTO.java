@@ -20,7 +20,6 @@ public class HospitalDoctorDTO extends HospitalDoctor implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
     @ApiModelProperty("专科名称")
     private String specialName;
 

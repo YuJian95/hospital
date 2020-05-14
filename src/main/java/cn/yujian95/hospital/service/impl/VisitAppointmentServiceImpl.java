@@ -12,11 +12,15 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static cn.yujian95.hospital.dto.AppointmentEnum.*;
-import static cn.yujian95.hospital.dto.TimePeriodEnum.*;
+import static cn.yujian95.hospital.dto.TimePeriodEnum.AM;
+import static cn.yujian95.hospital.dto.TimePeriodEnum.PM;
 
 
 /**
@@ -109,6 +113,36 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
     @Override
     public Optional<VisitAppointment> getOptional(Long id) {
         return Optional.ofNullable(appointmentMapper.selectByPrimaryKey(id));
+    }
+
+    /**
+     * 获取失信记录（取消+迟到）
+     *
+     * @param cardId   预约编号
+     * @param pageNum  第几页
+     * @param pageSize 页大小
+     * @return 失信记录（取消+迟到）
+     */
+    @Override
+    public List<VisitAppointment> listMiss(Long cardId, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+
+        VisitAppointmentExample example = new VisitAppointmentExample();
+
+        // 倒序从近到远
+        example.setOrderByClause("gmt_create desc");
+
+        VisitAppointmentExample.Criteria criteria = example.createCriteria();
+
+        // 获取迟到和取消
+        criteria.andStatusNotEqualTo(WAITING.getStatus())
+                .andStatusNotEqualTo(FINISH.getStatus());
+
+        if (cardId != null) {
+            criteria.andCardIdEqualTo(cardId);
+        }
+
+        return appointmentMapper.selectByExample(example);
     }
 
     /**
@@ -341,7 +375,8 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      * @return 预约记录
      */
     @Override
-    public List<VisitAppointmentWithQueueDTO> listAllAppointment(Long cardId, Long accountId, Integer pageNum, Integer pageSize) {
+    public List<VisitAppointmentWithQueueDTO> listAllAppointment(Long cardId, Long accountId,
+                                                                 Integer pageNum, Integer pageSize) {
 
         PageHelper.startPage(pageNum, pageSize);
 
@@ -388,7 +423,6 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
                 .map(this::convert)
                 .collect(Collectors.toList());
     }
-
 
     /**
      * 获取挂号详情
@@ -465,6 +499,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
         return appointmentMapper.selectByExample(example).stream()
                 .map(this::convertToUserInfo)
+
                 // 去除取消后的记录
                 .filter(userInfo -> !CANCEL.getStatus().equals(userInfo.getStatus()))
                 .collect(Collectors.toList());

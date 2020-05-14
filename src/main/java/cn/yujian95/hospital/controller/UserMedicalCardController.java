@@ -30,8 +30,6 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserMedicalCardController {
 
-//    public static final int BOY = 1;
-
     /**
      * 女性
      */

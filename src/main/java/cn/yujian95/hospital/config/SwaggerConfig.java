@@ -134,6 +134,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     private List<SecurityContext> securityContexts() {
         //设置需要登录认证的路径
         List<SecurityContext> result = new ArrayList<>();
+
         // 所有请求路径
         result.add(getContextByPath("/.*"));
         return result;

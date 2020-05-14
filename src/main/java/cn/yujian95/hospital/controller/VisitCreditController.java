@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-import static cn.yujian95.hospital.dto.AppointmentEnum.MISSING;
-
 /**
  * @author YuJian95  clj9509@163.com
  * @date 2020/4/21
@@ -86,8 +84,7 @@ public class VisitCreditController {
                                                                      @RequestParam Integer pageSize) {
 
         // TODO 需要帮人帮人挂号的失信情况
-        // TODO 需要整合具体出诊计划日期
-        return CommonResult.success(CommonPage.restPage(appointmentService.list(cardId, MISSING.getStatus(), pageNum, pageSize)));
+        return CommonResult.success(CommonPage.restPage(appointmentService.listMiss(cardId, pageNum, pageSize)));
 
     }
 }
