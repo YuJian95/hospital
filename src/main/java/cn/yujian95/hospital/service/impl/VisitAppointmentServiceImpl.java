@@ -276,16 +276,17 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      */
     @Override
     public int getQueueNum(VisitAppointment appointment) {
+
         VisitAppointmentExample example = new VisitAppointmentExample();
 
         // TODO 不需要去取消状态
         example.createCriteria()
-                // 预约时间小于等于当前记录
-                .andGmtCreateLessThanOrEqualTo(appointment.getGmtCreate())
+                // 同一预约出诊
+                .andPlanIdEqualTo(appointment.getPlanId())
                 // 同一预约时间段
                 .andTimePeriodEqualTo(appointment.getTimePeriod())
-                // 同一预约出诊
-                .andPlanIdEqualTo(appointment.getPlanId());
+                // 预约时间小于等于当前记录
+                .andGmtCreateLessThanOrEqualTo(appointment.getGmtCreate());
 
         List<VisitAppointment> list = appointmentMapper.selectByExample(example);
 
@@ -305,7 +306,11 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
      */
     @Override
     public int getWaitPeopleNum(Long planId, Long cardId) {
+
         VisitAppointmentExample example = new VisitAppointmentExample();
+
+        // 按照时间段排序
+        example.setOrderByClause("time_period asc");
 
         example.createCriteria()
                 .andPlanIdEqualTo(planId)

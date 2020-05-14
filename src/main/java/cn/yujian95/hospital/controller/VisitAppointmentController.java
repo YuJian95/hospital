@@ -87,7 +87,7 @@ public class VisitAppointmentController {
         return updateAppointmentStatus(id, CANCEL.getStatus());
     }
 
-    @ApiOperation(value = "修改预约状态：失信", notes = "传入 预约编号")
+    @ApiOperation(value = "修改预约状态：迟到", notes = "传入 预约编号")
     @RequestMapping(value = "/appointment/miss/{id}", method = RequestMethod.PUT)
     public CommonResult missAppointment(@PathVariable Long id) {
 

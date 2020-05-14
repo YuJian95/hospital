@@ -16,7 +16,7 @@ public enum AppointmentEnum {
      */
     WAITING(0),
     /**
-     * 失约
+     * 失约，迟到
      */
     MISSING(1),
     /**
