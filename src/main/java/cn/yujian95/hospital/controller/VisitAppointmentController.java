@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-
 import java.util.Date;
 
 import static cn.yujian95.hospital.dto.AppointmentEnum.*;
@@ -38,17 +37,47 @@ public class VisitAppointmentController {
     private IUserMedicalCardService userMedicalCardService;
 
     @Resource
+    private IVisitPlanService planService;
+
+    @Resource
     private IHospitalDoctorService hospitalDoctorService;
 
     @ApiOperation(value = "添加预约信息", notes = "传入 预约参数对象（出诊编号、就诊卡号、账号编号）")
     @RequestMapping(value = "/appointment", method = RequestMethod.POST)
     public CommonResult insertAppointment(@RequestBody VisitAppointmentParam param) {
 
+        if (!userMedicalCardService.countCardId(param.getCardId())) {
+            return CommonResult.validateFailed("不存在，该就诊卡号！");
+        }
+
+        if (!planService.count(param.getPlanId())) {
+            return CommonResult.validateFailed("不存在，该出诊编号！");
+        }
+
+        if (appointmentService.count(param.getCardId(), param.getPlanId())) {
+            return CommonResult.success("该出诊，已存在预约记录！");
+        }
+
         if (appointmentService.insert(param)) {
             return CommonResult.success();
         }
 
         return CommonResult.failed();
+    }
+
+    @ApiOperation(value = "判断是否已预约", notes = "传入 出诊编号、就诊卡号")
+    @RequestMapping(value = "/appointment/check", method = RequestMethod.GET)
+    public CommonResult checkAppointment(@RequestParam Long cardId, @RequestParam Long planId) {
+
+        if (!userMedicalCardService.countCardId(cardId)) {
+            return CommonResult.validateFailed("不存在，该就诊卡号！");
+        }
+
+        if (!planService.count(planId)) {
+            return CommonResult.validateFailed("不存在，该出诊编号！");
+        }
+
+        return CommonResult.success(appointmentService.count(cardId, planId));
     }
 
     @ApiOperation(value = "修改预约状态：取消", notes = "传入 预约编号")
