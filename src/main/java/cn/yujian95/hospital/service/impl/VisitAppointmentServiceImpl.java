@@ -486,6 +486,7 @@ public class VisitAppointmentServiceImpl implements IVisitAppointmentService {
 
         // 根据预约时间段排序
         example.setOrderByClause("time_period asc");
+        example.setOrderByClause("gmt_create desc");
 
         VisitAppointmentExample.Criteria criteria = example.createCriteria();
         criteria.andPlanIdEqualTo(plans.get(0).getId());
