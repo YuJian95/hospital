@@ -44,7 +44,10 @@ public class VisitCreditController {
             return CommonResult.validateFailed("不存在，该就诊卡号！");
         }
 
-        return CommonResult.success(blacklistService.insert(cardId));
+        // 自动解绑黑名单
+        blacklistService.autoUnlock();
+
+        return CommonResult.success(blacklistService.isForbid(cardId));
     }
 
     @ApiOperation(value = "获取当月信用详情", notes = "传入 账号编号、就诊卡编号")
