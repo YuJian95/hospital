@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.yujian95.little</groupId>
-    <artifactId>little</artifactId>
+    <artifactId>hospital</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>little</name>
-    <description>Little project for Spring Boot</description>
+    <name>hospital</name>
+    <description>hospital project for Spring Boot</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
