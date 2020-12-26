@@ -1,0 +1,45 @@
+package ${package.ServiceImpl};
+
+import cn.yujian95.little.mbg.modules.${package.ModuleName}.entity.${entity};
+import cn.yujian95.little.mbg.modules.${package.ModuleName}.mapper.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+import ${superServiceImplClassPackage};
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * <p>
+ * $!{table.comment} 接口实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+#if(${kotlin})
+open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+
+}
+#else
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+
+        private static final Logger LOGGER = LoggerFactory.getLogger(${table.serviceImplName}.class);
+
+        /**
+         * 判断是否，不存在该记录编号
+         *
+         * @param id 记录编号
+         * @return 是否不存在
+         */
+        @Override
+        public boolean isNotExist(Long id) {
+
+            QueryWrapper<${entity}> wrapper = new QueryWrapper<>();
+            wrapper.lambda().eq(${entity}::getId, id);
+
+            return count(wrapper) == 0;
+        }
+}
+#end

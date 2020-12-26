@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: little-admin
+  profiles:
+    active: dev # 默认为开发环境
+  servlet:
+    multipart:
+      enabled: true #开启文件上传
+      max-request-size: 10MB
+      max-file-size: 10MB
+server:
+  port: 9501
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+  configuration:
+    auto-mapping-behavior: partial
+    map-underscore-to-camel-case: true
+
+jwt:
+  # JWT存储的请求头
+  tokenHeader: Authorization
+  # JWT加解密使用的密钥
+  secret: little-secret
+  # JWT的超期限时间(10h)
+  expiration: 36000
+  # JWT负载中拿到开头
+  tokenHead: Bearer
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /doc.html
+      - /swagger-ui.html
+      - /swagger-resources/**
+      - /swagger/**
+      - /**/v2/api-docs
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /webjars/springfox-swagger-ui/**
+      - /actuator/**
+      - /druid/**
+      - /power/admin/login
+      - /power/admin/register
+      - /power/admin/info
+
+## 开启Swagger的Basic认证功能,默认是false
+swagger:
+  #  production: true
+  basic:
+    enable: true
+    username: little
+    password: little

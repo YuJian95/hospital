@@ -1,0 +1,27 @@
+spring:
+  application:
+    # 应用名称
+    name: little-monitor
+  security:
+    user:
+      # 登录账号
+      name: little
+      # 登录密码
+      password: little
+server:
+  port: 8888
+  mail:
+    host: smtp.163.com
+    username: yujian95_cn@163.com
+    password:
+    default-encoding: UTF-8
+  boot:
+    admin:
+      notify:
+        mail:
+          # 接收人列表
+          to: yujian95_cn@163.com
+          from: 应用下线通知<yujian95_cn@163.com>
+          enabled: true
+          # 忽略上线通知
+          ignore-changes: {"UNKNOWN:UP"}

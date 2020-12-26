@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    # 应用名称
+    name: little-monitor
+  security:
+    user:
+      # 登录账号
+      name: little
+      # 登录密码
+      password: little
+server:
+  port: 8888

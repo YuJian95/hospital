@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: little-mobile-dev
+  boot:
+    admin:
+      client:
+        # Spring Boot Admin 服务端地址
+        url: http://localhost:8888/
+        username: little
+        password: little
+        instance:
+          prefer-ip: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/little-dev?serverTimezone=PRC&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+    druid:
+      # 连接池初始化大小
+      initial-size: 5
+      # 最小空闲连接数
+      min-idle: 10
+      # 最大连接数
+      max-active: 20
+      web-stat-filter:
+        # 不统计这些请求数据
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      # 访问监控网页的登录用户名和密码
+      stat-view-servlet:
+        login-username: druid-little
+        login-password: druid-little
+  redis:
+    # Redis服务器地址
+    host: localhost
+    # Redis数据库索引（默认为0） dev用1 prod用0
+    database: 1
+    # Redis服务器连接端口
+    port: 6379
+    # Redis密码
+    password:
+    # 连接超时时间（毫秒）
+    timeout: 3000ms
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 1024
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 10000ms
+        # 连接池中的最大空闲连接
+        max-idle: 200
+        # 连接池中的最小空闲连接
+        min-idle: 0
+management:
+  endpoint:
+    health:
+      # 端点健康情况，默认值 "never"，设置为 "always" 可以显示硬盘使用情况和线程情况
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        # 设置端点暴露的哪些内容，默认 ["health","info"]，设置 "*" 代表暴露所有可访问的端点
+        include: "*"

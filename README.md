@@ -1,47 +1,56 @@
-# hospital
+# little 简述
 
-> 一个简单的医院预约挂号管理系统。包括 小程序、web管理系统、服务端。
+`little` 开发脚手架，开发过程中，参照了 [mall-tiny](https://github.com/macrozheng/mall-tiny)  和 [springblade](https://gitee.com/smallc/SpringBlade)  这俩个开发脚手架的架构设计，并根据本人业务需要取舍。主要适用于小程序 / H5 应用系统（含后台管理系统）
 
-本项目基于[轻量级脚手架](https://github.com/YuJian95/base-service)，学习本项目前, 可先查看原项目相关文档。
+## 代码规范
 
-如对你有所帮助，麻烦请 **star**、 **watch**、 **fork**，一键三连支持一下！
+- 遵循《阿里巴巴 Java开发手册》
+- `API` 接口遵循 `RESTful`
 
-**相关仓库**
+## 项目架构
 
-- [服务端](https://github.com/YuJian95/hospital)
-- [小程序端](https://gitee.com/yyyangyx/appointment-wxapp)
-- [web管理系统](https://gitee.com/yyyangyx/appointment-admin)
+```
+little
+├── little-admin -- 管理端
+├    ├── common -- 常用工具
+├    ├── config -- 配置类 
+├    └── modules -- 业务代码
+├        ├── power -- 权限模块
+├        ├── system -- 系统模块
+├        └── user -- 用户模块
+├── little-common -- 常用工具封装包
+├── little-mbg -- 代码生成
+├    ├── modules -- 生成的 entity、mapper
+├    └── MyBatisPlusGenerator -- 代码生成器
+├── little-mobile -- 移动端
+├    ├── common -- 常用工具
+├    ├── config -- 配置类
+├    └── modules -- 业务代码
+├        ├── system -- 系统模块 
+├        └── user -- 用户模块 
+├── little-security -- 权限控制模块
+├── little-monitor -- 系统监控（待）
+└── little-task -- 定时任务（待）
+```
 
-### 主要技术
+## 技术栈
 
-- `Spring boot + Mybatis` ： 实现基于 `RESTful` 的前后端分离架构。
-- `Spring Security + JWT` ： 实现基于角色的动态权限管理。
-- `Mybatis generator` ： 逆向生成相关实体类与配置文件，并且添加了相关 Swagger 注释。
-- `Knife4j` ： 基于 Swagger + bootstrap 的 API 文档工具。 
-- `阿里云短信服务` : 实现短信发送功能。
-- `七牛云文件存储服务`: 取代自建的FTP图片服务器，实现图片存储便宜稳定。
-- `Lombok` ： 减少了冗余的 Getter / Setter 代码。
-- `Redis` ：实现二级缓存，提高响应速度。
+|         技术         | 概述                     |     版本      |
+| :------------------: | ------------------------ | :-----------: |
+|     Spring Boot      |                          |     2.1.7     |
+|     Mybatis Plus     | Mybatis强化增强          |     3.3.2     |
+|        Redis         | 缓存服务器               |       5       |
+|        MySQL         | 数据库服务器             |      5.7      |
+|   Spring Security    | 结合JWT实现鉴权          |     5.1.6     |
+| Swagger-Bootstrap-UI | 强化Swagger样式的API文档 |     1.9.6     |
+|        Hutool        | 各种可能用到的工具类包   |     4.5.7     |
+|        七牛云        | 存储图片/文件            | 7.2.0, 7.2.99 |
+|      阿里云短信      | 短信服务                 |     4.1.0     |
 
-### 软件界面
+## 主要功能
 
-![小程序主要界面1](http://yujian95.cn/post/min-program-hospital-appointment/wx-1.png)
-![管理系统主要界面1](http://yujian95.cn/post/min-program-hospital-appointment/admin-1.png)
-
-更多效果可点击查看[/doc/demo.md](doc/demo.md)
-
-### 部署步骤
-
-点击查看[/doc/deploy.md](doc/deploy.md)
-
-### 反馈
-
-如有问题欢迎提交 Issue ，遇到问题可以通过我的网站[【yujian95.cn】](https://yujian95.cn/post/about.html)联系我。
-
-因大家询问 **是否有可以讨论与交流的地方**，我建了个 Q 群：**866724245**。
-
-入群门票： **star、fork、watch** 本项目，并备注自己的`GitHub` 账号名称。
-
-欢迎大家关注我的公众号【编程图解】，学习更多开发技能，包括并不限于，Java、Python、前端等知识。
-
-![微信搜索【编程图解】](doc/yujian95.jpg)
+- 根据数据表，自动生成`CRUD`代码（包括Swagger注释、Controller、Service等）
+- 参数校验与全局异常处理。
+- 基于角色（`RBAC`）的权限管理，以及前端管理界面。
+- Spring Boot 应用监控：详情可看 [Spring Boot Admin 实现系统监控](https://mp.weixin.qq.com/s?__biz=MzIwODk0NzcwMQ==&mid=2247483870&idx=2&sn=a2f364f51cfde3fcaaa12543759bafbd&chksm=977a1144a00d98525150b63faa3208e522d9557a87a35bd2c3e8bc343811d4be2b31da935249&scene=126&sessionid=1607588692&key=3b3f490978209678fe5d637e46fce729a5120182bc350ab963f87b1a4004c41a522f16a3aa89874542dacdb0485e642fb59ed4ee19cc705367aa4023d828355675c467a9c7991a70ef1d88e504be84e03eb9504df7fdc6fb562de923939c05308016cdf4fd87e33a62eb9cec848eb37df2af6a5d8c9ed305f6551674035f6be7&ascene=1&uin=MTE3ODg2Mjg2NA%3D%3D&devicetype=Windows+10+x64&version=6300002f&lang=zh_CN&exportkey=A3uUuBsrpnYu8etzjlsv6yo%3D&pass_ticket=rQIwVMrCLsthLTb0b0mOroxHQicC9ziEjULscT82rR4CjqhNqar5XfcG6VIGEkz1&wx_header=0)
+- 定时任务系统（待）

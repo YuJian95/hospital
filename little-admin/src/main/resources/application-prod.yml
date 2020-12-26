@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: little-admin-prod
+  boot:
+    admin:
+      client:
+        # Spring Boot Admin 服务端地址
+        url: http://localhost:8888/
+        username: little
+        password: little
+        instance:
+          prefer-ip: true
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /doc.html
+      - /swagger-ui.html
+      - /swagger-resources/**
+      - /swagger/**
+      - /**/v2/api-docs
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /webjars/springfox-swagger-ui/**
+      - /actuator/**
+      - /druid/**
+      - /power/admin/login
+      - /power/admin/register
+      - /power/admin/info
+management:
+  endpoint:
+    health:
+      # 端点健康情况，默认值 "never"，设置为 "always" 可以显示硬盘使用情况和线程情况
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        # 设置端点暴露的哪些内容，默认 ["health","info"]，设置 "*" 代表暴露所有可访问的端点
+        include: "*"

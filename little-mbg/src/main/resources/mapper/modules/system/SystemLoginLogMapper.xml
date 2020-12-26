@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yujian95.little.mbg.modules.system.mapper.SystemLoginLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.yujian95.little.mbg.modules.system.entity.SystemLoginLog">
+        <id column="id" property="id" />
+        <result column="type" property="type" />
+        <result column="account_id" property="accountId" />
+        <result column="name" property="name" />
+        <result column="ip_address" property="ipAddress" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+    </resultMap>
+
+</mapper>

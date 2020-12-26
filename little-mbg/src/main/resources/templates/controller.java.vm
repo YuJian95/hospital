@@ -1,0 +1,133 @@
+package ${package.Controller};
+
+#if(${restControllerStyle})
+import cn.yujian95.little.common.api.CommonPage;
+import cn.yujian95.little.common.api.CommonResult;
+import cn.yujian95.little.mbg.modules.${package.ModuleName}.entity.${entity};
+import cn.yujian95.little.admin.modules.${package.ModuleName}.service.${table.serviceName};
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+#else
+import org.springframework.stereotype.Controller;
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+
+/**
+ * <p>
+ * $!{table.comment} 前端接口控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@Api(value = "${table.controllerName}", tags = "${table.comment}")
+@RestController
+@AllArgsConstructor
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end")
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+
+#else
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+
+#else
+public class ${table.controllerName} {
+#end
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(${table.controllerName}.class);
+
+    private ${table.serviceName} ${table.entityPath}Service;
+
+    @ApiOperation("获取指定 id，${table.comment}")
+    @GetMapping("/${table.name}/{id}")
+    public CommonResult<${entity}> get${entity}(@PathVariable Long id) {
+
+        if (${table.entityPath}Service.isNotExist(id)) {
+            LOGGER.debug("get ${entity} fail，id not exist :{}", id);
+            return CommonResult.validateFailed("不存在，该记录编号：" + id);
+        }
+
+        return CommonResult.success(${table.entityPath}Service.getById(id));
+    }
+
+    @ApiOperation("获取所有${table.comment}")
+    @GetMapping("/${table.name}/list/all")
+    public CommonResult<List<${entity}>> listAll${entity}() {
+        return CommonResult.success(${table.entityPath}Service.list());
+    }
+
+    @ApiOperation("分页获取${table.comment}")
+    @GetMapping("/${table.name}/list")
+    public CommonResult<CommonPage<${entity}>> list${entity}(@RequestParam(defaultValue = "1") Integer pageNum,
+                                                             @RequestParam(defaultValue = "15") Integer pageSize) {
+
+        Page<${entity}> page = new Page<>(pageNum, pageSize);
+
+        return CommonResult.success(CommonPage.restPage(${table.entityPath}Service.page(page)));
+    }
+
+    @ApiOperation("添加${table.comment}")
+    @PostMapping("/${table.name}")
+    public CommonResult<${entity}> create${entity}(@RequestBody ${entity} ${table.entityPath}) {
+
+        if (${table.entityPath}Service.save(${table.entityPath})) {
+            LOGGER.debug("create ${entity} success:{}", ${table.entityPath});
+            return CommonResult.success(${table.entityPath});
+        }
+
+        LOGGER.debug("create ${entity} failed:{}", ${table.entityPath});
+        return CommonResult.failed("服务器错误，请联系管理员！");
+    }
+
+    @ApiOperation("编辑指定 id，${table.comment}")
+    @PutMapping("/${table.name}")
+    public CommonResult<${entity}> update${entity}(@RequestBody ${entity} ${table.entityPath}) {
+
+        if (${table.entityPath}Service.isNotExist(${table.entityPath}.getId())) {
+            LOGGER.debug("update ${entity} fail，id not exist :{}", ${table.entityPath});
+            return CommonResult.validateFailed("不存在，该记录编号：" + ${table.entityPath}.getId());
+        }
+
+        if (${table.entityPath}Service.updateById(${table.entityPath})) {
+            LOGGER.debug("update ${entity} success:{}", ${table.entityPath});
+            return CommonResult.success(${table.entityPath});
+        }
+
+        LOGGER.debug("update ${entity} failed:{}", ${table.entityPath});
+        return CommonResult.failed("服务器错误，请联系管理员！");
+    }
+
+    @ApiOperation("删除指定 id，${table.comment}")
+    @DeleteMapping("/${table.name}/{id}")
+    public CommonResult delete${entity}(@PathVariable Long id) {
+
+        if (${table.entityPath}Service.isNotExist(id)) {
+            LOGGER.debug("delete ${entity} fail，id not exist :{}", id);
+            return CommonResult.validateFailed("不存在，该记录编号：" + id);
+        }
+
+        if (${table.entityPath}Service.removeById(id)) {
+            LOGGER.debug("delete ${entity} success:{}", id);
+            return CommonResult.success();
+        }
+
+        LOGGER.debug("delete ${entity} failed:{}", id);
+        return CommonResult.failed("服务器错误，请联系管理员！");
+    }
+}
+
+#end

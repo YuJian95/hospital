@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yujian95.little.mbg.modules.power.mapper.PowerRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.yujian95.little.mbg.modules.power.entity.PowerRole">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="chinese_name" property="chineseName"/>
+        <result column="admin_count" property="adminCount"/>
+        <result column="sort" property="sort"/>
+        <result column="status" property="status"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <select id="listRoleByAdminId" resultType="cn.yujian95.little.mbg.modules.power.entity.PowerRole">
+        select r.*
+        from power_admin_role_relation ar left join power_role r on ar.role_id = r.id
+        where ar.admin_id = #{adminId}
+    </select>
+</mapper>
