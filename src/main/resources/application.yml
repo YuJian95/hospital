@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://数据库url:端口/hospital?characterEncoding=UTF-8&useSSL=false&useUnicode=true&serverTimezone=UTC
-    username: 数据库用户名
-    password: 用户密码
+    url: jdbc:mysql://localhost:3306/hospital?characterEncoding=UTF-8&useSSL=false&useUnicode=true&serverTimezone=UTC
+    username: root
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
     tomcat:
       max-active: 20
@@ -98,7 +98,7 @@ redis:
 qiniu:
   accessKey:
   secretKey:
-  bucket: 存储空间名称
+  bucket: yujian-hospital
   # 访问域名前缀
   url: http://q59ifzu6u.bkt.clouddn.com/
 

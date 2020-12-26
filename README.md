@@ -45,3 +45,7 @@
 欢迎大家关注我的公众号【编程图解】，学习更多开发技能，包括并不限于，Java、Python、前端等知识。
 
 ![微信搜索【编程图解】](doc/yujian95.jpg)
+
+### TODO
+
+正计划使用 [little 开发脚手架](https://github.com/YuJian95/little.git) 重构该项目...
