@@ -6,11 +6,10 @@
 
 如对你有所帮助，麻烦请 **star**、 **watch**、 **fork**，一键三连支持一下！
 
-**相关仓库**
+## 前端代码仓库
 
-- [服务端](https://github.com/YuJian95/hospital)
-- [小程序端](https://gitee.com/yyyangyx/appointment-wxapp)
-- [web管理系统](https://gitee.com/yyyangyx/appointment-admin)
+- [小程序代码](https://gitee.com/yyyangyx/appointment-wxapp)
+- [web管理系统代码](https://gitee.com/yyyangyx/appointment-admin)
 
 ### 主要技术
 
