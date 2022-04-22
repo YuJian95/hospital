@@ -33,18 +33,12 @@
 
 点击查看[/doc/deploy.md](doc/deploy.md)
 
-### 反馈
+## 反馈
 
-如有问题欢迎提交 Issue ，遇到问题可以通过我的网站[【yujian95.cn】](https://yujian95.cn/post/about.html)联系我。
+如有问题欢迎提交 Issue ，遇到问题可以通过我的网站[【blog.yujian95.cn】](https://blog.yujian95.cn)联系我。
 
-因大家询问 **是否有可以讨论与交流的地方**，~~我建了个 Q 群：**866724245**~~（工作比较忙，不是很有空上QQ，建议大家提 issue。)。
-
-入群门票： **star、fork、watch** 本项目，并备注自己的`GitHub` 账号名称。
+如有**定制小程序、Web系统、安卓App、AI算法**等需求，可加微信：**mo0052** 咨询报价。
 
 欢迎大家关注我的公众号【编程图解】，学习更多开发技能，包括并不限于，Java、Python、前端等知识。
 
 ![微信搜索【编程图解】](doc/yujian95.jpg)
-
-### TODO
-
-正计划使用 [little 开发脚手架](https://github.com/YuJian95/little.git) 重构该项目...
