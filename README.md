@@ -8,8 +8,8 @@
 
 ## 前端代码仓库
 
-- [小程序代码](https://gitee.com/yyyangyx/appointment-wxapp)
-- [web管理系统代码](https://gitee.com/yyyangyx/appointment-admin)
+- [小程序\H5](https://github.com/YuJian95/hospital-wxapp)
+- [web管理系统](https://github.com/YuJian95/hospital-web)
 
 ### 主要技术
 
