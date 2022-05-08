@@ -6,10 +6,13 @@
 
 如对你有所帮助，麻烦请 **star**、 **watch**、 **fork**，一键三连支持一下！
 
-## 前端代码仓库
+**相关项目**
 
-- [小程序\H5](https://github.com/YuJian95/hospital-wxapp)
-- [web管理系统](https://github.com/YuJian95/hospital-web)
+| 项目           | 仓库                                       | 备注                                         |
+| -------------- | ------------------------------------------ | -------------------------------------------- |
+| hospital       | https://github.com/YuJian95/hospital       | 后端代码                                     |
+| Hospital-wxapp | https://github.com/YuJian95/hospital-wxapp | （前端）微信小程序、支付宝小程序、H5应用代码 |
+| Hospital-web   | https://github.com/YuJian95/hospital-web   | （前端）PC管理系统代码     
 
 ### 主要技术
 
