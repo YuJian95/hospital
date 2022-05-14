@@ -27,8 +27,18 @@
 
 ### 软件界面
 
-![小程序主要界面1](http://yujian95.cn/post/min-program-hospital-appointment/wx-1.png)
-![管理系统主要界面1](http://yujian95.cn/post/min-program-hospital-appointment/admin-1.png)
+#### 小程序
+
+![image.png](http://image.yujian95.cn/halo/image_1643879798008.png)
+![image.png](http://image.yujian95.cn/halo/image_1643879818766.png)
+![image.png](http://image.yujian95.cn/halo/image_1643879835630.png)
+- [更多小程序运行图片](https://github.com/YuJian95/Product-Prototype/tree/master/hospital-appointment#小程序)
+
+#### 管理系统
+
+![image.png](http://image.yujian95.cn/halo/image_1643879859752.png)
+![image.png](http://image.yujian95.cn/halo/image_1643879874985.png)
+![image.png](http://image.yujian95.cn/halo/image_1643879886827.png)
 
 更多效果可点击查看[/doc/demo.md](doc/demo.md)
 
