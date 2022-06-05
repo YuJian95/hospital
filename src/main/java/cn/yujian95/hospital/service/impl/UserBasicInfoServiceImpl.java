@@ -10,6 +10,7 @@ import cn.yujian95.hospital.mapper.UserBasicInfoMapper;
 import cn.yujian95.hospital.service.IRedisService;
 import cn.yujian95.hospital.service.IUserBasicInfoService;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,33 +27,38 @@ import java.util.Optional;
  */
 
 @Service
+@Slf4j
 public class UserBasicInfoServiceImpl implements IUserBasicInfoService {
-
-    @Resource
-    private UserBasicInfoMapper basicInfoMapper;
-
-    @Resource
-    private AliSendSmsComponent sendSmsComponent;
-
-    @Resource
-    private IRedisService redisService;
-
-    /**
-     * 存入 redis中的前缀
-     */
-    @Value("${redis.key.prefix.authCode}")
-    private String REDIS_KEY_PREFIX_AUTH_CODE;
-
-    /**
-     * 验证码有效时间
-     */
-    @Value("${redis.key.expire.authCode}")
-    private Long AUTH_CODE_EXPIRE_SECONDS;
 
     /**
      * 验证码长度
      */
     private static final int AUTH_CODE_LENGTH = 6;
+    /**
+     * 开启模拟请求后，验证码默认值
+     */
+    private static final String MOCK_AUTH_CODE_VALUE = "123456";
+    @Resource
+    private UserBasicInfoMapper basicInfoMapper;
+    @Resource
+    private AliSendSmsComponent sendSmsComponent;
+    @Resource
+    private IRedisService redisService;
+    /**
+     * 存入 redis中的前缀
+     */
+    @Value("${redis.key.prefix.authCode}")
+    private String REDIS_KEY_PREFIX_AUTH_CODE;
+    /**
+     * 验证码有效时间
+     */
+    @Value("${redis.key.expire.authCode}")
+    private Long AUTH_CODE_EXPIRE_SECONDS;
+    /**
+     * true：开启模拟请求
+     */
+    @Value("${aliSms.mock}")
+    private Boolean mock;
 
     /**
      * 校验短信验证码
@@ -63,6 +69,12 @@ public class UserBasicInfoServiceImpl implements IUserBasicInfoService {
      */
     @Override
     public boolean verifyCode(String phone, String code) {
+
+        // 模拟调用开始
+        if (mock) {
+            log.warn("mock start, authCode default = {}.", MOCK_AUTH_CODE_VALUE);
+            return MOCK_AUTH_CODE_VALUE.equals(code);
+        }
 
         String authCode = String.valueOf(redisService.get(REDIS_KEY_PREFIX_AUTH_CODE + phone));
 
@@ -82,7 +94,7 @@ public class UserBasicInfoServiceImpl implements IUserBasicInfoService {
     @Override
     public boolean sendMessage(String phone) {
 
-        String code = RandomUtil.randomNumbers(AUTH_CODE_LENGTH);
+        String code = mock ? MOCK_AUTH_CODE_VALUE : RandomUtil.randomNumbers(AUTH_CODE_LENGTH);
 
         // 验证码绑定手机号并存储到 redis
         redisService.set(REDIS_KEY_PREFIX_AUTH_CODE + phone, code, AUTH_CODE_EXPIRE_SECONDS);

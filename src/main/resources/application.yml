@@ -73,6 +73,8 @@ jwt:
 
 # 阿里云短信服务配置
 aliSms:
+  # 是否开启模拟调用，开启后，验证码均为 123456
+  mock: false
   # 阿里云短信服务 key
   accessKeyId: ""
   # 阿里云短信服务 secret

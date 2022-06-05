@@ -23,6 +23,12 @@ public class AliSendSmsComponent {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(AliSendSmsComponent.class);
 
+    /**
+     * true：开启模拟请求
+     */
+    @Value("${aliSms.mock}")
+    private Boolean mock;
+
     @Value("${aliSms.regionId}")
     private String regionId;
 
@@ -98,6 +104,12 @@ public class AliSendSmsComponent {
      * @return 是否成功
      */
     public boolean sendRegisterCode(String phoneNumber, String code) {
+
+        // 判断是否开启模拟请求功能
+        if (mock){
+            LOGGER.warn("start mock");
+            return true;
+        }
 
         // 短信模板参数
         String param = "{\"code\":\"" + code + "\"}";
